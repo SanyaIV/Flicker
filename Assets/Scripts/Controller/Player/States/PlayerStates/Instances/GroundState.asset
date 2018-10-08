@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d358d041b8988004badc7410746c1799, type: 3}
+  m_Name: GroundState
+  m_EditorClassIdentifier: 
+  WalkSpeed: 10
+  RunSpeed: 25
+  Acceleration: 5
+  ExtraFriction: 30
+  ExtraSecondaryFriction: 10
+  StopSlidingLimit: 1.5
+  InputGotten: 0
+  StickToGroundForce: 10
+  JumpHeight:
+    Min: 0.5
+    Max: 2
+  TimeToJumpApex: 0.4
+  InitialJumpDistance: 0.15
+  MaxGhostAirJumpTime: 0.2
+  JumpVelocity:
+    Min: 0
+    Max: 0
+  TimeOfAirJump: -100
+  JumpSounds: []
