@@ -4,23 +4,32 @@ using UnityEngine;
 
 public class WeepingAngel : MonoBehaviour {
 
+    private Plane[] planes;
+    private Camera cam;
+    private Renderer rend;
+    public BoxCollider[] colls;
+    public LayerMask ignoreLayers;
+    public bool visible = false;
+    public Transform player;
+    public float speed;
+
 	// Use this for initialization
 	void Start () {
-        
+        cam = Camera.main;
+        rend = GetComponent<Renderer>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        /*int i = 0;
-        int j = 0;
-
+        int i = 0;
+        visible = false;
         
-        _controller.planes = GeometryUtility.CalculateFrustumPlanes(_controller.cam);
-        if (_controller.renderer.isVisible)
+        planes = GeometryUtility.CalculateFrustumPlanes(cam);
+        if (rend.isVisible)
         {
-            foreach (BoxCollider coll in _controller.colls)
+            foreach (BoxCollider coll in colls)
             {
-                if (i < 1 && GeometryUtility.TestPlanesAABB(_controller.planes, coll.bounds))
+                if (i < 1 && GeometryUtility.TestPlanesAABB(planes, coll.bounds))
                 {
                     i++;
                 }
@@ -28,20 +37,31 @@ public class WeepingAngel : MonoBehaviour {
                 if (i > 0)
                 {
                     RaycastHit hit;
-                    Physics.Linecast(coll.bounds.center, _controller.cam.transform.position, out hit);
-                    if (hit.collider.tag == "ThirdPersonCamera")
+                    if (Physics.Linecast(coll.bounds.center, cam.transform.position, out hit, ignoreLayers))
                     {
-                        j++;
+                        if (hit.collider.tag == "Player")
+                        {
+                            visible = true;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        visible = true;
                         break;
                     }
                 }
-
             }
         }
 
-        if (j > 0)
+        if (!visible)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        }
+
+        if (visible)
             Debug.Log("Visible");
         else
-            Debug.Log("Invisible");*/
+            Debug.Log("Invisible");
     }
 }
