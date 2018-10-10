@@ -260,10 +260,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d96858b1925314aa478bbaff506857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 1
   isOpen: 0
   closing: 0
   opening: 0
+  automaticOpenLayers:
+    serializedVersion: 2
+    m_Bits: 3072
 --- !u!65 &81967179
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1467,7 +1470,7 @@ GameObject:
   - component: {fileID: 1139230641}
   - component: {fileID: 1139230645}
   - component: {fileID: 1139230644}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
