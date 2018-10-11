@@ -19,19 +19,18 @@ public class Door : MonoBehaviour {
         if (isOpen)
         {
             openPos = transform.position;
-            closePos = openPos;
-            closePos.z += transform.localScale.z;
+            closePos = openPos + transform.forward * transform.lossyScale.z;
         }
         else
         {
             closePos = transform.position;
-            openPos = closePos;
-            openPos.z -= transform.localScale.z;
+            openPos = closePos - transform.forward * transform.lossyScale.z;
         }
 	}
 
     void Update()
     {
+        //For debugging
         if (Input.GetKeyDown(KeyCode.O))
             Open();
         if (Input.GetKeyDown(KeyCode.C))
@@ -50,13 +49,12 @@ public class Door : MonoBehaviour {
 
     private IEnumerator OpenCoroutine()
     {
-        Debug.Log(Time.deltaTime);
         closing = false;
         opening = true;
 
         while (opening)
         {
-            if (transform.position.z >= openPos.z && Vector3.Distance(transform.position, openPos) > MathHelper.FloatEpsilon)
+            if (Vector3.Distance(transform.position, openPos) > MathHelper.FloatEpsilon)
             {
                 transform.position = Vector3.MoveTowards(transform.position, openPos, speed * Time.deltaTime);
             }
@@ -81,7 +79,7 @@ public class Door : MonoBehaviour {
 
         while (closing)
         {
-            if (transform.position.z <= closePos.z && Vector3.Distance(transform.position, closePos) > MathHelper.FloatEpsilon)
+            if (Vector3.Distance(transform.position, closePos) > MathHelper.FloatEpsilon)
             {
                 transform.position = Vector3.MoveTowards(transform.position, closePos, speed * Time.deltaTime);
                 AutomaticOpen();
@@ -101,10 +99,7 @@ public class Door : MonoBehaviour {
 
     private void AutomaticOpen()
     {
-        Vector3 tmp = transform.position;
-        tmp.z += transform.localScale.z / 2;
-
-        if (Physics.Raycast(tmp, transform.forward, 0.5f, automaticOpenLayers))
+        if (Physics.Raycast(transform.position, transform.forward, transform.localScale.z / 2 + 0.5f, automaticOpenLayers))
         {
             StopCoroutine(closeCoroutine);
             Open();
