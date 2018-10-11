@@ -8,6 +8,7 @@ public class Door : MonoBehaviour {
     private Coroutine openCoroutine;
     private Coroutine closeCoroutine;
 
+    public float doorLength;
     public float speed;
     public bool isOpen;
     public bool closing;
@@ -19,14 +20,20 @@ public class Door : MonoBehaviour {
         if (isOpen)
         {
             openPos = transform.position;
-            closePos = openPos + transform.forward * transform.lossyScale.z;
+            closePos = openPos + transform.forward * (doorLength > 0 ? doorLength : transform.lossyScale.z);
         }
         else
         {
             closePos = transform.position;
-            openPos = closePos - transform.forward * transform.lossyScale.z;
+            openPos = closePos - transform.forward * (doorLength > 0 ? doorLength : transform.lossyScale.z);
         }
 	}
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position, new Vector3(0.1f, 0.1f, 0.1f));
+    }
 
     void Update()
     {

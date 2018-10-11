@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d96858b1925314aa478bbaff506857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorLength: 0
   speed: 1
   isOpen: 0
   closing: 0
@@ -328,11 +329,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 81967177}
   m_LocalRotation: {x: -0, y: 0.0000004768371, z: -0, w: 1}
-  m_LocalPosition: {x: -5.4, y: -8, z: 2.75}
+  m_LocalPosition: {x: -4.2368937, y: 0.781641, z: -1.8633599}
   m_LocalScale: {x: 0.3, y: 3, z: 2}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 883343475}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &134757809
 GameObject:
@@ -1457,6 +1458,36 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 857480001}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &883343474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 883343475}
+  m_Layer: 0
+  m_Name: Wall w/ door
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &883343475
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 883343474}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.1631064, y: -8.781641, z: 4.61336}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_Children:
+  - {fileID: 1847044857}
+  - {fileID: 81967182}
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1139230640
 GameObject:
   m_ObjectHideFlags: 0
@@ -1941,7 +1972,6 @@ Transform:
   m_Children:
   - {fileID: 733163895}
   - {fileID: 68524369}
-  - {fileID: 1847044857}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2464,7 +2494,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1847044857}
   m_Layer: 0
-  m_Name: Obstacles
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2477,13 +2507,13 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1847044856}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6976619, y: -6.870004, z: 4.555138}
+  m_LocalPosition: {x: 1.8607683, y: 1.9116368, z: -0.058221817}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 289908603}
   - {fileID: 472640395}
-  m_Father: {fileID: 1446742486}
-  m_RootOrder: 2
+  m_Father: {fileID: 883343475}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1881063967
 GameObject:
