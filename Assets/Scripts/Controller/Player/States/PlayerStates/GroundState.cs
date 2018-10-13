@@ -6,8 +6,9 @@ using UnityEngine;
 public class GroundState : PlayerState {
 
     [Header("Movement")]
-    public float WalkSpeed = 15f;
-    public float RunSpeed = 20f;
+    public float walkSpeed = 4f;
+    public float joggSpeed = 8f;
+    public float RunSpeed = 12f;
     public float Acceleration = 100f;
     public float ExtraFriction = 30f;
     public float ExtraSecondaryFriction = 30f;
@@ -60,10 +61,12 @@ public class GroundState : PlayerState {
 
         if (Input.GetButtonDown("Jump"))
             UpdateJump();
-        if (Input.GetKey(KeyCode.LeftShift) && _controller.Input.z > 0)
+        if (Input.GetKey(KeyCode.LeftShift) && !(_controller.Input.z < 0))
             _controller.MaxSpeed = RunSpeed;
+        else if (Input.GetKey(KeyCode.LeftControl))
+            _controller.MaxSpeed = walkSpeed;
         else
-            _controller.MaxSpeed = WalkSpeed;
+            _controller.MaxSpeed = joggSpeed;
 
         _controller._collision = _charCtrl.Move(MoveDir * Time.deltaTime);
     }

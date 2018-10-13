@@ -8,31 +8,50 @@ public class Door : MonoBehaviour {
     private Coroutine openCoroutine;
     private Coroutine closeCoroutine;
 
+    [Header("Movement")]
     public float doorLength;
+    public bool reverseDirection = false;
     public float speed;
     public bool isOpen;
     public bool closing;
     public bool opening;
     public LayerMask automaticOpenLayers;
 
+    [Header("State")]
+    public bool locked;
+
 	// Use this for initialization
 	void Start () {
+        if (doorLength == 0)
+        {
+            BoxCollider box = GetComponent<BoxCollider>();
+
+            Vector3 vertice1 = transform.TransformPoint(box.center + new Vector3(box.size.x, -box.size.y, box.size.z) * 0.5f);
+            Vector3 vertice2 = transform.TransformPoint(box.center + new Vector3(box.size.x, -box.size.y, -box.size.z) * 0.5f);
+            doorLength = Vector3.Distance(vertice1, vertice2);
+        }
+
         if (isOpen)
         {
             openPos = transform.position;
-            closePos = openPos + transform.forward * (doorLength > 0 ? doorLength : transform.lossyScale.z);
+            closePos = openPos + transform.forward * (reverseDirection ? -1 : 1) * (doorLength > 0 ? doorLength : transform.lossyScale.z);
         }
         else
         {
             closePos = transform.position;
-            openPos = closePos - transform.forward * (doorLength > 0 ? doorLength : transform.lossyScale.z);
+            openPos = closePos - transform.forward * (reverseDirection ? -1 : 1) * (doorLength > 0 ? doorLength : transform.lossyScale.z);
         }
 	}
 
     private void OnDrawGizmosSelected()
     {
+        BoxCollider box = GetComponent<BoxCollider>();
+
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position, new Vector3(0.1f, 0.1f, 0.1f));
+        Gizmos.DrawSphere(transform.TransformPoint(box.center + new Vector3(box.size.x, -box.size.y, box.size.z) * 0.5f), 0.05f);
+        Gizmos.DrawSphere(transform.TransformPoint(box.center + new Vector3(-box.size.x, -box.size.y, box.size.z) * 0.5f), 0.05f);
+        Gizmos.DrawSphere(transform.TransformPoint(box.center + new Vector3(-box.size.x, -box.size.y, -box.size.z) * 0.5f), 0.05f);
+        Gizmos.DrawSphere(transform.TransformPoint(box.center + new Vector3(box.size.x, -box.size.y, -box.size.z) * 0.5f), 0.05f);
     }
 
     void Update()
@@ -46,12 +65,24 @@ public class Door : MonoBehaviour {
 
     public void Open()
     {
-        openCoroutine = StartCoroutine(OpenCoroutine());
+        if(!locked)
+            openCoroutine = StartCoroutine(OpenCoroutine());
     }
 
     public void Close()
     {
         closeCoroutine = StartCoroutine(CloseCoroutine());
+    }
+
+    public void Lock()
+    {
+        locked = true;
+        Close();
+    }
+
+    public void Unlock()
+    {
+        locked = false;
     }
 
     private IEnumerator OpenCoroutine()
@@ -80,7 +111,6 @@ public class Door : MonoBehaviour {
 
     private IEnumerator CloseCoroutine()
     {
-        Debug.Log(Time.deltaTime);
         opening = false;
         closing = true;
 
@@ -106,7 +136,7 @@ public class Door : MonoBehaviour {
 
     private void AutomaticOpen()
     {
-        if (Physics.Raycast(transform.position, transform.forward, transform.localScale.z / 2 + 0.5f, automaticOpenLayers))
+        if (Physics.Raycast(transform.position, reverseDirection ? -transform.forward : transform.forward, doorLength, automaticOpenLayers))
         {
             StopCoroutine(closeCoroutine);
             Open();
