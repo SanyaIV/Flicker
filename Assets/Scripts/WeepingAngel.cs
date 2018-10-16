@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class WeepingAngel : MonoBehaviour {
 
-    private Plane[] planes;
-    private Camera cam;
-    private Renderer rend;
-    private Vector3[] points = new Vector3[9];
+    private Plane[] _planes;
+    private Camera _cam;
+    private Renderer _rend;
+    private Vector3[] _points = new Vector3[9];
 
     public BoxCollider[] colls;
     public LayerMask ignoreLayers;
@@ -17,8 +17,8 @@ public class WeepingAngel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        cam = Camera.main;
-        rend = GetComponent<Renderer>();
+        _cam = Camera.main;
+        _rend = GetComponent<Renderer>();
     }
 	
 	// Update is called once per frame
@@ -33,30 +33,29 @@ public class WeepingAngel : MonoBehaviour {
 
     private bool CheckIfVisible()
     {
-        if (rend.isVisible)
+        if (_rend.isVisible)
         {
-            Debug.Log(Vector3.Distance(cam.transform.position, transform.position) / 10 + " : " + Vector3.Dot((cam.transform.position - transform.position).normalized, cam.transform.forward));
-            if (Vector3.Dot((cam.transform.position - transform.position).normalized, cam.transform.forward) > Mathf.Lerp(-0.6f, -0.25f, Vector3.Distance(cam.transform.position, transform.position) / 10))
+            if (Vector3.Dot((_cam.transform.position - transform.position).normalized, _cam.transform.forward) > Mathf.Lerp(-0.6f, -0.25f, Vector3.Distance(_cam.transform.position, transform.position) / 10))
                 return false;
 
-            planes = GeometryUtility.CalculateFrustumPlanes(cam);
+            _planes = GeometryUtility.CalculateFrustumPlanes(_cam);
 
             foreach (BoxCollider coll in colls)
             {
-                if (GeometryUtility.TestPlanesAABB(planes, coll.bounds))
+                if (GeometryUtility.TestPlanesAABB(_planes, coll.bounds))
                 {
-                    points[0] = transform.TransformPoint(coll.center);
-                    points[1] = transform.TransformPoint(coll.center + new Vector3(coll.size.x, -coll.size.y, coll.size.z) * 0.5f);
-                    points[2] = transform.TransformPoint(coll.center + new Vector3(coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
-                    points[3] = transform.TransformPoint(coll.center + new Vector3(-coll.size.x, -coll.size.y, coll.size.z) * 0.5f);
-                    points[4] = transform.TransformPoint(coll.center + new Vector3(-coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
-                    points[5] = transform.TransformPoint(coll.center + new Vector3(coll.size.x, coll.size.y, coll.size.z) * 0.5f);
-                    points[6] = transform.TransformPoint(coll.center + new Vector3(coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
-                    points[7] = transform.TransformPoint(coll.center + new Vector3(-coll.size.x, coll.size.y, coll.size.z) * 0.5f);
-                    points[8] = transform.TransformPoint(coll.center + new Vector3(-coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
+                    _points[0] = transform.TransformPoint(coll.center);
+                    _points[1] = transform.TransformPoint(coll.center + new Vector3(coll.size.x, -coll.size.y, coll.size.z) * 0.5f);
+                    _points[2] = transform.TransformPoint(coll.center + new Vector3(coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
+                    _points[3] = transform.TransformPoint(coll.center + new Vector3(-coll.size.x, -coll.size.y, coll.size.z) * 0.5f);
+                    _points[4] = transform.TransformPoint(coll.center + new Vector3(-coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
+                    _points[5] = transform.TransformPoint(coll.center + new Vector3(coll.size.x, coll.size.y, coll.size.z) * 0.5f);
+                    _points[6] = transform.TransformPoint(coll.center + new Vector3(coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
+                    _points[7] = transform.TransformPoint(coll.center + new Vector3(-coll.size.x, coll.size.y, coll.size.z) * 0.5f);
+                    _points[8] = transform.TransformPoint(coll.center + new Vector3(-coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
 
-                    foreach (Vector3 point in points)
-                        if (!Physics.Linecast(point, cam.transform.position, ignoreLayers))
+                    foreach (Vector3 point in _points)
+                        if (!Physics.Linecast(point, _cam.transform.position, ignoreLayers))
                             return true;
                 }
             }

@@ -8,21 +8,21 @@ public abstract class Controller : MonoBehaviour {
 
     [SerializeField] private State[] _states;
     protected readonly Dictionary<Type, State> _stateDictionary = new Dictionary<Type, State>();
-    public State CurrentState;
-    public State PreviousState;
+    public State currentState;
+    public State previousState;
 
     public virtual void Awake()
     {
         foreach(State state in _states)
         {
             State instance = Instantiate(state);
-            PreviousState = instance;
+            previousState = instance;
             instance.Initialize(this);
             _stateDictionary.Add(instance.GetType(), instance);
 
-            if (CurrentState != null) continue;
-            CurrentState = instance;
-            CurrentState.Enter();
+            if (currentState != null) continue;
+            currentState = instance;
+            currentState.Enter();
         }
     }
 
@@ -36,14 +36,14 @@ public abstract class Controller : MonoBehaviour {
 
     public virtual void Update()
     {
-        if(CurrentState != null)
-            CurrentState.Update();
+        if(currentState != null)
+            currentState.Update();
     }
 
     public virtual void FixedUpdate()
     {
-        if(CurrentState != null)
-            CurrentState.FixedUpdate();
+        if(currentState != null)
+            currentState.FixedUpdate();
     }
 
     public T GetState<T>()
@@ -55,9 +55,9 @@ public abstract class Controller : MonoBehaviour {
 
     public void TransitionTo<T>()
     {
-        PreviousState = CurrentState;
-        CurrentState.Exit();
-        CurrentState = GetState<T>() as State;
-        CurrentState.Enter();
+        previousState = currentState;
+        currentState.Exit();
+        currentState = GetState<T>() as State;
+        currentState.Enter();
     }
 }

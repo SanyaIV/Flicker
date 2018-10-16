@@ -13,21 +13,94 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 3
   joggSpeed: 7
-  RunSpeed: 10
-  Acceleration: 5
+  runSpeed: 12
+  acceleration: 5
   ExtraFriction: 30
-  ExtraSecondaryFriction: 10
-  StopSlidingLimit: 1.5
-  InputGotten: 0
-  StickToGroundForce: 10
-  JumpHeight:
+  extraSecondaryFriction: 10
+  stopSlidingLimit: 1.5
+  inputGotten: 0
+  stickToGroundForce: 10
+  jumpHeight:
     Min: 0.5
     Max: 2
-  TimeToJumpApex: 0.4
-  InitialJumpDistance: 0.15
-  MaxGhostAirJumpTime: 0.2
-  JumpVelocity:
+  timeToJumpApex: 0.4
+  initialJumpDistance: 0.15
+  maxGhostAirJumpTime: 0.2
+  jumpVelocity:
     Min: 0
     Max: 0
-  TimeOfAirJump: -100
-  JumpSounds: []
+  timeOfAirJump: 0
+  _useHeadBob: 1
+  _headBob:
+    HorizontalBobRange: 0.1
+    VerticalBobRange: 0.1
+    Bobcurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.5
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1.5
+        value: -1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 2
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    VerticaltoHorizontalRatio: 2
+  _jumpBob:
+    BobDuration: 0.1
+    BobAmount: 0.2
+  _stepInterval: 5
+  _runStepLengthen: 0.7
+  footstepSounds:
+  - {fileID: 8300000, guid: 81052ce840960d34697a9e8deecf93b3, type: 3}
+  - {fileID: 8300000, guid: c63de8f35b336e2418a6e8a6b1978502, type: 3}
+  - {fileID: 8300000, guid: 79ab370fc22b04a4a9ef2406b65f7684, type: 3}
+  - {fileID: 8300000, guid: 797edd6ae2e352e4a9e07ed108be2c0a, type: 3}
+  landingSounds:
+  - {fileID: 8300000, guid: ac9e5b85a94366846a1b5b50c4497e7c, type: 3}
+  jumpSounds:
+  - {fileID: 8300000, guid: 26b33ea8059bc1448ac365b628823755, type: 3}
+  _range: 2.5
+  _interactableLayerMask:
+    serializedVersion: 2
+    m_Bits: 4608
