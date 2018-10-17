@@ -8,7 +8,6 @@ public class WeepingAngel : MonoBehaviour {
     private Camera _cam;
     private Renderer _rend;
     private Vector3[] _points = new Vector3[9];
-    private int _count;
 
     public BoxCollider[] colls;
     public LayerMask ignoreLayers;
@@ -24,7 +23,7 @@ public class WeepingAngel : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        visible = CheckIfVisible();
+        CheckIfVisible();
 
         if (!visible)
         {
@@ -37,12 +36,12 @@ public class WeepingAngel : MonoBehaviour {
         if (_rend.isVisible)
         {
             if (Vector3.Dot((_cam.transform.position - transform.position).normalized, _cam.transform.forward) > Mathf.Lerp(-0.6f, -0.25f, Vector3.Distance(_cam.transform.position, transform.position) / 10))
-                return false;
+                return visible = false;
 
             int taskNumber = Time.frameCount % colls.Length; //Run one box per frame
             if (taskNumber == 0)
-                _count = 0;
-            if (taskNumber > 0)
+                visible = false;
+            if (visible)
                 return true;
 
             _planes = GeometryUtility.CalculateFrustumPlanes(_cam);
@@ -62,7 +61,7 @@ public class WeepingAngel : MonoBehaviour {
 
                 foreach (Vector3 point in _points)
                     if (!Physics.Linecast(point, _cam.transform.position, ignoreLayers)) {
-                        _count++;
+                        visible = true;
                         return true;
                     }
                         
