@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4876419766583074}
   - component: {fileID: 143682525955505604}
   - component: {fileID: 114067606785529198}
+  - component: {fileID: 114266675706499836}
   - component: {fileID: 54113132230713032}
   - component: {fileID: 136733374157536690}
   - component: {fileID: 82011449189400430}
@@ -295,6 +296,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 35594e00ffe5ab043861801d05fabb1a, type: 2}
   currentState: {fileID: 0}
   previousState: {fileID: 0}
+  sanity: {fileID: 0}
   gravity: 10
   moveDir: {x: 0, y: 0, z: 0}
   inputRequiredToMove: 0.8
@@ -308,6 +310,23 @@ MonoBehaviour:
   firstPersonCamera: {fileID: 0}
   cam: {fileID: 4943720771861456}
   audioSource: {fileID: 0}
+--- !u!114 &114266675706499836
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1814803979000564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61ca8736c01a77142a0467e2bf012fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sanityRange:
+    Min: 0
+    Max: 1
+  _sanity: 1
+  _depletionRate: 0.01
+  _refillRate: 0.01
 --- !u!114 &114297875559449558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -351,7 +370,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1814803979000564}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.51
   m_Height: 2.01
   m_Direction: 1

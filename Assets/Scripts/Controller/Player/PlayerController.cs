@@ -9,6 +9,9 @@ public class PlayerController : Controller {
     private Vector3 _startPos;
     private Quaternion _startRot;
 
+    [Header("Status")]
+    [HideInInspector]public Sanity sanity;
+
     [Header("Movement")]
     public float gravity = 50f;
     public Vector3 moveDir = Vector3.zero;
@@ -33,6 +36,7 @@ public class PlayerController : Controller {
         base.Awake();
 
         audioSource = GetComponent<AudioSource>();
+        sanity = GetComponent<Sanity>();
     }
 
     public override void Start()

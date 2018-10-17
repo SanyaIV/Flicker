@@ -7,6 +7,9 @@ using UnityEngine.UI;
 [CreateAssetMenu(menuName = "Player/States/Ground")]
 public class GroundState : PlayerState {
 
+    [Header("Constants")]
+    [HideInInspector] public readonly MinMaxFloat CLAMP_SANITY_SPEED_MULTIPLIER = new MinMaxFloat(0.5f, 1f);
+
     [Header("Movement")]
     public float walkSpeed = 4f;
     public float joggSpeed = 8f;
@@ -105,12 +108,14 @@ public class GroundState : PlayerState {
         else
             controller.maxSpeed = joggSpeed;
 
+        controller.maxSpeed *= Mathf.Clamp(controller.sanity.GetSanity(), CLAMP_SANITY_SPEED_MULTIPLIER.Min, CLAMP_SANITY_SPEED_MULTIPLIER.Max);
+
         if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Fire1"))
             Interact();
             
 
         controller.collision = charCtrl.Move(moveDir * Time.deltaTime);
-        Debug.Log(CheckIfInteractible());
+        CheckIfInteractible();
     }
 
     public override void FixedUpdate()

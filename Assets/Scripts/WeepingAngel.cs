@@ -8,6 +8,7 @@ public class WeepingAngel : MonoBehaviour {
     private Camera _cam;
     private Renderer _rend;
     private Vector3[] _points = new Vector3[9];
+    private int _count;
 
     public BoxCollider[] colls;
     public LayerMask ignoreLayers;
@@ -38,26 +39,33 @@ public class WeepingAngel : MonoBehaviour {
             if (Vector3.Dot((_cam.transform.position - transform.position).normalized, _cam.transform.forward) > Mathf.Lerp(-0.6f, -0.25f, Vector3.Distance(_cam.transform.position, transform.position) / 10))
                 return false;
 
+            int taskNumber = Time.frameCount % colls.Length; //Run one box per frame
+            if (taskNumber == 0)
+                _count = 0;
+            if (taskNumber > 0)
+                return true;
+
             _planes = GeometryUtility.CalculateFrustumPlanes(_cam);
-
-            foreach (BoxCollider coll in colls)
+            
+            if (GeometryUtility.TestPlanesAABB(_planes, colls[taskNumber].bounds))
             {
-                if (GeometryUtility.TestPlanesAABB(_planes, coll.bounds))
-                {
-                    _points[0] = transform.TransformPoint(coll.center);
-                    _points[1] = transform.TransformPoint(coll.center + new Vector3(coll.size.x, -coll.size.y, coll.size.z) * 0.5f);
-                    _points[2] = transform.TransformPoint(coll.center + new Vector3(coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
-                    _points[3] = transform.TransformPoint(coll.center + new Vector3(-coll.size.x, -coll.size.y, coll.size.z) * 0.5f);
-                    _points[4] = transform.TransformPoint(coll.center + new Vector3(-coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
-                    _points[5] = transform.TransformPoint(coll.center + new Vector3(coll.size.x, coll.size.y, coll.size.z) * 0.5f);
-                    _points[6] = transform.TransformPoint(coll.center + new Vector3(coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
-                    _points[7] = transform.TransformPoint(coll.center + new Vector3(-coll.size.x, coll.size.y, coll.size.z) * 0.5f);
-                    _points[8] = transform.TransformPoint(coll.center + new Vector3(-coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
+                BoxCollider coll = colls[taskNumber];
+                _points[0] = transform.TransformPoint(colls[taskNumber].center);
+                _points[1] = transform.TransformPoint(colls[taskNumber].center + new Vector3(coll.size.x, -coll.size.y, coll.size.z) * 0.5f);
+                _points[2] = transform.TransformPoint(colls[taskNumber].center + new Vector3(coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
+                _points[3] = transform.TransformPoint(colls[taskNumber].center + new Vector3(-coll.size.x, -coll.size.y, coll.size.z) * 0.5f);
+                _points[4] = transform.TransformPoint(colls[taskNumber].center + new Vector3(-coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
+                _points[5] = transform.TransformPoint(colls[taskNumber].center + new Vector3(coll.size.x, coll.size.y, coll.size.z) * 0.5f);
+                _points[6] = transform.TransformPoint(colls[taskNumber].center + new Vector3(coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
+                _points[7] = transform.TransformPoint(colls[taskNumber].center + new Vector3(-coll.size.x, coll.size.y, coll.size.z) * 0.5f);
+                _points[8] = transform.TransformPoint(colls[taskNumber].center + new Vector3(-coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
 
-                    foreach (Vector3 point in _points)
-                        if (!Physics.Linecast(point, _cam.transform.position, ignoreLayers))
-                            return true;
-                }
+                foreach (Vector3 point in _points)
+                    if (!Physics.Linecast(point, _cam.transform.position, ignoreLayers)) {
+                        _count++;
+                        return true;
+                    }
+                        
             }
         }
 
