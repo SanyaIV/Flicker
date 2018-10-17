@@ -1,58 +1,98 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.Utility;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(menuName = "Player/States/Ground")]
 public class GroundState : PlayerState {
 
+    [Header("Constants")]
+    [HideInInspector] public readonly MinMaxFloat CLAMP_SANITY_SPEED_MULTIPLIER = new MinMaxFloat(0.5f, 1f);
+
     [Header("Movement")]
     public float walkSpeed = 4f;
     public float joggSpeed = 8f;
-    public float RunSpeed = 12f;
-    public float Acceleration = 100f;
+    public float runSpeed = 12f;
+    public float acceleration = 100f;
     public float ExtraFriction = 30f;
-    public float ExtraSecondaryFriction = 30f;
-    public float StopSlidingLimit = 1.5f;
-    [HideInInspector] public bool InputGotten = false;
+    public float extraSecondaryFriction = 30f;
+    public float stopSlidingLimit = 1.5f;
+    [HideInInspector] public bool inputGotten = false;
 
     [Header("Ground")]
-    public float StickToGroundForce = 10f;
+    public float stickToGroundForce = 10f;
 
     [Header("Jumping")]
-    public MinMaxFloat JumpHeight;
-    public float TimeToJumpApex = 0.5f;
-    public float InitialJumpDistance = 0.15f;
-    public float MaxGhostAirJumpTime = 0.2f;
-    [HideInInspector] public MinMaxFloat JumpVelocity;
-    [HideInInspector] public float TimeOfAirJump;
-    public AudioClip[] JumpSounds;
+    public MinMaxFloat jumpHeight;
+    public float timeToJumpApex = 0.5f;
+    public float initialJumpDistance = 0.15f;
+    public float maxGhostAirJumpTime = 0.2f;
+    [HideInInspector] public MinMaxFloat jumpVelocity;
+    [HideInInspector] public float timeOfAirJump;
+    
+    [Header("HeadBob")]
+    [SerializeField] private bool _useHeadBob;
+    [SerializeField] private CurveControlledBob _headBob = new CurveControlledBob();
+    [SerializeField] private LerpControlledBob _jumpBob = new LerpControlledBob();
+    private Vector3 _originalCamPos;
+
+    [Header("Footstep")]
+    [SerializeField] private float _stepInterval;
+    [SerializeField] [Range(0f, 1f)]private float _runStepLengthen;
+    private float _stepCycle;
+    private float _nextStep;
+
+    [Header("Audio")]
+    public AudioClip[] footstepSounds;
+    public AudioClip[] landingSounds;
+    public AudioClip[] jumpSounds;
+
+    [Header("Interactable")]
+    [SerializeField] private float _range;
+    [SerializeField] private LayerMask _interactableLayerMask;
+    private Text _interactableText;
 
     [Header("Temporary Variables")]
-    private RaycastHit hit;
+    private RaycastHit _hit;
 
-    private float Friction { get { return Acceleration / _controller.MaxSpeed; } }
+    private float friction { get { return acceleration / controller.maxSpeed; } }
 
     public override void Initialize(Controller owner)
     {
         base.Initialize(owner);
 
-        _controller.Gravity = (2 * JumpHeight.Max) / Mathf.Pow(TimeToJumpApex, 2);
-        JumpVelocity.Max = _controller.Gravity * TimeToJumpApex;
-        JumpVelocity.Min = Mathf.Sqrt(2 * _controller.Gravity * JumpHeight.Min);
-        TimeOfAirJump = -100f;
+        _interactableText = GameObject.Find("InteractText").GetComponent<Text>();
+
+        controller.gravity = (2 * jumpHeight.Max) / Mathf.Pow(timeToJumpApex, 2);
+        jumpVelocity.Max = controller.gravity * timeToJumpApex;
+        jumpVelocity.Min = Mathf.Sqrt(2 * controller.gravity * jumpHeight.Min);
+        timeOfAirJump = -100f;
+
+        //HeadBob
+        _originalCamPos = controller.cam.transform.localPosition;
+        _headBob.Setup(controller.cam, _stepInterval);
+        _stepCycle = 0f;
+        _nextStep = _stepCycle / 2f;
     }
 
     public override void Enter()
     {
-        InputGotten = false;
+        inputGotten = false;
 
-        if (_controller.PreviousState is AirState && Time.time - TimeOfAirJump <= MaxGhostAirJumpTime)
-            UpdateJump();
+        if (controller.previousState is AirState) {
+            if (Time.time - timeOfAirJump <= maxGhostAirJumpTime)
+                UpdateJump();
+
+            controller.StartCoroutine(_jumpBob.DoBobCycle());
+            PlayLandingSound();
+        }
     }
 
     public override void Exit()
     {
         transform.parent = null;
+        _interactableText.text = "";
     }
 
     public override void Update()
@@ -61,34 +101,43 @@ public class GroundState : PlayerState {
 
         if (Input.GetButtonDown("Jump"))
             UpdateJump();
-        if (Input.GetKey(KeyCode.LeftShift) && !(_controller.Input.z < 0))
-            _controller.MaxSpeed = RunSpeed;
+        if (Input.GetKey(KeyCode.LeftShift) && !(controller.Input.z < 0))
+            controller.maxSpeed = runSpeed;
         else if (Input.GetKey(KeyCode.LeftControl))
-            _controller.MaxSpeed = walkSpeed;
+            controller.maxSpeed = walkSpeed;
         else
-            _controller.MaxSpeed = joggSpeed;
+            controller.maxSpeed = joggSpeed;
 
-        _controller._collision = _charCtrl.Move(MoveDir * Time.deltaTime);
+        controller.maxSpeed *= Mathf.Clamp(controller.sanity.GetSanity(), CLAMP_SANITY_SPEED_MULTIPLIER.Min, CLAMP_SANITY_SPEED_MULTIPLIER.Max);
+
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Fire1"))
+            Interact();
+            
+
+        controller.collision = charCtrl.Move(moveDir * Time.deltaTime);
+        CheckIfInteractible();
     }
 
     public override void FixedUpdate()
     {
-        hit = _controller.GroundCheck();
+        _hit = controller.GroundCheck();
 
         UpdateMovement();
         UpdateFriction();
 
-        if (hit.collider != null)
-            _controller.MoveDir.y = -StickToGroundForce;
+        if (_hit.collider != null)
+            controller.moveDir.y = -stickToGroundForce;
         else
-            _controller.TransitionTo<AirState>();
+            controller.TransitionTo<AirState>();
 
         StopSliding();
+        ProgressStepCycle();
+        UpdateCameraPosition();
     }
 
     private void UpdateMovement()
     {
-        Vector3 input = _controller.Input;
+        Vector3 input = controller.Input;
         input = transform.forward * input.z + transform.right * input.x;
 
         /*if (hit.collider != null && hit.collider.CompareTag("Platform"))
@@ -96,51 +145,122 @@ public class GroundState : PlayerState {
         else
             transform.parent = null;*/
 
-        input = Vector3.ProjectOnPlane(input, hit.normal).normalized;
+        input = Vector3.ProjectOnPlane(input, _hit.normal).normalized;
 
-        MoveDir += input * Acceleration;
+        moveDir += input * acceleration;
 
         if(input.magnitude > 0)
         {
-            InputGotten = true;
+            inputGotten = true;
 
-            if (MoveDir.magnitude > _controller.MaxSpeed)
-                MoveDir = MoveDir.normalized * _controller.MaxSpeed;
+            if (moveDir.magnitude > controller.maxSpeed)
+                moveDir = moveDir.normalized * controller.maxSpeed;
         }
     }
 
     private void UpdateFriction()
     {
-        float extraFriction = InputGotten ? _controller.Input.magnitude < _controller.InputRequiredToMove ? ExtraFriction : 0.0f : ExtraSecondaryFriction;
-        float friction = Mathf.Clamp01((Friction + extraFriction) * Time.fixedDeltaTime);
-        MoveDir -= MoveDir * friction;
+        float extraFriction = inputGotten ? controller.Input.magnitude < controller.inputRequiredToMove ? ExtraFriction : 0.0f : extraSecondaryFriction;
+        float friction = Mathf.Clamp01((this.friction + extraFriction) * Time.fixedDeltaTime);
+        moveDir -= moveDir * friction;
     }
 
     private void StopSliding()
     {
-        if (MoveDir.magnitude < StopSlidingLimit && _controller.Input.magnitude < _controller.InputRequiredToMove)
-            MoveDir = Vector3.zero;
+        if ((Mathf.Abs(moveDir.x) + Mathf.Abs(moveDir.z)) < stopSlidingLimit && controller.Input.magnitude < controller.inputRequiredToMove)
+            moveDir = Vector3.zero;
     }
 
     public void UpdateJump()
     {
-        PlayJumpSound();
-        transform.position += Vector3.up * InitialJumpDistance;
-        _controller.MoveDir.y = JumpVelocity.Max;
-        _controller.GetState<AirState>().GhostJumpAllowed = false;
-        _controller.GetState<AirState>().CanCancelJump = true;
-        if(!(_controller.CurrentState is AirState))_controller.TransitionTo<AirState>();
+        PlayAudio(ref jumpSounds);
+        transform.position += Vector3.up * initialJumpDistance;
+        controller.moveDir.y = jumpVelocity.Max;
+        controller.GetState<AirState>().ghostJumpAllowed = false;
+        controller.GetState<AirState>().canCancelJump = true;
+        if(!(controller.currentState is AirState))controller.TransitionTo<AirState>();
     }
 
-    private void PlayJumpSound()
+    private void ProgressStepCycle()
     {
-        if (JumpSounds.Length > 0)
+        if((Mathf.Abs(moveDir.x) + Mathf.Abs(moveDir.z)) > 0)
+            _stepCycle += (controller.charCtrl.velocity.magnitude + (controller.maxSpeed * (controller.maxSpeed == runSpeed ? _runStepLengthen : 1f))) * Time.fixedDeltaTime;
+
+        if (!(_stepCycle > _nextStep))
+            return;
+
+        _nextStep = _stepCycle + _stepInterval;
+
+        PlayAudio(ref footstepSounds);
+    }
+
+    private void PlayAudio(ref AudioClip[] audio)
+    {
+        if(audio.Length > 1)
         {
-            int index = Random.Range(1, JumpSounds.Length);
-            AudioClip clip = JumpSounds[index];
-            _controller._audioSource.PlayOneShot(clip);
-            JumpSounds[index] = JumpSounds[0];
-            JumpSounds[0] = clip;
+            int n = Random.Range(1, audio.Length);
+            controller.audioSource.clip = audio[n];
+            controller.audioSource.PlayOneShot(controller.audioSource.clip);
+            audio[n] = audio[0];
+            audio[0] = controller.audioSource.clip;
+        }
+        else if(audio.Length == 1)
+            controller.audioSource.PlayOneShot(audio[0]);
+        else
+            return;
+    }
+
+    private void PlayLandingSound()
+    {
+        PlayAudio(ref landingSounds);
+        _nextStep = _stepCycle + 0.5f;
+    }
+
+    private void UpdateCameraPosition()
+    {
+        Vector3 newCameraPosition;
+        if (!_useHeadBob)
+            return;
+
+        if((Mathf.Abs(moveDir.x) + Mathf.Abs(moveDir.z)) > 0)
+        {
+            controller.cam.transform.localPosition = _headBob.DoHeadBob(controller.charCtrl.velocity.magnitude + (controller.maxSpeed * (controller.maxSpeed == runSpeed ? _runStepLengthen : 1f)));
+            newCameraPosition = controller.cam.transform.localPosition;
+            newCameraPosition.y = controller.cam.transform.localPosition.y - _jumpBob.Offset();
+        }
+        else
+        {
+            newCameraPosition = controller.cam.transform.localPosition;
+            newCameraPosition.y = _originalCamPos.y - _jumpBob.Offset();
+        }
+
+        controller.cam.transform.localPosition = newCameraPosition;
+    }
+
+    private bool CheckIfInteractible()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(controller.cam.transform.position, controller.cam.transform.forward, out hit, _range, _interactableLayerMask))
+            if(hit.transform.gameObject.layer == LayerMask.NameToLayer("Interactable"))
+            {
+                Interactable actable = hit.transform.GetComponent<Interactable>();
+                _interactableText.text = actable.ActionType() + " " + actable.GetName();
+
+                return true;
+            }
+
+        _interactableText.text = "";
+        return false;
+    }
+
+    private void Interact()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(controller.cam.transform.position, controller.cam.transform.forward, out hit, _range, _interactableLayerMask))
+        {
+            Interactable actable = hit.transform.GetComponent<Interactable>();
+            if (actable)
+                actable.Interact();
         }
     }
 }

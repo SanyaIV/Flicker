@@ -9,30 +9,34 @@ public class PlayerController : Controller {
     private Vector3 _startPos;
     private Quaternion _startRot;
 
+    [Header("Status")]
+    [HideInInspector]public Sanity sanity;
+
     [Header("Movement")]
-    public float MaxSpeed = 10f;
-    public float Gravity = 50f;
-    public Vector3 MoveDir = Vector3.zero;
-    [Range(0f, 1f)] public float InputRequiredToMove = 0.5f;
+    public float gravity = 50f;
+    public Vector3 moveDir = Vector3.zero;
+    [Range(0f, 1f)] public float inputRequiredToMove = 0.5f;
+    [HideInInspector] public float maxSpeed = 10f;
 
     [Header("Collision")]
-    public LayerMask CollisionLayers;
-    public float GroundCheckDistance = 0.15f;
-    [Range(0f, 1f)] public float CollisionBounceMultiplier; //Delete?
-    [HideInInspector] public CharacterController _charCtrl;
-    [HideInInspector] public CollisionFlags _collision;
+    public LayerMask collisionLayers;
+    public float groundCheckDistance = 0.15f;
+    [HideInInspector] public CharacterController charCtrl;
+    [HideInInspector] public CollisionFlags collision;
 
     [Header("Camera")]
-    public Transform cam;
+    public Transform firstPersonCamera;
+    public Camera cam;
 
     [Header("Audio")]
-    [HideInInspector] public AudioSource _audioSource;
+    [HideInInspector] public AudioSource audioSource;
 
     public override void Awake()
     {
         base.Awake();
 
-        _audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
+        sanity = GetComponent<Sanity>();
     }
 
     public override void Start()
@@ -41,12 +45,14 @@ public class PlayerController : Controller {
 
         _startPos = transform.position;
         _startRot = transform.rotation;
-        _charCtrl = GetComponent<CharacterController>();
+        charCtrl = GetComponent<CharacterController>();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
+        if (firstPersonCamera == null)
+            firstPersonCamera = GameObject.FindWithTag("FirstPersonCamera").transform;
         if (cam == null)
-            cam = GameObject.FindWithTag("FirstPersonCamera").transform;
+            cam = Camera.main;
     }
 
     /*private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -73,7 +79,7 @@ public class PlayerController : Controller {
     public bool IsGrounded()
     {
         RaycastHit hitInfo;
-        bool hit = Physics.SphereCast(transform.position, _charCtrl.radius, Vector3.down, out hitInfo, GroundCheckDistance, CollisionLayers, QueryTriggerInteraction.Ignore);
+        bool hit = Physics.SphereCast(transform.position, charCtrl.radius, Vector3.down, out hitInfo, groundCheckDistance, collisionLayers, QueryTriggerInteraction.Ignore);
 
         return ((!hit || hitInfo.point.magnitude < MathHelper.FloatEpsilon) ? false : true);
     }
@@ -81,7 +87,7 @@ public class PlayerController : Controller {
     public RaycastHit GroundCheck()
     {
         RaycastHit hitInfo;
-        Physics.SphereCast(transform.position, _charCtrl.radius, Vector3.down, out hitInfo, GroundCheckDistance, CollisionLayers, QueryTriggerInteraction.Ignore);
+        Physics.SphereCast(transform.position, charCtrl.radius, Vector3.down, out hitInfo, groundCheckDistance, collisionLayers, QueryTriggerInteraction.Ignore);
 
         return hitInfo;
     }

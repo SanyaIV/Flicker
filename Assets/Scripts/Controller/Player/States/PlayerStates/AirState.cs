@@ -5,23 +5,23 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player/States/Air")]
 public class AirState : PlayerState {
 
-    public float FastFallingModifier = 2f;
-    [HideInInspector] public bool CanCancelJump = false;
+    public float fastFallingModifier = 2f;
+    [HideInInspector] public bool canCancelJump = false;
 
     [Header("Aircontrol")]
-    public float Acceleration = 50f;
-    public float Friction = 5f;
+    public float acceleration = 50f;
+    public float friction = 5f;
 
     [Header("Ghost Jump")]
-    public float GhostJumpTime = 0.1f;
+    public float ghostJumpTime = 0.1f;
     private float _enterTime;
-    [HideInInspector] public bool GhostJumpAllowed = false;
+    [HideInInspector] public bool ghostJumpAllowed = false;
 
     public override void Enter()
     {
         //_controller.Anim.SetBool("Grounded", false);
         _enterTime = Time.time;
-        _controller._collision = CollisionFlags.None;
+        controller.collision = CollisionFlags.None;
     }
 
     public override void Update()
@@ -32,16 +32,16 @@ public class AirState : PlayerState {
         if (Input.GetButtonDown("Jump"))
             UpdateJump();
 
-        if (_controller._collision == CollisionFlags.Above)
-            _controller.MoveDir.y = -2f;
+        if (controller.collision == CollisionFlags.Above)
+            controller.moveDir.y = -2f;
 
-        _controller._collision = _controller._charCtrl.Move(MoveDir * Time.deltaTime);
+        controller.collision = controller.charCtrl.Move(moveDir * Time.deltaTime);
     }
 
     public override void FixedUpdate()
     {
-        if (_controller.IsGrounded())
-            _controller.TransitionTo<GroundState>();
+        if (controller.IsGrounded())
+            controller.TransitionTo<GroundState>();
 
         UpdateGravity();
         UpdateMovement();
@@ -49,63 +49,63 @@ public class AirState : PlayerState {
 
     public override void Exit()
     {
-        GhostJumpAllowed = true;
+        ghostJumpAllowed = true;
     }
 
     private void UpdateGravity()
     {
-        float multiplier = MoveDir.y > 0.0f ? 1.0f : FastFallingModifier;
-        MoveDir += Vector3.down * _controller.Gravity * multiplier * Time.fixedDeltaTime;
+        float multiplier = moveDir.y > 0.0f ? 1.0f : fastFallingModifier;
+        moveDir += Vector3.down * controller.gravity * multiplier * Time.fixedDeltaTime;
     }
 
     private void CancelJump()
     {
-        float minJumpVelocity = _controller.GetState<GroundState>().JumpVelocity.Min;
-        if (MoveDir.y < minJumpVelocity) CanCancelJump = false;
-        if (!CanCancelJump || Input.GetButton("Jump")) return;
-        CanCancelJump = false;
-        _controller.MoveDir.y = minJumpVelocity;
+        float minJumpVelocity = controller.GetState<GroundState>().jumpVelocity.Min;
+        if (moveDir.y < minJumpVelocity) canCancelJump = false;
+        if (!canCancelJump || Input.GetButton("Jump")) return;
+        canCancelJump = false;
+        controller.moveDir.y = minJumpVelocity;
     }
 
     private void UpdateMovement()
     {
-        Vector3 input = _controller.Input;
+        Vector3 input = controller.Input;
         input = transform.forward * input.z + transform.right * input.x;
 
-        if (input.magnitude > _controller.InputRequiredToMove)
+        if (input.magnitude > controller.inputRequiredToMove)
             Accelerate(input);
         Decelerate();
     }
 
     private void Accelerate(Vector3 input)
     {
-        Vector3 delta = input * Acceleration * Time.fixedDeltaTime;
+        Vector3 delta = input * acceleration * Time.fixedDeltaTime;
 
-        float y = MoveDir.y;
-        _controller.MoveDir.y = 0.0f;
+        float y = moveDir.y;
+        controller.moveDir.y = 0.0f;
 
-        if ((MoveDir + delta).magnitude < _controller.MaxSpeed || Vector3.Dot(MoveDir.normalized, input.normalized) < 0.0f)
-            MoveDir += delta;
+        if ((moveDir + delta).magnitude < controller.maxSpeed || Vector3.Dot(moveDir.normalized, input.normalized) < 0.0f)
+            moveDir += delta;
         else
-            MoveDir = input.normalized * _controller.MoveDir.magnitude;
+            moveDir = input.normalized * controller.moveDir.magnitude;
 
-        _controller.MoveDir.y = y;
+        controller.moveDir.y = y;
     }
 
     private void Decelerate()
     {
-        float y = MoveDir.y;
-        _controller.MoveDir.y = 0.0f;
-        MoveDir -= MoveDir * Mathf.Clamp01(Friction * Time.fixedDeltaTime);
-        _controller.MoveDir.y = y;
+        float y = moveDir.y;
+        controller.moveDir.y = 0.0f;
+        moveDir -= moveDir * Mathf.Clamp01(friction * Time.fixedDeltaTime);
+        controller.moveDir.y = y;
     }
 
     private void UpdateJump()
     {
-        if (GhostJumpAllowed && Time.time - _enterTime <= GhostJumpTime && _controller.PreviousState is GroundState)
-            _controller.GetState<GroundState>().UpdateJump();
+        if (ghostJumpAllowed && Time.time - _enterTime <= ghostJumpTime && controller.previousState is GroundState)
+            controller.GetState<GroundState>().UpdateJump();
         else
-            _controller.GetState<GroundState>().TimeOfAirJump = Time.time;
+            controller.GetState<GroundState>().timeOfAirJump = Time.time;
 
     }
 }

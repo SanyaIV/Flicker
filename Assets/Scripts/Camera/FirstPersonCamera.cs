@@ -9,14 +9,15 @@ public class FirstPersonCamera : MonoBehaviour
     private Quaternion _startRot;
 
     [Header("Follow")]
-    public Transform Target;
-    public Vector3 PositionOffset;
-    public float RequiredInputMagnitude = 0.3f;
+    public bool useFollow;
+    public Transform target;
+    public Vector3 positionOffset;
 
     [Header("Rotation")]
-    public MinMaxFloat YAngleClamp;
-    public bool YClamp;
-    public Vector2 Speed;
+    public MinMaxFloat yAngleClamp;
+    public bool yClamp;
+    public Vector2 speed;
+    public float requiredInputMagnitude = 0.3f;
     private Quaternion _rotation;
     private Vector2 _V2Rotation;
 
@@ -26,8 +27,8 @@ public class FirstPersonCamera : MonoBehaviour
         _startRot = transform.rotation;
         _V2Rotation.x = _startRot.eulerAngles.y;
 
-        if (Target == null)
-            Target = GameObject.FindWithTag("Player").transform;
+        if (target == null)
+            target = GameObject.FindWithTag("Player").transform;
     }
 
     private void Update()
@@ -43,27 +44,29 @@ public class FirstPersonCamera : MonoBehaviour
 
     private void UpdateMovement()
     {
-        transform.position = Target.position + PositionOffset;
+        if (useFollow)
+            transform.position = target.position + positionOffset;
+
         transform.rotation = _rotation;
     }
 
     private void UpdateRotation()
     {
         Vector2 input = new Vector2(Input.GetAxisRaw("CameraX"), Input.GetAxisRaw("CameraY"));
-        input.x = Mathf.Abs(input.x) > RequiredInputMagnitude ? input.x : 0.0f;
-        input.y = Mathf.Abs(input.y) > RequiredInputMagnitude ? input.y : 0.0f;
+        input.x = Mathf.Abs(input.x) > requiredInputMagnitude ? input.x : 0.0f;
+        input.y = Mathf.Abs(input.y) > requiredInputMagnitude ? input.y : 0.0f;
         input += new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y") * INVERSE);
 
-        _V2Rotation.x += input.x * Speed.x * Time.fixedDeltaTime;
-        _V2Rotation.y += input.y * Speed.y * Time.fixedDeltaTime;
+        _V2Rotation.x += input.x * speed.x * Time.fixedDeltaTime;
+        _V2Rotation.y += input.y * speed.y * Time.fixedDeltaTime;
 
-        if (YClamp) _V2Rotation.y = Mathf.Clamp(_V2Rotation.y, YAngleClamp.Min, YAngleClamp.Max);
+        if (yClamp) _V2Rotation.y = Mathf.Clamp(_V2Rotation.y, yAngleClamp.Min, yAngleClamp.Max);
         _rotation = Quaternion.Euler(_V2Rotation.y, _V2Rotation.x, 0.0f);
     }
 
     private void UpdateTargetRotation()
     {
-        Target.rotation = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f);
+        target.rotation = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f);
     }
 
     public void ResetTransform()

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Door : MonoBehaviour {
-    private Vector3 openPos;
-    private Vector3 closePos;
-    private Coroutine openCoroutine;
-    private Coroutine closeCoroutine;
+    private Vector3 _openPos;
+    private Vector3 _closePos;
+    private Coroutine _closeCoroutine;
 
     [Header("Movement")]
     public float doorLength;
@@ -33,13 +32,13 @@ public class Door : MonoBehaviour {
 
         if (isOpen)
         {
-            openPos = transform.position;
-            closePos = openPos + transform.forward * (reverseDirection ? -1 : 1) * (doorLength > 0 ? doorLength : transform.lossyScale.z);
+            _openPos = transform.position;
+            _closePos = _openPos + transform.forward * (reverseDirection ? -1 : 1) * (doorLength > 0 ? doorLength : transform.lossyScale.z);
         }
         else
         {
-            closePos = transform.position;
-            openPos = closePos - transform.forward * (reverseDirection ? -1 : 1) * (doorLength > 0 ? doorLength : transform.lossyScale.z);
+            _closePos = transform.position;
+            _openPos = _closePos - transform.forward * (reverseDirection ? -1 : 1) * (doorLength > 0 ? doorLength : transform.lossyScale.z);
         }
 	}
 
@@ -66,12 +65,12 @@ public class Door : MonoBehaviour {
     public void Open()
     {
         if(!locked)
-            openCoroutine = StartCoroutine(OpenCoroutine());
+            StartCoroutine(OpenCoroutine());
     }
 
     public void Close()
     {
-        closeCoroutine = StartCoroutine(CloseCoroutine());
+        _closeCoroutine = StartCoroutine(CloseCoroutine());
     }
 
     public void Lock()
@@ -92,13 +91,13 @@ public class Door : MonoBehaviour {
 
         while (opening)
         {
-            if (Vector3.Distance(transform.position, openPos) > MathHelper.FloatEpsilon)
+            if (Vector3.Distance(transform.position, _openPos) > MathHelper.FloatEpsilon)
             {
-                transform.position = Vector3.MoveTowards(transform.position, openPos, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, _openPos, speed * Time.deltaTime);
             }
             else
             {
-                transform.position = openPos;
+                transform.position = _openPos;
                 opening = false;
                 isOpen = true;
             }
@@ -116,14 +115,14 @@ public class Door : MonoBehaviour {
 
         while (closing)
         {
-            if (Vector3.Distance(transform.position, closePos) > MathHelper.FloatEpsilon)
+            if (Vector3.Distance(transform.position, _closePos) > MathHelper.FloatEpsilon)
             {
-                transform.position = Vector3.MoveTowards(transform.position, closePos, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, _closePos, speed * Time.deltaTime);
                 AutomaticOpen();
             }
             else
             {
-                transform.position = closePos;
+                transform.position = _closePos;
                 closing = false;
                 isOpen = false;
             } 
@@ -138,7 +137,7 @@ public class Door : MonoBehaviour {
     {
         if (Physics.Raycast(transform.position, reverseDirection ? -transform.forward : transform.forward, doorLength, automaticOpenLayers))
         {
-            StopCoroutine(closeCoroutine);
+            StopCoroutine(_closeCoroutine);
             Open();
         }
     }
