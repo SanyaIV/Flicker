@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyMove : MonoBehaviour
 {
 
-    [SerializeField]
+   /* [SerializeField]
     Transform _destination;
 
     NavMeshAgent _navMeshAgent;
@@ -32,6 +32,6 @@ public class EnemyMove : MonoBehaviour
             Vector3 _targetVector = _destination.transform.position;
             _navMeshAgent.SetDestination(_targetVector);
         }
-    }
+    }*/
 
 }

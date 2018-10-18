@@ -73,6 +73,7 @@ public class EnemyController : EnemyStateController
         if (!visible)
         {
             TransitionTo<Hunt>();
+            Debug.Log("Transitioning to hunt");
         }
     }
 
@@ -80,6 +81,7 @@ public class EnemyController : EnemyStateController
     {
         if (rend.isVisible)
         {
+            Debug.Log("Can see me!");
             TransitionTo<Idle>();
 
             Debug.Log(Vector3.Distance(cam.transform.position, transform.position) / 10 + " : " + Vector3.Dot((cam.transform.position - transform.position).normalized, cam.transform.forward));

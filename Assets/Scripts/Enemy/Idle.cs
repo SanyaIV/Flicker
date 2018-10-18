@@ -22,12 +22,12 @@ public class Idle : EnemyState
     public override void Initialize(EnemyStateController owner)
     {
         _controller = (EnemyController)owner;
+        _controller.velocity = new Vector3(0, 0);
     }
 
     public override void Update()
     {
         Debug.Log("is idle");
-        /*if (Input.GetKeyDown(KeyCode.Space))
-            _controller.TransitionTo<Hunt>();*/
+        
     }
 }
