@@ -24,7 +24,7 @@ public class WeepingAngel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (CheckIfVisible())
+        if (!CheckIfVisible())
         {
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         }
