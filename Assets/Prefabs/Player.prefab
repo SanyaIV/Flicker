@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 20596474397944452}
   - component: {fileID: 81947935024797904}
   - component: {fileID: 114297875559449558}
+  - component: {fileID: 114767569909278046}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -361,6 +362,18 @@ MonoBehaviour:
   yClamp: 1
   speed: {x: 100, y: 100}
   requiredInputMagnitude: 0.5
+--- !u!114 &114767569909278046
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1996124958704090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 513b9a8c1cc4f1f44bec50fcf037ed8a, type: 2}
 --- !u!136 &136733374157536690
 CapsuleCollider:
   m_ObjectHideFlags: 1
