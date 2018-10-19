@@ -52,7 +52,6 @@ public class Hunt : EnemyState
 
     public override void Update()
     {
-        Debug.Log("is hunting");
         if (Input.GetKeyDown(KeyCode.Space))
             _controller.TransitionTo<Idle>();
     }

@@ -6,10 +6,10 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class EnemyController : EnemyStateController
 {
-    private Plane[] planes;
+    public Plane[] planes;
     public Camera cam;
     private Renderer rend;
-    private Vector3[] points = new Vector3[9];
+    public Vector3[] points = new Vector3[9];
     private float maxDistance = 30f;
 
     //private List<RaycastHit> hits;
@@ -19,6 +19,7 @@ public class EnemyController : EnemyStateController
     public bool visible = false;
     public Transform player;
     public float speed;
+    public float detectDistance = 20f;
 
     private Vector3 _startPos;
     private Quaternion _startRot;
@@ -70,11 +71,7 @@ public class EnemyController : EnemyStateController
 
         visible = CheckIfVisible();
 
-        if (!visible)
-        {
-            TransitionTo<Hunt>();
-            Debug.Log("Transitioning to hunt");
-        }
+        detectPlayer();
     }
 
     private bool CheckIfVisible()
@@ -83,34 +80,13 @@ public class EnemyController : EnemyStateController
         {
             Debug.Log("Can see me!");
             TransitionTo<Idle>();
-
-            Debug.Log(Vector3.Distance(cam.transform.position, transform.position) / 10 + " : " + Vector3.Dot((cam.transform.position - transform.position).normalized, cam.transform.forward));
-            if (Vector3.Dot((cam.transform.position - transform.position).normalized, cam.transform.forward) > Mathf.Lerp(-0.6f, -0.25f, Vector3.Distance(cam.transform.position, transform.position) / 10))
-                return false;
-
-            planes = GeometryUtility.CalculateFrustumPlanes(cam);
-
-            foreach (BoxCollider coll in colls)
-            {
-                if (GeometryUtility.TestPlanesAABB(planes, coll.bounds))
-                {
-                    points[0] = transform.TransformPoint(coll.center);
-                    points[1] = transform.TransformPoint(coll.center + new Vector3(coll.size.x, -coll.size.y, coll.size.z) * 0.5f);
-                    points[2] = transform.TransformPoint(coll.center + new Vector3(coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
-                    points[3] = transform.TransformPoint(coll.center + new Vector3(-coll.size.x, -coll.size.y, coll.size.z) * 0.5f);
-                    points[4] = transform.TransformPoint(coll.center + new Vector3(-coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
-                    points[5] = transform.TransformPoint(coll.center + new Vector3(coll.size.x, coll.size.y, coll.size.z) * 0.5f);
-                    points[6] = transform.TransformPoint(coll.center + new Vector3(coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
-                    points[7] = transform.TransformPoint(coll.center + new Vector3(-coll.size.x, coll.size.y, coll.size.z) * 0.5f);
-                    points[8] = transform.TransformPoint(coll.center + new Vector3(-coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
-
-                    foreach (Vector3 point in points)
-                        if (!Physics.Linecast(point, cam.transform.position, ignoreLayers))
-                            return true;
-                }
-            }
+            Debug.Log("Transitioning to idle");
         }
-
+        else
+        {
+            TransitionTo<Hunt>();
+            Debug.Log("Transitioning to hunt");
+        }
         return false;
     }
 
@@ -154,6 +130,14 @@ public class EnemyController : EnemyStateController
     {
         transform.position = _startPos;
         transform.rotation = _startRot;
+    }
+
+    public void detectPlayer()
+    {
+        if(player.transform.position.magnitude - transform.position.magnitude < detectDistance)
+        {
+            Debug.Log("player detected");
+        }
     }
 
 }
