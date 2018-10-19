@@ -57,6 +57,14 @@ public class ControlRoomLights : Interactable {
         }
     }
 
+    public void FadeOff()
+    {
+        foreach (LightController light in _lightControllers)
+        {
+            light.FadeOff();
+        }
+    }
+
     public void ToggleMinMax()
     {
         foreach (LightController light in _lightControllers)
@@ -70,6 +78,22 @@ public class ControlRoomLights : Interactable {
         foreach (LightController light in _lightControllers)
         {
             light.ToggleOnOff();
+        }
+    }
+
+    public void ToggleMinMaxFade()
+    {
+        foreach (LightController light in _lightControllers)
+        {
+            light.ToggleMinMaxFade();
+        }
+    }
+
+    public void ToggleOnOffFade()
+    {
+        foreach (LightController light in _lightControllers)
+        {
+            light.ToggleOnOffFade();
         }
     }
 
@@ -89,19 +113,35 @@ public class ControlRoomLights : Interactable {
         }
     }
 
-    public void StartFlickerForSeconds(float timeInSeconds, bool leaveOn = false)
+    public void StartFlickerForSecondsLeaveOn(float timeInSeconds)
     {
         foreach (LightController light in _lightControllers)
         {
-            light.StartFlickerForSeconds(timeInSeconds, leaveOn);
+            light.StartFlickerForSecondsLeaveOn(timeInSeconds);
         }
     }
 
-    public void StartFlickerMinMaxForSeconds(float timeInSeconds, bool leaveOn = false)
+    public void StartFlickerForSecondsLeaveOff(float timeInSeconds)
     {
         foreach (LightController light in _lightControllers)
         {
-            light.StartFlickerMinMaxForSeconds(timeInSeconds, leaveOn);
+            light.StartFlickerForSecondsLeaveOff(timeInSeconds);
+        }
+    }
+
+    public void StartFlickerMinMaxForSecondsLeaveMax(float timeInSeconds)
+    {
+        foreach (LightController light in _lightControllers)
+        {
+            light.StartFlickerMinMaxForSecondsLeaveMax(timeInSeconds);
+        }
+    }
+
+    public void StartFlickerMinMaxForSecondsLeaveMin(float timeInSeconds)
+    {
+        foreach (LightController light in _lightControllers)
+        {
+            light.StartFlickerMinMaxForSecondsLeaveMin(timeInSeconds);
         }
     }
 

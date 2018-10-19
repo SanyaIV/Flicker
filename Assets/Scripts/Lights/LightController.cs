@@ -17,9 +17,7 @@ public class LightController : MonoBehaviour {
 
     [Header("Fade In/Out")]
     [SerializeField] private float _fadeInTime;
-    private bool _isFadingIn = false;
     [SerializeField] private float _fadeOutTime;
-    private bool _isFadingOut = false;
 
     [Header("Flicker")]
     [SerializeField] private MinMaxFloat _flickerFadeSpeed;
@@ -28,7 +26,6 @@ public class LightController : MonoBehaviour {
     [Tooltip("Used to wait while the light is on and going to be turned off")]
     [SerializeField] private MinMaxFloat _flickerOffWait;
     private Coroutine _flickerCoroutine;
-    private bool _flickering;
 
     void Start () {
         _light = GetComponent<Light>();
@@ -77,6 +74,11 @@ public class LightController : MonoBehaviour {
         StartCoroutine(FadeMin(_fadeOutTime));
     }
 
+    public void FadeOff()
+    {
+        StartCoroutine(FadeOff(_fadeOutTime));
+    }
+
     public void ToggleMinMax()
     {
         if (_intensity.Max - _light.intensity <= (_intensity.Max - _intensity.Min) / 2)
@@ -97,34 +99,66 @@ public class LightController : MonoBehaviour {
         SetLampEmission();
     }
 
+    public void ToggleMinMaxFade()
+    {
+        StopAllCoroutines();
+
+        if (_intensity.Max - _light.intensity <= (_intensity.Max - _intensity.Min) / 2)
+            FadeMin();
+        else
+            FadeMax();
+    }
+
+    public void ToggleOnOffFade()
+    {
+        StopAllCoroutines();
+
+        if (_light.intensity > 0f)
+            FadeOff();
+        else
+            FadeMax();
+    }
+
     public void StartFlicker()
     {
+        StopAllCoroutines();
         _flickerCoroutine = StartCoroutine(Flicker());
-        _flickering = true;
     }
 
     public void StartFlickerMinMax()
     {
+        StopAllCoroutines();
         _flickerCoroutine = StartCoroutine(FlickerMinMax());
-        _flickering = true;
     }
 
-    public void StartFlickerForSeconds(float timeInSeconds, bool leaveOn = false)
+    public void StartFlickerForSecondsLeaveOn(float timeInSeconds)
     {
-        StartCoroutine(FlickerForSeconds(timeInSeconds, leaveOn));
+        StopAllCoroutines();
+        StartCoroutine(FlickerForSecondsLeaveOn(timeInSeconds));
     }
 
-    public void StartFlickerMinMaxForSeconds(float timeInSeconds, bool leaveOn = false)
+    public void StartFlickerMinMaxForSecondsLeaveMax(float timeInSeconds)
     {
-        StartCoroutine(FlickerMinMaxForSeconds(timeInSeconds, leaveOn));
+        StopAllCoroutines();
+        StartCoroutine(FlickerMinMaxForSecondsLeaveMax(timeInSeconds));
+    }
+
+    public void StartFlickerForSecondsLeaveOff(float timeInSeconds)
+    {
+        StopAllCoroutines();
+        StartCoroutine(FlickerForSecondsLeaveOff(timeInSeconds));
+    }
+
+    public void StartFlickerMinMaxForSecondsLeaveMin(float timeInSeconds)
+    {
+        StopAllCoroutines();
+        StartCoroutine(FlickerMinMaxForSecondsLeaveMin(timeInSeconds));
     }
 
     public void StopFlicker(bool leaveOn = false)
     {
         if(_flickerCoroutine != null)
             StopCoroutine(_flickerCoroutine);
-
-        _flickering = false;
     }
 
     private void SetLampEmission()
@@ -148,7 +182,7 @@ public class LightController : MonoBehaviour {
             else
             {
                 yield return new WaitForSeconds(Random.Range(_flickerOffWait.Min, _flickerOffWait.Max));
-                StartCoroutine(FadeOut(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
+                StartCoroutine(FadeOff(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
             }
             
             yield return null;
@@ -174,33 +208,44 @@ public class LightController : MonoBehaviour {
         }
     }
 
-    private IEnumerator FlickerForSeconds(float seconds, bool leaveOn)
+    private IEnumerator FlickerForSecondsLeaveOn(float seconds)
     {
         _flickerCoroutine = StartCoroutine(Flicker());
         yield return new WaitForSeconds(seconds);
         StopCoroutine(_flickerCoroutine);
-
-        if (leaveOn)
-            On();
-        else
-            Off();
+        _light.intensity = _intensity.Max;
+        SetLampEmission();
     }
 
-    private IEnumerator FlickerMinMaxForSeconds(float seconds, bool leaveOn)
+    private IEnumerator FlickerMinMaxForSecondsLeaveMax(float seconds)
     {
         _flickerCoroutine = StartCoroutine(FlickerMinMax());
         yield return new WaitForSeconds(seconds);
         StopCoroutine(_flickerCoroutine);
+        _light.intensity = _intensity.Max;
+        SetLampEmission();
+    }
 
-        if (leaveOn)
-            Max();
-        else
-            Min();
+    private IEnumerator FlickerForSecondsLeaveOff(float seconds)
+    {
+        _flickerCoroutine = StartCoroutine(Flicker());
+        yield return new WaitForSeconds(seconds);
+        StopCoroutine(_flickerCoroutine);
+        _light.intensity = 0f;
+        SetLampEmission();
+    }
+
+    private IEnumerator FlickerMinMaxForSecondsLeaveMin(float seconds)
+    {
+        _flickerCoroutine = StartCoroutine(FlickerMinMax());
+        yield return new WaitForSeconds(seconds);
+        StopCoroutine(_flickerCoroutine);
+        _light.intensity = _intensity.Min;
+        SetLampEmission();
     }
 
     private IEnumerator FadeMax(float speed)
     {
-        _isFadingIn = true;
         float start = _light.intensity;
         float time = 0f;
 
@@ -212,13 +257,12 @@ public class LightController : MonoBehaviour {
         }
 
         _light.intensity = _intensity.Max;
-        _isFadingIn = false;
+        SetLampEmission();
         yield break;
     }
 
     private IEnumerator FadeMin(float speed)
     {
-        _isFadingOut = true;
         float start = _light.intensity;
         float time = 0f;
 
@@ -230,13 +274,12 @@ public class LightController : MonoBehaviour {
         }
 
         _light.intensity = _intensity.Min;
-        _isFadingOut = false;
+        SetLampEmission();
         yield break;
     }
 
-    private IEnumerator FadeOut(float speed)
+    private IEnumerator FadeOff(float speed)
     {
-        _isFadingOut = true;
         float start = _light.intensity;
         float time = 0f;
 
@@ -248,7 +291,7 @@ public class LightController : MonoBehaviour {
         }
 
         _light.intensity = 0f;
-        _isFadingOut = false;
+        SetLampEmission();
         yield break;
     }
 
