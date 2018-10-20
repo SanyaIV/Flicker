@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Light))]
 public class LightController : MonoBehaviour {
 
+    [Header("Switch")]
+    [SerializeField] private bool _locked;
+
     [Header("Lamp")]
     [SerializeField] private GameObject _lampBulb;
     private Renderer _lampBulbRenderer;
@@ -40,124 +43,143 @@ public class LightController : MonoBehaviour {
         SetLampEmission();
 	}
 
+    public void Lock()
+    {
+        _locked = true;
+    }
+
+    public void Unlock()
+    {
+        _locked = false;
+    }
+
     public void On()
     {
+        if (_locked)
+            return;
+
+        StopAllCoroutines();
         _light.intensity = _intensity.Max;
         SetLampEmission();
     }
 
     public void Off()
     {
+        if (_locked)
+            return;
+
+        StopAllCoroutines();
         _light.intensity = 0f;
         SetLampEmission();
     }
 	
     public void Max()
     {
+        if (_locked)
+            return;
+
+        StopAllCoroutines();
         _light.intensity = _intensity.Max;
         SetLampEmission();
     }
 
     public void FadeMax()
     {
+        if (_locked)
+            return;
+
+        StopAllCoroutines();
         StartCoroutine(FadeMax(_fadeInTime));
     }
 
     public void Min()
     {
+        if (_locked)
+            return;
+
+        StopAllCoroutines();
         _light.intensity = _intensity.Min;
         SetLampEmission();
     }
 
     public void FadeMin()
     {
+        if (_locked)
+            return;
+
+        StopAllCoroutines();
         StartCoroutine(FadeMin(_fadeOutTime));
     }
 
     public void FadeOff()
     {
+        if (_locked)
+            return;
+
+        StopAllCoroutines();
         StartCoroutine(FadeOff(_fadeOutTime));
-    }
-
-    public void ToggleMinMax()
-    {
-        if (_intensity.Max - _light.intensity <= (_intensity.Max - _intensity.Min) / 2)
-            _light.intensity = _intensity.Min;
-        else
-            _light.intensity = _intensity.Max;
-
-        SetLampEmission();
-    }
-
-    public void ToggleOnOff()
-    {
-        if (_light.intensity > 0f)
-            _light.intensity = _intensity.Min;
-        else
-            _light.intensity = _intensity.Max;
-
-        SetLampEmission();
-    }
-
-    public void ToggleMinMaxFade()
-    {
-        StopAllCoroutines();
-
-        if (_intensity.Max - _light.intensity <= (_intensity.Max - _intensity.Min) / 2)
-            FadeMin();
-        else
-            FadeMax();
-    }
-
-    public void ToggleOnOffFade()
-    {
-        StopAllCoroutines();
-
-        if (_light.intensity > 0f)
-            FadeOff();
-        else
-            FadeMax();
     }
 
     public void StartFlicker()
     {
+        if (_locked)
+            return;
+
         StopAllCoroutines();
         _flickerCoroutine = StartCoroutine(Flicker());
     }
 
     public void StartFlickerMinMax()
     {
+        if (_locked)
+            return;
+
         StopAllCoroutines();
         _flickerCoroutine = StartCoroutine(FlickerMinMax());
     }
 
     public void StartFlickerForSecondsLeaveOn(float timeInSeconds)
     {
+        if (_locked)
+            return;
+
         StopAllCoroutines();
         StartCoroutine(FlickerForSecondsLeaveOn(timeInSeconds));
     }
 
     public void StartFlickerMinMaxForSecondsLeaveMax(float timeInSeconds)
     {
+        if (_locked)
+            return;
+
         StopAllCoroutines();
         StartCoroutine(FlickerMinMaxForSecondsLeaveMax(timeInSeconds));
     }
 
     public void StartFlickerForSecondsLeaveOff(float timeInSeconds)
     {
+        if (_locked)
+            return;
+
         StopAllCoroutines();
         StartCoroutine(FlickerForSecondsLeaveOff(timeInSeconds));
     }
 
     public void StartFlickerMinMaxForSecondsLeaveMin(float timeInSeconds)
     {
+        if (_locked)
+            return;
+
         StopAllCoroutines();
         StartCoroutine(FlickerMinMaxForSecondsLeaveMin(timeInSeconds));
     }
 
     public void StopFlicker(bool leaveOn = false)
     {
-        if(_flickerCoroutine != null)
+        if (_locked)
+            return;
+
+        if (_flickerCoroutine != null)
             StopCoroutine(_flickerCoroutine);
     }
 

@@ -407,6 +407,48 @@ Transform:
   m_Father: {fileID: 883343475}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &126478805
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400006, guid: de38eb5d7eb15124286ebc619ba0c8ca, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.768473
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: de38eb5d7eb15124286ebc619ba0c8ca, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -9.428318
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: de38eb5d7eb15124286ebc619ba0c8ca, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 13.816843
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: de38eb5d7eb15124286ebc619ba0c8ca, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: de38eb5d7eb15124286ebc619ba0c8ca, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: de38eb5d7eb15124286ebc619ba0c8ca, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: de38eb5d7eb15124286ebc619ba0c8ca, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: de38eb5d7eb15124286ebc619ba0c8ca, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: de38eb5d7eb15124286ebc619ba0c8ca, type: 3}
+  m_IsPrefabAsset: 0
 --- !u!1 &131258536
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,7 +713,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &172324204
 GameObject:
@@ -787,7 +829,7 @@ Transform:
   - {fileID: 1600255510}
   - {fileID: 1581760516}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &273309024
 GameObject:
@@ -988,7 +1030,7 @@ Transform:
   m_Children:
   - {fileID: 569935776}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &284434353
 BoxCollider:
@@ -1282,7 +1324,7 @@ Transform:
   m_Children:
   - {fileID: 2007975121}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &366662203
 GameObject:
@@ -1344,7 +1386,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &383153787
 GameObject:
@@ -1434,7 +1476,7 @@ RectTransform:
   - {fileID: 65298010}
   - {fileID: 678030808}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1681,6 +1723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c320c2fa81ddc4f863c2b1be806b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _locked: 0
   _lampBulb: {fileID: 1630706585}
   _light: {fileID: 602230310}
   _intensity:
@@ -1843,7 +1886,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d4c45deded121494f830f7ccb3add0e2, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d4c45deded121494f830f7ccb3add0e2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -2395,7 +2438,7 @@ Transform:
   - {fileID: 1847044857}
   - {fileID: 81967182}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &925379796
 GameObject:
@@ -2691,6 +2734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c320c2fa81ddc4f863c2b1be806b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _locked: 0
   _lampBulb: {fileID: 444953519}
   _light: {fileID: 1185228286}
   _intensity:
@@ -2918,6 +2962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c320c2fa81ddc4f863c2b1be806b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _locked: 0
   _lampBulb: {fileID: 1456528369}
   _light: {fileID: 1278466345}
   _intensity:
@@ -3454,7 +3499,7 @@ Transform:
   - {fileID: 733163895}
   - {fileID: 68524369}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1456528369
 GameObject:
@@ -3727,6 +3772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c320c2fa81ddc4f863c2b1be806b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _locked: 0
   _lampBulb: {fileID: 1345696627}
   _light: {fileID: 1495820838}
   _intensity:
@@ -3858,7 +3904,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4876419766583074, guid: 3e629057dfc127440b10d68fab464f69, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 20596474397944452, guid: 3e629057dfc127440b10d68fab464f69,
         type: 2}
@@ -4945,17 +4991,138 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47c304029147a474483d4a1a68de79e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lightControllers:
-  - {fileID: 1185228288}
-  - {fileID: 2120070722}
-  - {fileID: 1278466344}
-  - {fileID: 1495820837}
-  - {fileID: 602230309}
-  method:
+  _enabled: 1
+  _methodGroup1:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1185228288}
+        m_MethodName: FadeOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2120070722}
+        m_MethodName: FadeOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1278466344}
+        m_MethodName: FadeOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1495820837}
+        m_MethodName: FadeOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 602230309}
+        m_MethodName: FadeOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1954250548}
-        m_MethodName: StartFlicker
+        m_MethodName: SwitchMethodGroup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  _methodGroup2:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1185228288}
+        m_MethodName: FadeMax
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2120070722}
+        m_MethodName: FadeMax
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1278466344}
+        m_MethodName: FadeOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1495820837}
+        m_MethodName: FadeMax
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 602230309}
+        m_MethodName: FadeMax
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1954250548}
+        m_MethodName: SwitchMethodGroup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5392,6 +5559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c320c2fa81ddc4f863c2b1be806b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _locked: 0
   _lampBulb: {fileID: 745912900}
   _light: {fileID: 2120070723}
   _intensity:

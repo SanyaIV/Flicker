@@ -5,157 +5,41 @@ using UnityEngine;
 
 public class ControlRoomLights : Interactable {
 
-    [Header("Lights")]
-    [SerializeField] private LightController[] _lightControllers;
-    [SerializeField] private UnityEvent method;
+    [Header("Switch")]
+    [SerializeField] private bool _enabled = true;
 
-    public void On()
+    [Header("Method Group 1")]
+    [SerializeField] private UnityEvent _methodGroup1;
+
+    [Header("Method Group 2")]
+    [SerializeField] private UnityEvent _methodGroup2;
+
+    private bool _switchMethodGroup;
+
+    public void SwitchMethodGroup()
     {
-        foreach (LightController light in _lightControllers)
-        {
-            light.On();
-        }
+        _switchMethodGroup = !_switchMethodGroup;
     }
 
-    public void Off()
+    public void DisableSwitch()
     {
-        foreach (LightController light in _lightControllers)
-        {
-            light.Off();
-        }
+        _enabled = false;
     }
 
-    public void Max()
+    public void EnableSwitch()
     {
-        foreach (LightController light in _lightControllers)
-        {
-            light.Max();
-        }
-    }
-
-    public void FadeMax()
-    {
-        foreach (LightController light in _lightControllers)
-        {
-            light.FadeMax();
-        }
-    }
-
-    public void Min()
-    {
-        foreach (LightController light in _lightControllers)
-        {
-            light.Min();
-        }
-    }
-
-    public void FadeMin()
-    {
-        foreach (LightController light in _lightControllers)
-        {
-            light.FadeMin();
-        }
-    }
-
-    public void FadeOff()
-    {
-        foreach (LightController light in _lightControllers)
-        {
-            light.FadeOff();
-        }
-    }
-
-    public void ToggleMinMax()
-    {
-        foreach (LightController light in _lightControllers)
-        {
-            light.ToggleMinMax();
-        }
-    }
-
-    public void ToggleOnOff()
-    {
-        foreach (LightController light in _lightControllers)
-        {
-            light.ToggleOnOff();
-        }
-    }
-
-    public void ToggleMinMaxFade()
-    {
-        foreach (LightController light in _lightControllers)
-        {
-            light.ToggleMinMaxFade();
-        }
-    }
-
-    public void ToggleOnOffFade()
-    {
-        foreach (LightController light in _lightControllers)
-        {
-            light.ToggleOnOffFade();
-        }
-    }
-
-    public void StartFlicker()
-    {
-        foreach (LightController light in _lightControllers)
-        {
-            light.StartFlicker();
-        }
-    }
-
-    public void StartFlickerMinMax()
-    {
-        foreach (LightController light in _lightControllers)
-        {
-            light.StartFlickerMinMax();
-        }
-    }
-
-    public void StartFlickerForSecondsLeaveOn(float timeInSeconds)
-    {
-        foreach (LightController light in _lightControllers)
-        {
-            light.StartFlickerForSecondsLeaveOn(timeInSeconds);
-        }
-    }
-
-    public void StartFlickerForSecondsLeaveOff(float timeInSeconds)
-    {
-        foreach (LightController light in _lightControllers)
-        {
-            light.StartFlickerForSecondsLeaveOff(timeInSeconds);
-        }
-    }
-
-    public void StartFlickerMinMaxForSecondsLeaveMax(float timeInSeconds)
-    {
-        foreach (LightController light in _lightControllers)
-        {
-            light.StartFlickerMinMaxForSecondsLeaveMax(timeInSeconds);
-        }
-    }
-
-    public void StartFlickerMinMaxForSecondsLeaveMin(float timeInSeconds)
-    {
-        foreach (LightController light in _lightControllers)
-        {
-            light.StartFlickerMinMaxForSecondsLeaveMin(timeInSeconds);
-        }
-    }
-
-    public void StopFlicker(bool leaveOn = false)
-    {
-        foreach (LightController light in _lightControllers)
-        {
-            light.StopFlicker(leaveOn);
-        }
+        _enabled = true;
     }
 
     public override void Interact()
     {
-        method.Invoke();
+        if (_enabled)
+        {
+            if (!_switchMethodGroup)
+                _methodGroup1.Invoke();
+            else if (_switchMethodGroup)
+                _methodGroup2.Invoke();
+        }
     }
 
     public override string ActionType()
