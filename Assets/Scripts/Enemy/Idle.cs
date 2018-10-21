@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [CreateAssetMenu(menuName = "EnemyStates/Idle")]
 public class Idle : EnemyState
@@ -10,6 +11,7 @@ public class Idle : EnemyState
     private bool inLineOfSight = true;
     public Transform target;
     private float minHuntDistance = 1f;
+    NavMeshAgent _navMeshAgent;
 
 
     private Transform transform { get { return _controller.transform; } }
@@ -24,6 +26,17 @@ public class Idle : EnemyState
         _controller = (EnemyController)owner;
         _controller.velocity = new Vector3(0, 0);
         Debug.Log("Entering idle");
+
+    }
+
+    public override void Enter()
+    {
+        _navMeshAgent = _controller.GetComponent<NavMeshAgent>();
+        if (_navMeshAgent == null)
+        {
+            Debug.LogError("The NavMeshAgent is not attached to " + _controller.name);
+        }
+        _navMeshAgent.isStopped = true;
     }
 
     public override void Update()

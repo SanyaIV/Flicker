@@ -35,10 +35,6 @@ public class Hunt : EnemyState
         {
             Debug.LogError("The NavMeshAgent is not attached to " + _controller.name);
         }
-        else
-        {
-            SetDestination();
-        }
     }
 
     private void SetDestination()
@@ -54,6 +50,7 @@ public class Hunt : EnemyState
     {
         if (Input.GetKeyDown(KeyCode.Space))
             _controller.TransitionTo<Idle>();
+        SetDestination();
     }
 }
 
