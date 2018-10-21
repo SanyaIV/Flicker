@@ -8,7 +8,7 @@ public class EnemyController : EnemyStateController
 {
     public Plane[] planes;
     public Camera cam;
-    private Renderer rend;
+    public Renderer rend;
     public Vector3[] points = new Vector3[9];
     private float maxDistance = 30f;
 

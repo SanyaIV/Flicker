@@ -48,8 +48,6 @@ public class Hunt : EnemyState
 
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            _controller.TransitionTo<Idle>();
         SetDestination();
     }
 }
