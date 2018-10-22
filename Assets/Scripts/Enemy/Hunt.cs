@@ -35,6 +35,8 @@ public class Hunt : EnemyState
         {
             Debug.LogError("The NavMeshAgent is not attached to " + _controller.name);
         }
+
+        _navMeshAgent.isStopped = false;
     }
 
     private void SetDestination()

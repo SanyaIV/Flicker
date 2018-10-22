@@ -26,4 +26,9 @@ public class Spawner : MonoBehaviour
                 _controller.transform.position = spawnPoints[i + 1].transform.position;
         }
     }
+
+    private void spawnRandom()
+    {
+        
+    }
 }
