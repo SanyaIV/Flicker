@@ -255,6 +255,7 @@ public class GroundState : PlayerState {
 
         if(_interactableText)
             _interactableText.text = "";
+
         return false;
     }
 
