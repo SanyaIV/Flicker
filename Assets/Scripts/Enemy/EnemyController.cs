@@ -12,7 +12,7 @@ public class EnemyController : EnemyStateController
     public Renderer rend;
     public Vector3[] points = new Vector3[9];
     private float maxDistance = 30f;
-    NavMeshAgent _navMeshAgent;
+    public NavMeshAgent _navMeshAgent;
 
     //private List<RaycastHit> hits;
     public BoxCollider[] colls;
@@ -39,13 +39,6 @@ public class EnemyController : EnemyStateController
     public float GroundCheckDistance = 0.15f;
     [HideInInspector] public CharacterController _charCtrl;
     [HideInInspector] public CollisionFlags _collision;
-
-    //COLLISION
-    public float rayRadius;
-    [Range(0, 360)]
-    public float rayAngle;
-    public float numOfRays;
-    public LayerMask obstacleMask;
 
     public override void Awake()
     {
@@ -120,20 +113,6 @@ public class EnemyController : EnemyStateController
         }
 
         return visible = false; //Set visible to false and return it
-    }
-
-    public void UpdateCollisions()
-    {
-        if (Physics.BoxCast(colls[0].center, colls[0].size / 2, velocity, Quaternion.identity, maxDistance))
-        {
-
-        }
-
-    }
-
-    public void getNormalForce()
-    {
-
     }
 
     public bool IsGrounded()
