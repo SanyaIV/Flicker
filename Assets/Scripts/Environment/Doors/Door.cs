@@ -42,17 +42,6 @@ public class Door : MonoBehaviour {
         }
 	}
 
-    private void OnDrawGizmosSelected()
-    {
-        BoxCollider box = GetComponent<BoxCollider>();
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(transform.TransformPoint(box.center + new Vector3(box.size.x, -box.size.y, box.size.z) * 0.5f), 0.05f);
-        Gizmos.DrawSphere(transform.TransformPoint(box.center + new Vector3(-box.size.x, -box.size.y, box.size.z) * 0.5f), 0.05f);
-        Gizmos.DrawSphere(transform.TransformPoint(box.center + new Vector3(-box.size.x, -box.size.y, -box.size.z) * 0.5f), 0.05f);
-        Gizmos.DrawSphere(transform.TransformPoint(box.center + new Vector3(box.size.x, -box.size.y, -box.size.z) * 0.5f), 0.05f);
-    }
-
     void Update()
     {
         //For debugging

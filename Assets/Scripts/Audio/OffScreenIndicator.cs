@@ -12,7 +12,7 @@ public class OffScreenIndicator : MonoBehaviour {
     private Vector3 _cameraOffsetForward;
 
     [Header("Canvas")]
-    private Canvas _canvas;
+    private GameObject _canvas;
 
     [Header("Icon")]
     private Transform _icon;
@@ -31,7 +31,7 @@ public class OffScreenIndicator : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         _cam = Camera.main;
-        _canvas = FindObjectOfType<Canvas>();
+        _canvas = GameObject.FindGameObjectWithTag("HUD");
 
         InstantiateIcon();
 	}
@@ -74,9 +74,13 @@ public class OffScreenIndicator : MonoBehaviour {
         if (screenPos.z > 0 && screenPos.x > 0 && screenPos.x < Screen.width && screenPos.y > 0 && screenPos.y < Screen.height)
         {
             _icon.transform.position = screenPos;
+            _iconImage.sprite = iconOnScreen;
+            _icon.transform.rotation = Quaternion.identity;
         }
         else
         {
+            _iconImage.sprite = iconOffScreen;
+
             if (screenPos.z < 0)
                 screenPos *= -1;
 
