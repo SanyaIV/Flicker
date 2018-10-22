@@ -31,10 +31,15 @@ public class PlayerController : Controller {
     [Header("Audio")]
     [HideInInspector] public AudioSource audioSource;
 
+    [Header("Inventory")]
+    [SerializeField] private List<string> _passcards;
+    [SerializeField] private List<string> _escapePodParts;
+
     public override void Awake()
     {
         base.Awake();
 
+        _passcards = new List<string>();
         audioSource = GetComponent<AudioSource>();
         sanity = GetComponent<Sanity>();
     }
@@ -96,5 +101,27 @@ public class PlayerController : Controller {
     {
         transform.position = _startPos;
         transform.rotation = _startRot;
+    }
+
+    public void AddPasscard(string passcard)
+    {
+        if(!_passcards.Contains(passcard))
+            _passcards.Add(passcard);
+    }
+
+    public bool HasPasscard(string passcard)
+    {
+        return _passcards.Contains(passcard);
+    }
+
+    public void AddEscapePodPart(string escapePodPart)
+    {
+        if (!_passcards.Contains(escapePodPart))
+            _passcards.Add(escapePodPart);
+    }
+
+    public bool HasEscapePodPart(string escapePodPart)
+    {
+        return _passcards.Contains(escapePodPart);
     }
 }

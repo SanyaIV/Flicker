@@ -7,8 +7,15 @@ public class DoorButton : Interactable {
     [Header("Doors")]
     [SerializeField] private Door[] doors;
 
-    public override void Interact()
+    [Header("Passcard")]
+    [SerializeField] private string _passcard;
+
+    public override void Interact(PlayerController player)
     {
+        if (_passcard.Length > 0)
+            if (!player.HasPasscard(_passcard))
+                return;
+
         foreach (Door door in doors)
         {
             if (door.opening)

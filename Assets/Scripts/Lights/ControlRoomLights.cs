@@ -31,7 +31,7 @@ public class ControlRoomLights : Interactable {
         _enabled = true;
     }
 
-    public override void Interact()
+    public override void Interact(PlayerController player)
     {
         if (_enabled)
         {

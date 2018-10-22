@@ -62,9 +62,9 @@ public class GroundState : PlayerState {
     {
         base.Initialize(owner);
 
-        GameObject interctText = GameObject.Find("InteractText");
-        if(interctText)
-            _interactableText = interctText.GetComponent<Text>();
+        GameObject interactText = GameObject.Find("InteractText");
+        if(interactText)
+            _interactableText = interactText.GetComponent<Text>();
 
         controller.gravity = (2 * jumpHeight.Max) / Mathf.Pow(timeToJumpApex, 2);
         jumpVelocity.Max = controller.gravity * timeToJumpApex;
@@ -118,7 +118,7 @@ public class GroundState : PlayerState {
             
 
         controller.collision = charCtrl.Move(moveDir * Time.deltaTime);
-        CheckIfInteractible();
+        GetInteractible();
     }
 
     public override void FixedUpdate()
@@ -240,33 +240,33 @@ public class GroundState : PlayerState {
         controller.cam.transform.localPosition = newCameraPosition;
     }
 
-    private bool CheckIfInteractible()
+    private Interactable GetInteractible()
     {
         RaycastHit hit;
         if (Physics.Raycast(controller.cam.transform.position, controller.cam.transform.forward, out hit, _range, _interactableLayerMask))
             if(hit.transform.gameObject.layer == LayerMask.NameToLayer("Interactable"))
             {
                 Interactable actable = hit.transform.GetComponent<Interactable>();
+
+                if (!actable)
+                    return null;
+
                 if(_interactableText)
                     _interactableText.text = actable.ActionType() + " " + actable.GetName();
 
-                return true;
+                return actable;
             }
 
         if(_interactableText)
             _interactableText.text = "";
 
-        return false;
+        return null;
     }
 
     private void Interact()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(controller.cam.transform.position, controller.cam.transform.forward, out hit, _range, _interactableLayerMask))
-        {
-            Interactable actable = hit.transform.GetComponent<Interactable>();
-            if (actable)
-                actable.Interact();
-        }
+        Interactable actable = GetInteractible();
+        if (actable)
+            actable.Interact(controller);
     }
 }
