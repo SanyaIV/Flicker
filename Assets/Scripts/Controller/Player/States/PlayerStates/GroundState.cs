@@ -62,7 +62,9 @@ public class GroundState : PlayerState {
     {
         base.Initialize(owner);
 
-        _interactableText = GameObject.Find("InteractText").GetComponent<Text>();
+        GameObject interctText = GameObject.Find("InteractText");
+        if(interctText)
+            _interactableText = interctText.GetComponent<Text>();
 
         controller.gravity = (2 * jumpHeight.Max) / Mathf.Pow(timeToJumpApex, 2);
         jumpVelocity.Max = controller.gravity * timeToJumpApex;
@@ -92,7 +94,8 @@ public class GroundState : PlayerState {
     public override void Exit()
     {
         transform.parent = null;
-        _interactableText.text = "";
+        if(_interactableText)
+            _interactableText.text = "";
     }
 
     public override void Update()
@@ -244,12 +247,14 @@ public class GroundState : PlayerState {
             if(hit.transform.gameObject.layer == LayerMask.NameToLayer("Interactable"))
             {
                 Interactable actable = hit.transform.GetComponent<Interactable>();
-                _interactableText.text = actable.ActionType() + " " + actable.GetName();
+                if(_interactableText)
+                    _interactableText.text = actable.ActionType() + " " + actable.GetName();
 
                 return true;
             }
 
-        _interactableText.text = "";
+        if(_interactableText)
+            _interactableText.text = "";
         return false;
     }
 
