@@ -27,7 +27,6 @@ public class Hunt : EnemyState
 
     public override void Enter()
     {
-        Debug.Log("Hunting");
         _navMeshAgent = _controller.GetComponent<NavMeshAgent>();
         _destination = _controller.player;
 

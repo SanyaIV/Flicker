@@ -22,10 +22,11 @@ public class Spawner : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKey(KeyCode.T))
         {
             calculateClosestSpawnPoint();
             justSpawned = true;
+            Debug.Log("Just spawned");
         }
     }
 

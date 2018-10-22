@@ -69,7 +69,6 @@ public class EnemyController : EnemyStateController
         {
             //transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
             TransitionTo<Hunt>();
-            Debug.Log("Not visible??");
         }
 
         detectPlayer();
@@ -80,7 +79,7 @@ public class EnemyController : EnemyStateController
         if (rend.isVisible) //Check if Unity thinks the renderer is visible (Not perfect but works as a quick and easy out in case it's not)
         {
             _navMeshAgent.isStopped = true;
-            Debug.Log("is stopped");
+           
             if (Vector3.Dot((cam.transform.position - transform.position).normalized, cam.transform.forward) > Mathf.Lerp(-0.6f, -0.25f, Vector3.Distance(cam.transform.position, transform.position) / 10)) //Bad attempt at checking if the player is looking towards the enemy through the dot products of directions
                 return visible = false; //Set visible to false and return visible (which is false)
 
