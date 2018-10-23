@@ -58,7 +58,6 @@ public class EnemyController : EnemyStateController
 
         _startPos = transform.position;
         _startRot = transform.rotation;
-
     }
 
     public override void Update()
@@ -70,7 +69,6 @@ public class EnemyController : EnemyStateController
             //transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
             TransitionTo<Hunt>();
         }
-
         detectPlayer();
     }
 
@@ -144,7 +142,6 @@ public class EnemyController : EnemyStateController
             Debug.Log("player detected");
         }
     }
-
 }
 
 
