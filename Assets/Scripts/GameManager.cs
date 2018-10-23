@@ -9,17 +9,17 @@ public class GameManager : MonoBehaviour {
 
     public void Start()
     {
-        _player = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        _player = GetComponent<Transform>();
+        Save();
     }
 
-    void respawn()
+    public void Respawn()
     {
         _player.position = _savedPlayerPos;
     }
 
-    void save()
+    public void Save()
     {
         _savedPlayerPos = _player.position;
-
     }
 }
