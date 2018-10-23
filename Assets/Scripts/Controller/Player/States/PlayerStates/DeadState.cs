@@ -20,7 +20,7 @@ public class DeadState : PlayerState {
         _canvas = GameObject.FindGameObjectWithTag("HUD").GetComponent<Canvas>();
         _deadScreenTransform = new GameObject().AddComponent<RectTransform>();
         _deadScreenTransform.transform.SetParent(_canvas.transform);
-        _deadScreenTransform.sizeDelta = new Vector2(1300, 800);
+        _deadScreenTransform.sizeDelta = new Vector2(10000, 10000);
         _deadScreenTransform.localPosition = Vector3.zero;
         _deadScreen = _deadScreenTransform.gameObject.AddComponent<Image>();
         _deadScreen.sprite = _image;
@@ -44,7 +44,6 @@ public class DeadState : PlayerState {
         while(_deadScreen.color.a < 1f)
         {
             _deadScreen.color = new Color(0f, 0f, 0f, _deadScreen.color.a + _fadeSpeed * Time.deltaTime);
-            Debug.Log(_deadScreen.color);
             yield return null;
         }
 

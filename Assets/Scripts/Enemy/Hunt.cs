@@ -6,7 +6,8 @@ using UnityEngine.AI;
 [CreateAssetMenu(menuName = "EnemyStates/Hunt")]
 public class Hunt : EnemyState
 {
-    [SerializeField]
+    [Header("Settings")]
+    [SerializeField] private float _distanceToDepleteSanity;
     Transform _destination;
     NavMeshAgent _navMeshAgent;
 
@@ -42,7 +43,8 @@ public class Hunt : EnemyState
     {
         if (_destination != null)
         {
-            Vector3 _targetVector = _destination.transform.position;
+            Vector3 direction = (_destination.position - transform.position).normalized;
+            Vector3 _targetVector = _destination.position - direction;
             _navMeshAgent.SetDestination(_targetVector);
         }
     }
@@ -50,6 +52,11 @@ public class Hunt : EnemyState
     public override void Update()
     {
         SetDestination();
+
+        if(Vector3.Distance(_controller.player.position, transform.position) < _distanceToDepleteSanity)
+        {
+            _controller.sanity.DepleteSanity(2f);
+        }
     }
 }
 

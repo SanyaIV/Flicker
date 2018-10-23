@@ -56,6 +56,10 @@ public class GroundState : PlayerState {
     [Header("Temporary Variables")]
     private RaycastHit _hit;
 
+    [Header("Goop")]
+    [SerializeField] private float _goopSpeedMultiplier;
+    [SerializeField] private float _goopSanityDrainMultiplier;
+
     private float friction { get { return acceleration / controller.maxSpeed; } }
 
     public override void Initialize(Controller owner)
@@ -112,6 +116,12 @@ public class GroundState : PlayerState {
             controller.maxSpeed = joggSpeed;
 
         controller.maxSpeed *= Mathf.Clamp(controller.sanity.GetSanity(), CLAMP_SANITY_SPEED_MULTIPLIER.Min, CLAMP_SANITY_SPEED_MULTIPLIER.Max);
+
+        if (controller.GoopCheck())
+        {
+            controller.sanity.DepleteSanity(_goopSanityDrainMultiplier);
+            controller.maxSpeed *= _goopSpeedMultiplier;
+        }
 
         if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Fire1"))
             Interact();

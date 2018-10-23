@@ -58,6 +58,7 @@ public class EnemyController : EnemyStateController
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         sanity = GameObject.FindGameObjectWithTag("Player").GetComponent<Sanity>();
 
         _startPos = transform.position;
@@ -148,7 +149,7 @@ public class EnemyController : EnemyStateController
     {
         if(player.transform.position.magnitude - transform.position.magnitude < detectDistance)
         {
-            Debug.Log("player detected");
+            //Debug.Log("player detected");
         }
     }
 }
