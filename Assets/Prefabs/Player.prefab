@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 54113132230713032}
   - component: {fileID: 136733374157536690}
   - component: {fileID: 82011449189400430}
+  - component: {fileID: 114102055647390012}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -147,7 +148,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1814803979000564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.09, y: -7.86, z: -3.41}
+  m_LocalPosition: {x: -1.09, y: 9.73, z: -6.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4943720771861456}
@@ -354,6 +355,7 @@ MonoBehaviour:
   _states:
   - {fileID: 11400000, guid: 19f0b2aa2d03a7144845cd26af70c9ea, type: 2}
   - {fileID: 11400000, guid: 35594e00ffe5ab043861801d05fabb1a, type: 2}
+  - {fileID: 11400000, guid: 57b81a3d151e9314eb06b964ccf0869f, type: 2}
   currentState: {fileID: 0}
   previousState: {fileID: 0}
   sanity: {fileID: 0}
@@ -364,12 +366,28 @@ MonoBehaviour:
   collisionLayers:
     serializedVersion: 2
     m_Bits: 512
+  goopLayers:
+    serializedVersion: 2
+    m_Bits: 8192
   groundCheckDistance: 0.6
   charCtrl: {fileID: 0}
   collision: 0
   firstPersonCamera: {fileID: 4943720771861456}
   cam: {fileID: 20596474397944452}
   audioSource: {fileID: 0}
+  _passcards: []
+  _escapePodParts: []
+--- !u!114 &114102055647390012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1814803979000564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8764472c196dbf44a8ed9c9b061d7e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114230640202846062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -439,6 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ca8736c01a77142a0467e2bf012fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 0}
   _sanityRange:
     Min: 0
     Max: 1

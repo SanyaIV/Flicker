@@ -20,6 +20,7 @@ public class EnemyController : EnemyStateController
     public LayerMask ignoreLayers;
     public bool visible = false;
     public Transform player;
+    public Sanity sanity;
     public float speed;
     public float detectDistance = 20f;
 
@@ -52,13 +53,16 @@ public class EnemyController : EnemyStateController
         rend = GetComponent<Renderer>();
         cam = Camera.main;
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _navMeshAgent.acceleration = 60f;
         _charCtrl = GetComponent<CharacterController>();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        sanity = GameObject.FindGameObjectWithTag("Player").GetComponent<Sanity>();
+
         _startPos = transform.position;
         _startRot = transform.rotation;
-
     }
 
     public override void Update()
@@ -68,9 +72,15 @@ public class EnemyController : EnemyStateController
         if (!CheckIfVisible())
         {
             //transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+           
+            _navMeshAgent.isStopped = false;
             TransitionTo<Hunt>();
         }
-
+        else
+        {
+            _navMeshAgent.isStopped = true;
+            sanity.DepleteSanity();
+        }
         detectPlayer();
     }
 
@@ -78,8 +88,6 @@ public class EnemyController : EnemyStateController
     {
         if (rend.isVisible) //Check if Unity thinks the renderer is visible (Not perfect but works as a quick and easy out in case it's not)
         {
-            _navMeshAgent.isStopped = true;
-           
             if (Vector3.Dot((cam.transform.position - transform.position).normalized, cam.transform.forward) > Mathf.Lerp(-0.6f, -0.25f, Vector3.Distance(cam.transform.position, transform.position) / 10)) //Bad attempt at checking if the player is looking towards the enemy through the dot products of directions
                 return visible = false; //Set visible to false and return visible (which is false)
 
@@ -141,10 +149,9 @@ public class EnemyController : EnemyStateController
     {
         if(player.transform.position.magnitude - transform.position.magnitude < detectDistance)
         {
-            Debug.Log("player detected");
+            //Debug.Log("player detected");
         }
     }
-
 }
 
 

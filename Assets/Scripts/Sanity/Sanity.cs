@@ -5,6 +5,9 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class Sanity : MonoBehaviour {
 
+    [Header("Player")]
+    [SerializeField] private PlayerController _player;
+
     [Header("Sanity")]
     [SerializeField] private MinMaxFloat _sanityRange;
     [SerializeField] private float _depletionRate = 0.01f;
@@ -17,6 +20,7 @@ public class Sanity : MonoBehaviour {
 
     public void Start()
     {
+        _player = GetComponent<PlayerController>();
         _sanity = _sanityRange.Max;
 
         _vignette = ScriptableObject.CreateInstance<Vignette>();
@@ -38,8 +42,9 @@ public class Sanity : MonoBehaviour {
             _sanity -= _depletionRate * multiplier * Time.deltaTime;
         if (_sanity < _sanityRange.Min)
             _sanity = _sanityRange.Min;
-        /*if (_sanity == _sanityRange.Min)
-            Death();*/
+        if (_sanity == _sanityRange.Min)
+            _player.TransitionTo<DeadState>();
+            
 
         UpdateVignette();
     }

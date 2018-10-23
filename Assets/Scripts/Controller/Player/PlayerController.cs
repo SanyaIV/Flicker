@@ -20,6 +20,7 @@ public class PlayerController : Controller {
 
     [Header("Collision")]
     public LayerMask collisionLayers;
+    public LayerMask goopLayers;
     public float groundCheckDistance = 0.15f;
     [HideInInspector] public CharacterController charCtrl;
     [HideInInspector] public CollisionFlags collision;
@@ -95,6 +96,14 @@ public class PlayerController : Controller {
         Physics.SphereCast(transform.position, charCtrl.radius, Vector3.down, out hitInfo, groundCheckDistance, collisionLayers, QueryTriggerInteraction.Ignore);
 
         return hitInfo;
+    }
+
+    public bool GoopCheck()
+    {
+        RaycastHit hitInfo;
+        Physics.SphereCast(transform.position, charCtrl.radius, Vector3.down, out hitInfo, groundCheckDistance, goopLayers, QueryTriggerInteraction.Collide);
+
+        return hitInfo.collider;
     }
 
     public void ResetTransform()

@@ -12,7 +12,6 @@ public class Idle : EnemyState
     private float minHuntDistance = 1f;
     NavMeshAgent _navMeshAgent;
 
-
     private Transform transform { get { return _controller.transform; } }
     private Vector3 velocity
     {
