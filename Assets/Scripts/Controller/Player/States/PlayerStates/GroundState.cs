@@ -143,10 +143,10 @@ public class GroundState : PlayerState {
         Vector3 input = controller.Input;
         input = transform.forward * input.z + transform.right * input.x;
 
-        /*if (hit.collider != null && hit.collider.CompareTag("Platform"))
-            transform.parent = hit.collider.gameObject.transform.parent;
+        if (_hit.collider != null && _hit.collider.CompareTag("Escape Pod"))
+            transform.parent = _hit.collider.gameObject.transform.parent;
         else
-            transform.parent = null;*/
+            transform.parent = null;
 
         input = Vector3.ProjectOnPlane(input, _hit.normal).normalized;
 
