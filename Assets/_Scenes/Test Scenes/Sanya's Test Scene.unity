@@ -1469,15 +1469,16 @@ MonoBehaviour:
     Max: 0.25
   _fadeInTime: 1
   _fadeOutTime: 5
+  _flickerOnStart: 1
   _flickerFadeSpeed:
     Min: 0.05
     Max: 0.05
   _flickerOnWait:
-    Min: 0.05
-    Max: 0.2
+    Min: 0.01
+    Max: 5
   _flickerOffWait:
     Min: 0.05
-    Max: 0.1
+    Max: 0.5
 --- !u!108 &602230310
 Light:
   m_ObjectHideFlags: 0
@@ -2544,6 +2545,7 @@ MonoBehaviour:
     Max: 2.5
   _fadeInTime: 1
   _fadeOutTime: 0.5
+  _flickerOnStart: 0
   _flickerFadeSpeed:
     Min: 0.05
     Max: 0.05
@@ -2899,6 +2901,7 @@ MonoBehaviour:
     Max: 2.5
   _fadeInTime: 1
   _fadeOutTime: 0.5
+  _flickerOnStart: 0
   _flickerFadeSpeed:
     Min: 0.05
     Max: 0.05
@@ -3675,6 +3678,7 @@ MonoBehaviour:
     Max: 2.5
   _fadeInTime: 1
   _fadeOutTime: 0.5
+  _flickerOnStart: 0
   _flickerFadeSpeed:
     Min: 1
     Max: 0.5
@@ -5613,6 +5617,7 @@ MonoBehaviour:
     Max: 2.5
   _fadeInTime: 1
   _fadeOutTime: 0.5
+  _flickerOnStart: 0
   _flickerFadeSpeed:
     Min: 0.05
     Max: 0.05
