@@ -1471,7 +1471,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorLength: 1
   reverseDirection: 0
-  speed: 1
+  speed: 0.5
   isOpen: 0
   closing: 0
   opening: 0
@@ -1508,7 +1508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorLength: 1
   reverseDirection: 1
-  speed: 1
+  speed: 0.5
   isOpen: 0
   closing: 0
   opening: 0
@@ -1528,13 +1528,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enableIndicator: 1
-  iconOnScreen: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  iconOffScreen: {fileID: 21300000, guid: e874da02899cd8f4ea77a5cb4a71b1b5, type: 3}
+  iconOnScreen: {fileID: 21300000, guid: 4ea43f05ce036d2478708fc0e62762d2, type: 3}
+  iconOffScreen: {fileID: 21300000, guid: 939c2622ea4d7164a9b681bc597b1bfd, type: 3}
+  sprite: {fileID: 21300000, guid: 59253cfe86085e04982affef26a98e31, type: 3}
   iconScale: {x: 1, y: 1, z: 1}
-  edgeBuffer: 50
+  spriteScale: {x: 0.5, y: 0.5, z: 0.5}
+  spriteOffset: -15
+  maxRange: 10
+  edgeBuffer: 100
   _audioClips:
   - {fileID: 8300000, guid: ef41fb448fba2474d8979c1f5a837779, type: 3}
   _audioSource: {fileID: 82402331274774858}
+  _noInterrupt: 0
+  _continiousRandom: 0
+  _randomWaitRange:
+    Min: 0
+    Max: 0
 --- !u!114 &114940389640943384
 MonoBehaviour:
   m_ObjectHideFlags: 1
