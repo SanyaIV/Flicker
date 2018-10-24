@@ -5,11 +5,27 @@ using UnityEngine;
 public class BasicAudio : OffScreenIndicator {
 
     [Header("Audio")]
-    [SerializeField] AudioClip[] _audioClips;
-    [SerializeField] AudioSource _audioSource;
+    [SerializeField] private AudioClip[] _audioClips;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private bool _noInterrupt;
+
+    [Header("Random")]
+    [SerializeField] private bool _continiousRandom;
+    [SerializeField] private MinMaxFloat _randomWaitRange;
+
+    public override void Start()
+    {
+        base.Start();
+
+        if (_continiousRandom)
+            StartCoroutine(ContiniousRandomPlay());
+    }
 
     public void PlayAudio()
     {
+        if (_noInterrupt && _audioSource.isPlaying)
+            return;
+
         if (_audioClips.Length > 1)
         {
             int n = Random.Range(1, _audioClips.Length);
@@ -39,5 +55,14 @@ public class BasicAudio : OffScreenIndicator {
 
         DisableIndicator();
         yield break;
+    }
+
+    private IEnumerator ContiniousRandomPlay()
+    {
+        while (true)
+        {
+            PlayAudio();
+            yield return new WaitForSeconds(Random.Range(_randomWaitRange.Min, _randomWaitRange.Max));
+        }
     }
 }

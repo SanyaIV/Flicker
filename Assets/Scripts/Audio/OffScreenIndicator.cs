@@ -31,7 +31,7 @@ public class OffScreenIndicator : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
+	public virtual void Start () {
         if (_enableIndicator)
         {
             _cam = Camera.main;
@@ -51,6 +51,9 @@ public class OffScreenIndicator : MonoBehaviour {
 
     public void EnableIndicator(Transform source)
     {
+        if (!_enableIndicator)
+            return;
+
         _enabled = true;
         _source = source;
 
@@ -61,6 +64,9 @@ public class OffScreenIndicator : MonoBehaviour {
 
     public void DisableIndicator()
     {
+        if (!_enableIndicator)
+            return;
+
         _enabled = false;
 
         Color tmp = _iconImage.color;
