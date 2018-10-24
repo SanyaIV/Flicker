@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class OffScreenIndicator : MonoBehaviour {
 
+    [Header("Off-Screen Indicator")]
+    [SerializeField] private bool _enableIndicator;
+    private bool _enabled;
+    private Transform _source;
+
     [Header("Camera")]
     private Camera _cam;
     private Vector3 _cameraOffsetUp;
@@ -24,22 +29,43 @@ public class OffScreenIndicator : MonoBehaviour {
     [Header("Edge")]
     public float edgeBuffer;
 
-    [Header("Debug")]
-    public bool showDebugLines;
-
 
 	// Use this for initialization
 	void Start () {
-        _cam = Camera.main;
-        _canvas = GameObject.FindGameObjectWithTag("HUD");
+        if (_enableIndicator)
+        {
+            _cam = Camera.main;
+            _canvas = GameObject.FindGameObjectWithTag("HUD");
 
-        InstantiateIcon();
+            InstantiateIcon();
+            DisableIndicator();
+        }
 	}
 
     void LateUpdate()
     {
         //Test();
-        DrawIcon();
+        if(_enableIndicator && _enabled)
+            DrawIcon();
+    }
+
+    public void EnableIndicator(Transform source)
+    {
+        _enabled = true;
+        _source = source;
+
+        Color tmp = _iconImage.color;
+        tmp.a = 1f;
+        _iconImage.color = tmp;
+    }
+
+    public void DisableIndicator()
+    {
+        _enabled = false;
+
+        Color tmp = _iconImage.color;
+        tmp.a = 0f;
+        _iconImage.color = tmp;
     }
 
     private void InstantiateIcon()
@@ -69,7 +95,7 @@ public class OffScreenIndicator : MonoBehaviour {
     private void DrawIcon()
     {
         Vector3 indicatorPos = Vector3.zero;
-        Vector3 screenPos = _cam.WorldToScreenPoint(transform.position);
+        Vector3 screenPos = _cam.WorldToScreenPoint(_source.position);
 
         if (screenPos.z > 0 && screenPos.x > 0 && screenPos.x < Screen.width && screenPos.y > 0 && screenPos.y < Screen.height)
         {

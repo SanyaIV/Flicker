@@ -17,6 +17,8 @@ public class EscapePodEngine : MonoBehaviour {
 
     [Header("Pod")]
     [SerializeField] private Transform _pod;
+    [SerializeField] private Door[] _doors;
+    [SerializeField] private GameObject _invisibleWall;
     private bool _activated = false;
 
     void Start()
@@ -29,17 +31,43 @@ public class EscapePodEngine : MonoBehaviour {
         _image = _imageTransform.gameObject.AddComponent<Image>();
         _image.sprite = _sprite;
         _image.color = new Color(1f, 1f, 1f, 0f);
+        _invisibleWall.SetActive(false);
     }
 
 	void OnTriggerEnter(Collider coll)
     {
         if(!_activated && coll.tag == "Player")
         {
-            StartCoroutine(Shake());
-            StartCoroutine(FadeOut());
-            StartCoroutine(Move());
             _activated = true;
+            _invisibleWall.SetActive(true);
+            foreach(Door door in _doors)
+            {
+                door.Close();
+            }
+            StartCoroutine(CheckDoors());
         }
+    }
+
+    private IEnumerator CheckDoors()
+    {
+        int n = 0;
+        while (n < 2)
+        {
+            n = 0;
+            foreach(Door door in _doors)
+            {
+                if (!door.isOpen && !door.closing)
+                    n++;
+            }
+
+            yield return null;
+        }
+
+        StartCoroutine(Shake());
+        StartCoroutine(FadeOut());
+        StartCoroutine(Move());
+
+        yield break;
     }
 
     private IEnumerator Move()
