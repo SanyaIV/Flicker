@@ -126,7 +126,8 @@ public class Door : MonoBehaviour {
     {
         if (Physics.Raycast(transform.position, reverseDirection ? -transform.forward : transform.forward, doorLength, automaticOpenLayers))
         {
-            StopCoroutine(_closeCoroutine);
+            if(_closeCoroutine != null)
+                StopCoroutine(_closeCoroutine);
             Open();
         }
     }

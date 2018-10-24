@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class OffScreenIndicator : MonoBehaviour {
 
+    [Header("Off-Screen Indicator")]
+    [SerializeField] private bool _enableIndicator;
+    private bool _enabled;
+    private Transform _source;
+
     [Header("Camera")]
     private Camera _cam;
     private Vector3 _cameraOffsetUp;
@@ -16,66 +21,95 @@ public class OffScreenIndicator : MonoBehaviour {
 
     [Header("Icon")]
     private Transform _icon;
+    private Transform _iconsIcon;
     private Image _iconImage;
+    private Image _iconsIconImage;
     public Sprite iconOnScreen;
     public Sprite iconOffScreen;
+    public Sprite sprite;
     public Vector3 iconScale;
+    public Vector3 spriteScale;
+    public float spriteOffset;
+    public float maxRange;
 
     [Header("Edge")]
     public float edgeBuffer;
 
-    [Header("Debug")]
-    public bool showDebugLines;
-
 
 	// Use this for initialization
-	void Start () {
-        _cam = Camera.main;
-        _canvas = GameObject.FindGameObjectWithTag("HUD");
+	public virtual void Start () {
+        if (_enableIndicator)
+        {
+            _cam = Camera.main;
+            _canvas = GameObject.FindGameObjectWithTag("HUD");
 
-        InstantiateIcon();
+            InstantiateIcon();
+            DisableIndicator();
+        }
 	}
 
     void LateUpdate()
     {
         //Test();
-        DrawIcon();
+        if(_enableIndicator && _enabled)
+            DrawIcon();
+    }
+
+    public void EnableIndicator(Transform source)
+    {
+        if (!_enableIndicator)
+            return;
+
+        _enabled = true;
+        _source = source;
+
+        Color tmp = _iconImage.color;
+        tmp.a = 1f;
+        _iconImage.color = tmp;
+        _iconsIconImage.color = tmp;
+    }
+
+    public void DisableIndicator()
+    {
+        if (!_enableIndicator)
+            return;
+
+        _enabled = false;
+
+        Color tmp = _iconImage.color;
+        tmp.a = 0f;
+        _iconImage.color = tmp;
+        _iconsIconImage.color = tmp;
     }
 
     private void InstantiateIcon()
     {
         _icon = new GameObject().AddComponent<RectTransform>();
-        _icon.transform.SetParent(_canvas.transform);
+        _icon.SetParent(_canvas.transform);
         _icon.localScale = iconScale;
         _iconImage = _icon.gameObject.AddComponent<Image>();
         _iconImage.sprite = iconOnScreen;
-    }
 
-    private void Test()
-    {
-        Debug.Log(_cam.WorldToViewportPoint(transform.position));
-
-        Vector3 screenPos = _cam.WorldToViewportPoint(transform.position);
-
-        if (screenPos.z < 0)
-            screenPos *= -1f;
-
-        screenPos.x = Mathf.Clamp(screenPos.x, 0f, 1f);
-        screenPos.y = Mathf.Clamp(screenPos.y, 0f, 1f);
-
-        _icon.transform.position = _cam.ViewportToScreenPoint(screenPos);
+        _iconsIcon = new GameObject().AddComponent<RectTransform>();
+        _iconsIcon.SetParent(_icon);
+        _iconsIcon.localScale = spriteScale;
+        _iconsIconImage = _iconsIcon.gameObject.AddComponent<Image>();
+        _iconsIconImage.sprite = sprite;
+        _iconsIcon.localPosition = _icon.up * -15f;
     }
 
     private void DrawIcon()
     {
         Vector3 indicatorPos = Vector3.zero;
-        Vector3 screenPos = _cam.WorldToScreenPoint(transform.position);
+        Vector3 screenPos = _cam.WorldToScreenPoint(_source.position);
 
         if (screenPos.z > 0 && screenPos.x > 0 && screenPos.x < Screen.width && screenPos.y > 0 && screenPos.y < Screen.height)
         {
             _icon.transform.position = screenPos;
             _iconImage.sprite = iconOnScreen;
-            _icon.transform.rotation = Quaternion.identity;
+            _icon.rotation = Quaternion.identity;
+            _iconsIcon.rotation = Quaternion.identity;
+            _iconsIcon.localPosition = Vector2.zero;
         }
         else
         {
@@ -92,8 +126,7 @@ public class OffScreenIndicator : MonoBehaviour {
 
             float slope = screenPos.y / screenPos.x;
 
-            float padding = 30f;
-            Vector2 padSize = new Vector2(Screen.width - padding, Screen.height - padding);
+            Vector2 padSize = new Vector2(Screen.width - edgeBuffer, Screen.height - edgeBuffer);
 
             if (screenPos.y < 0)
                 indicatorPos = new Vector3((-padSize.y / 2) / slope, -padSize.y / 2, 0f);
@@ -106,8 +139,16 @@ public class OffScreenIndicator : MonoBehaviour {
                 indicatorPos = new Vector3(padSize.x/2, slope * padSize.x / 2);
 
             indicatorPos += screenCenter;
-            _icon.transform.position = indicatorPos;
-            _icon.transform.rotation = Quaternion.Euler(0f, 0f, angle * Mathf.Rad2Deg);
+            _icon.position = indicatorPos;
+            _icon.rotation = Quaternion.identity;
+            _iconsIcon.localPosition = _icon.up * spriteOffset;
+            _icon.rotation = Quaternion.Euler(0f, 0f, angle * Mathf.Rad2Deg);
+            _iconsIcon.rotation = Quaternion.identity;
         }
+
+        Color tmp = _iconImage.color;
+        tmp.a = Mathf.Lerp(0f, 1f, (maxRange - Vector3.Distance(_cam.transform.position, _source.position)) / 10);
+        _iconImage.color = tmp;
+        _iconsIconImage.color = tmp;
     }
 }

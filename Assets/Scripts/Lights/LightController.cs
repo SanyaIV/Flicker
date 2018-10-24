@@ -23,6 +23,7 @@ public class LightController : MonoBehaviour {
     [SerializeField] private float _fadeOutTime;
 
     [Header("Flicker")]
+    [SerializeField] private bool _flickerOnStart;
     [SerializeField] private MinMaxFloat _flickerFadeSpeed;
     [Tooltip("Used to wait while the light is off and going to be turned on")]
     [SerializeField] private MinMaxFloat _flickerOnWait;
@@ -41,6 +42,9 @@ public class LightController : MonoBehaviour {
         }
 
         SetLampEmission();
+
+        if (_flickerOnStart)
+            StartFlicker();
 	}
 
     public void Lock()
@@ -198,13 +202,13 @@ public class LightController : MonoBehaviour {
         {
             if (_light.intensity < _intensity.Max / 2)
             {
-                yield return new WaitForSeconds(Random.Range(_flickerOnWait.Min, _flickerOnWait.Max));
                 StartCoroutine(FadeMax(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
+                yield return new WaitForSeconds(Random.Range(_flickerOnWait.Min, _flickerOnWait.Max));
             }  
             else
             {
-                yield return new WaitForSeconds(Random.Range(_flickerOffWait.Min, _flickerOffWait.Max));
                 StartCoroutine(FadeOff(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
+                yield return new WaitForSeconds(Random.Range(_flickerOffWait.Min, _flickerOffWait.Max));
             }
             
             yield return null;

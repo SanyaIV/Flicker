@@ -97,7 +97,8 @@ public class GroundState : PlayerState {
 
     public override void Exit()
     {
-        transform.parent = null;
+        if(transform.parent != null &&  transform.parent.tag != "Escape Pod")
+            transform.parent = null;
         if(_interactableText)
             _interactableText.text = "";
     }
@@ -155,7 +156,7 @@ public class GroundState : PlayerState {
 
         if (_hit.collider != null && _hit.collider.CompareTag("Escape Pod"))
             transform.parent = _hit.collider.gameObject.transform.parent;
-        else
+        else if (transform.parent != null && transform.parent.tag != "Escape Pod")
             transform.parent = null;
 
         input = Vector3.ProjectOnPlane(input, _hit.normal).normalized;

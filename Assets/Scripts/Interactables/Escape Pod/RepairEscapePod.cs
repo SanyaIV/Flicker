@@ -44,6 +44,7 @@ public class RepairEscapePod : Interactable {
             {
                 door.Unlock();
                 door.Open();
+                GetComponent<BasicAudio>().PlayAudio();
             }
 
             Destroy(this);
