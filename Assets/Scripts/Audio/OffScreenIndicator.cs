@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class OffScreenIndicator : MonoBehaviour {
 
     [Header("Off-Screen Indicator")]
-    [SerializeField] private bool _enableIndicator;
+    [SerializeField] protected bool _enableIndicator;
     private bool _enabled;
     private Transform _source;
 
@@ -147,7 +147,7 @@ public class OffScreenIndicator : MonoBehaviour {
         }
 
         Color tmp = _iconImage.color;
-        tmp.a = Mathf.Lerp(0f, 1f, (maxRange - Vector3.Distance(_cam.transform.position, _source.position)) / 10);
+        tmp.a = Mathf.Lerp(0f, 1f, (maxRange - Vector3.Distance(_cam.transform.position, _source.position)) / maxRange);
         _iconImage.color = tmp;
         _iconsIconImage.color = tmp;
     }

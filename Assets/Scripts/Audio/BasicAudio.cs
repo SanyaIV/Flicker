@@ -8,6 +8,7 @@ public class BasicAudio : OffScreenIndicator {
     [SerializeField] private AudioClip[] _audioClips;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private bool _noInterrupt;
+    private bool _isPaused;
 
     [Header("Trigger")]
     [SerializeField] private bool _useTrigger;
@@ -22,11 +23,31 @@ public class BasicAudio : OffScreenIndicator {
 
         if (_continiousRandom)
             StartCoroutine(ContiniousRandomPlay());
+        if(_enableIndicator)
+            StartCoroutine(OffScreenIndicator());
+    }
+
+    public void Pause()
+    {
+        if (_audioSource.isPlaying)
+        {
+            _audioSource.Pause();
+            _isPaused = true;
+        }
+    }
+
+    public void Resume()
+    {
+        if (_isPaused)
+        {
+            _audioSource.UnPause();
+            _isPaused = false;
+        }
     }
 
     public void PlayAudio()
     {
-        if (_noInterrupt && _audioSource.isPlaying)
+        if (_noInterrupt && _audioSource.isPlaying || _isPaused)
             return;
 
         if (_audioClips.Length > 1)
@@ -36,13 +57,11 @@ public class BasicAudio : OffScreenIndicator {
             _audioSource.Play();
             _audioClips[n] = _audioClips[0];
             _audioClips[0] = _audioSource.clip;
-            StartCoroutine(OffScreenIndicator());
         }
         else if (_audioClips.Length == 1)
         {
             _audioSource.clip = _audioClips[0];
             _audioSource.Play();
-            StartCoroutine(OffScreenIndicator());
         }
         else
             return;
@@ -57,15 +76,15 @@ public class BasicAudio : OffScreenIndicator {
     }
 
     private IEnumerator OffScreenIndicator() {
-        EnableIndicator(_audioSource.GetComponentInParent<Transform>());
-
-        while (_audioSource.isPlaying)
+        while (true)
         {
+            if(_audioSource.isPlaying && !_isPaused)
+                EnableIndicator(_audioSource.GetComponentInParent<Transform>());
+            else
+                DisableIndicator();
+
             yield return null;
         }
-
-        DisableIndicator();
-        yield break;
     }
 
     private IEnumerator ContiniousRandomPlay()

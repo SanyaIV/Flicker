@@ -37,6 +37,8 @@ public class Hunt : EnemyState
         }
 
         _navMeshAgent.isStopped = false;
+
+        _controller.basicAudio.Resume();
     }
 
     private void SetDestination()

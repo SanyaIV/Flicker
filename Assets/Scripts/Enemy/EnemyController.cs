@@ -41,6 +41,9 @@ public class EnemyController : EnemyStateController
     [HideInInspector] public CharacterController _charCtrl;
     [HideInInspector] public CollisionFlags _collision;
 
+    [Header("Audio")]
+    [SerializeField] public BasicAudio basicAudio;
+
     public override void Awake()
     {
         base.Awake();
@@ -74,11 +77,15 @@ public class EnemyController : EnemyStateController
             //transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
            
             _navMeshAgent.isStopped = false;
-            TransitionTo<Hunt>();
+            if(!(CurrentState is Hunt))
+                TransitionTo<Hunt>();
         }
         else
         {
             _navMeshAgent.isStopped = true;
+            if(!(CurrentState is Idle))
+                TransitionTo<Idle>();
+
             sanity.DepleteSanity();
         }
         detectPlayer();

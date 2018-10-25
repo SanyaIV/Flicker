@@ -33,6 +33,8 @@ public class Idle : EnemyState
             Debug.LogError("The NavMeshAgent is not attached to " + _controller.name);
         }
         _navMeshAgent.isStopped = true;
+
+        _controller.basicAudio.Pause();
     }
 
     public override void Update()
