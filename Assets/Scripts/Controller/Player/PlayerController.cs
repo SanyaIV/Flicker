@@ -30,7 +30,7 @@ public class PlayerController : Controller {
     public Camera cam;
 
     [Header("Audio")]
-    [HideInInspector] public AudioSource audioSource;
+    [SerializeField] public AudioSource audioSource;
 
     [Header("Inventory")]
     [SerializeField] private List<string> _passcards;
@@ -41,7 +41,8 @@ public class PlayerController : Controller {
         base.Awake();
 
         _passcards = new List<string>();
-        audioSource = GetComponent<AudioSource>();
+        if(!audioSource)
+            audioSource = GetComponent<AudioSource>();
         sanity = GetComponent<Sanity>();
     }
 
