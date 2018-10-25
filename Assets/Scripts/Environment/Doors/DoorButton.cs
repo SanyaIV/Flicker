@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DoorButton : Interactable {
 
+    [Header("Master/Slave")]
+    [SerializeField] private DoorButton _master;
+
     [Header("Doors")]
     [SerializeField] private Door[] doors;
 
@@ -15,6 +18,13 @@ public class DoorButton : Interactable {
 
     public override void Interact(PlayerController player)
     {
+        if (_master)
+        {
+            _master.Interact(player);
+            return;
+        }
+           
+
         if (_passcard.Length > 0)
         {
             if (!player.HasPasscard(_passcard))
@@ -46,6 +56,9 @@ public class DoorButton : Interactable {
 
     public override string ActionType()
     {
+        if (_master)
+            return _master.ActionType();
+
         foreach (Door door in doors)
         {
             if (door.opening)
@@ -63,6 +76,9 @@ public class DoorButton : Interactable {
 
     public override string GetName()
     {
+        if (_master)
+            return _master.GetName();
+
         if (doors.Length > 1)
             return "Doors";
         else

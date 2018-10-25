@@ -858,11 +858,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c170cb58af2d191458ef3ac2aef30fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doors:
-  - {fileID: 114412118299425228}
-  - {fileID: 114675601037304734}
+  _master: {fileID: 114953867351940092}
+  doors: []
   _passcard: 
-  _basicAudio: {fileID: 114810124848482498}
+  _basicAudio: {fileID: 0}
 --- !u!114 &114810124848482498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -902,6 +901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c170cb58af2d191458ef3ac2aef30fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _master: {fileID: 0}
   doors:
   - {fileID: 114412118299425228}
   - {fileID: 114675601037304734}

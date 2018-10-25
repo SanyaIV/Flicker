@@ -9,6 +9,9 @@ public class BasicAudio : OffScreenIndicator {
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private bool _noInterrupt;
 
+    [Header("Trigger")]
+    [SerializeField] private bool _useTrigger;
+
     [Header("Random")]
     [SerializeField] private bool _continiousRandom;
     [SerializeField] private MinMaxFloat _randomWaitRange;
@@ -43,6 +46,14 @@ public class BasicAudio : OffScreenIndicator {
         }
         else
             return;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(_useTrigger && other.tag == "Player")
+        {
+            PlayAudio();
+        }
     }
 
     private IEnumerator OffScreenIndicator() {

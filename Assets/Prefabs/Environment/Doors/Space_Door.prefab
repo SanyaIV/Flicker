@@ -1437,11 +1437,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c170cb58af2d191458ef3ac2aef30fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doors:
-  - {fileID: 114585511416026626}
-  - {fileID: 114354352723892146}
-  _passcard: GrizzlyBear
-  _basicAudio: {fileID: 114890436743828882}
+  _master: {fileID: 114301770180969860}
+  doors: []
+  _passcard: 
+  _basicAudio: {fileID: 0}
 --- !u!114 &114301770180969860
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1453,6 +1452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c170cb58af2d191458ef3ac2aef30fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _master: {fileID: 0}
   doors:
   - {fileID: 114585511416026626}
   - {fileID: 114354352723892146}
@@ -1490,6 +1490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c170cb58af2d191458ef3ac2aef30fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _master: {fileID: 0}
   doors:
   - {fileID: 114585511416026626}
   - {fileID: 114354352723892146}
@@ -1555,6 +1556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c170cb58af2d191458ef3ac2aef30fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _master: {fileID: 0}
   doors:
   - {fileID: 114585511416026626}
   - {fileID: 114354352723892146}
