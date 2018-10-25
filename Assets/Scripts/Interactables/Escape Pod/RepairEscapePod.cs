@@ -76,6 +76,6 @@ public class RepairEscapePod : Interactable {
 
     private void SetText()
     {
-        _text.text = _string + " " + _requiredPartsDict.Count + " of " + CountParts();
+        _text.text = _string + " " + CountParts() + " of " + _requiredPartsDict.Count;
     }
 }
