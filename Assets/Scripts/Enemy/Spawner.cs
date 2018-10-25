@@ -7,35 +7,46 @@ public class Spawner : MonoBehaviour
 {
 
     NavMeshAgent _navMeshAgent;
-    public Transform[] spawnPoints;
+    private List<Transform> spawnPoints;
     public EnemyController _controller;
 
     public float spawnTime = 0;
-    public float cooldown = 0;
 
-    private bool justSpawned = false;
+    public float correct = 10f;
+
+    [SerializeField] private MinMaxFloat _randomNum;
 
     public void Start()
     {
-        _navMeshAgent = _controller.GetComponent<NavMeshAgent>();
-    }
+        _navMeshAgent = _controller.GetComponent<NavMeshAgent>();  
 
-    public void Update()
-    {
-        if (Input.GetKey(KeyCode.T))
+        spawnPoints = new List<Transform>();
+
+        foreach(GameObject go in GameObject.FindGameObjectsWithTag("Spawn Point"))
         {
-            calculateClosestSpawnPoint();
-            justSpawned = true;
-            Debug.Log("Just spawned");
+            spawnPoints.Add(go.transform);
         }
+
+        StartCoroutine(SpawnWhenClose());
     }
 
-    public void calculateClosestSpawnPoint()
+    public IEnumerator SpawnWhenClose()
     {
-        for (int i = 0; i < spawnPoints.Length - 1; i++)
+
+        float drainDistance = _controller.GetState<Hunt>()._distanceToDepleteSanity;
+       
+        while(true)
         {
-            if ((_controller.player.transform.position - spawnPoints[i + 1].transform.position).magnitude < (_controller.player.transform.position - spawnPoints[i].transform.position).magnitude)
-                _controller.transform.position = spawnPoints[i + 1].transform.position;
+            if(Vector3.Distance(_controller.transform.position, _controller.player.transform.position) < drainDistance && !(_controller.visible))
+            {
+                if (Random.Range(0, 100) <= correct)
+                {
+                    _controller.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].position;
+
+                }
+            }
+           
+            yield return new WaitForSeconds(Random.Range(_randomNum.Min, _randomNum.Max));
         }
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class Hunt : EnemyState
 {
     [Header("Settings")]
-    [SerializeField] private float _distanceToDepleteSanity;
+    [SerializeField] public float _distanceToDepleteSanity;
     Transform _destination;
     NavMeshAgent _navMeshAgent;
 
