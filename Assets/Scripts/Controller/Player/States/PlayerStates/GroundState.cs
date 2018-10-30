@@ -124,7 +124,7 @@ public class GroundState : PlayerState {
             controller.maxSpeed *= _goopSpeedMultiplier;
         }
 
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
             Interact();
             
 

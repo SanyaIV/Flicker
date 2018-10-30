@@ -16,6 +16,17 @@ public class DoorButton : Interactable {
     [Header("Basic Audio")]
     [SerializeField] private BasicAudio _basicAudio;
 
+    private PlayerController _player;
+
+    public void Start()
+    {
+        _player = GameManager.player.GetComponent<PlayerController>();
+
+        if(_passcard.Length > 0)
+            foreach (Door door in doors)
+                door.Lock();
+    }
+
     public override void Interact(PlayerController player)
     {
         if (_master)
@@ -25,7 +36,7 @@ public class DoorButton : Interactable {
         }
            
 
-        if (_passcard.Length > 0)
+        if (_passcard.Length > 0 && doors[0].locked)
         {
             if (!player.HasPasscard(_passcard))
                 return;
@@ -36,6 +47,8 @@ public class DoorButton : Interactable {
                     door.Unlock();
                 }
             }
+
+            return;
         }
 
         foreach (Door door in doors)
@@ -58,6 +71,11 @@ public class DoorButton : Interactable {
     {
         if (_master)
             return _master.ActionType();
+
+        if (doors[0].locked && !_player.HasPasscard(_passcard))
+            return "Locked";
+        else if (doors[0].locked && _player.HasPasscard(_passcard))
+            return "Unlock";
 
         foreach (Door door in doors)
         {

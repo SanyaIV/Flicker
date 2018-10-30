@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+    public static GameObject player;
     private Transform _player;
     private Vector3 _savedPlayerPos;
 
-    public void Start()
+    public void Awake()
     {
         _player = GetComponent<Transform>();
+        player = gameObject;
         Save();
     }
 

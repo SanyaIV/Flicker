@@ -12,6 +12,9 @@ public class BasicAudio : OffScreenIndicator {
 
     [Header("Trigger")]
     [SerializeField] private bool _useTrigger;
+    [SerializeField] [Range(0, 100)] private int _percentTriggerChance;
+    [SerializeField] private int _maxTriggerTimes;
+    private int _triggerTimes;
 
     [Header("Random")]
     [SerializeField] private bool _continiousRandom;
@@ -30,10 +33,9 @@ public class BasicAudio : OffScreenIndicator {
     public void Pause()
     {
         if (_audioSource.isPlaying)
-        {
             _audioSource.Pause();
-            _isPaused = true;
-        }
+
+        _isPaused = true;
     }
 
     public void Resume()
@@ -69,9 +71,13 @@ public class BasicAudio : OffScreenIndicator {
 
     void OnTriggerEnter(Collider other)
     {
-        if(_useTrigger && other.tag == "Player")
+        if(_useTrigger && _triggerTimes < _maxTriggerTimes && other.tag == "Player")
         {
-            PlayAudio();
+            if(Random.Range(1, 101) <= _percentTriggerChance)
+            {
+                PlayAudio();
+                _triggerTimes++;
+            }
         }
     }
 

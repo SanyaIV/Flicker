@@ -8,6 +8,12 @@ public class ControlRoomLights : Interactable {
     [Header("Switch")]
     [SerializeField] private bool _enabled = true;
 
+    [Header("Trigger")]
+    [SerializeField] private bool _useTrigger;
+    [SerializeField] [Range(0, 100)] private int _percentTriggerChance;
+    [SerializeField] private int _maxTriggerTimes;
+    private int _triggerTimes;
+
     [Header("Method Group 1")]
     [SerializeField] private UnityEvent _methodGroup1;
 
@@ -33,6 +39,11 @@ public class ControlRoomLights : Interactable {
 
     public override void Interact(PlayerController player)
     {
+        Interact();
+    }
+
+    private void Interact()
+    {
         if (_enabled)
         {
             if (!_switchMethodGroup)
@@ -50,5 +61,17 @@ public class ControlRoomLights : Interactable {
     public override string GetName()
     {
         return "Light Switch";
+    }
+
+    public void OnTriggerEnter(Collider coll)
+    {
+        if (_useTrigger && _triggerTimes < _maxTriggerTimes && coll.tag == "Player")
+        {
+            if(Random.Range(1, 101) <= _percentTriggerChance)
+            {
+                Interact();
+                _triggerTimes++;
+            }
+        }
     }
 }
