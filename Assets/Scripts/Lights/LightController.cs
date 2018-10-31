@@ -39,6 +39,9 @@ public class LightController : MonoBehaviour {
     void Start () {
         _light = GetComponent<Light>();
 
+        if (_intensity.Max == 0f)
+            _intensity.Max = _light.intensity;
+
         if (_lampBulb)
         {
             _lampBulbRenderer = _lampBulb.GetComponent<Renderer>();
@@ -208,7 +211,7 @@ public class LightController : MonoBehaviour {
         if (_lampBulbMaterial)
         {
             Color finalColor = _baseLampBulbEmissionColor * Mathf.LinearToGammaSpace(Mathf.Lerp(0f, 1f, _light.intensity / _intensity.Max));
-            _lampBulbMaterial.SetColor("_EmissionColor", finalColor * _light.intensity * _light.range / 10);
+            _lampBulbMaterial.SetColor("_EmissiveColor", finalColor * _light.intensity / 10);
         }
     }
 
@@ -362,12 +365,11 @@ public class LightController : MonoBehaviour {
         if (!_light)
             _light = GetComponent<Light>();
 
+        if (_intensity.Max == 0 || _intensity.Max < _light.intensity)
+            _intensity.Max = _light.intensity;
+
         if (_intensity.Min > _intensity.Max)
-            Debug.LogWarning("Configured Max intensity: [" + _intensity.Max + "] for Light: [" + _light + "] is less than Min intensity: [" + _intensity.Min + "]", gameObject);
-        if (_intensity.Max == 0)
-            Debug.LogWarning("Configured Max intensity for Light: [" + _light + "] is: [0]", gameObject);
-        if (_intensity.Max < _light.intensity)
-            Debug.LogWarning("Current intensity: [" + _light.intensity + "] of light: [" + _light + "] is higher than the configured Max intensity: [" + _intensity.Max + "]", gameObject);
+            _intensity.Min = _intensity.Max;
     }
 
     public void Save()
