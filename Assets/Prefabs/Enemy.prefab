@@ -263,6 +263,7 @@ MonoBehaviour:
   GroundCheckDistance: 0.15
   _charCtrl: {fileID: 0}
   _collision: 0
+  basicAudio: {fileID: 114616612359027900}
 --- !u!114 &114616612359027900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -295,6 +296,8 @@ MonoBehaviour:
   _audioSource: {fileID: 82769835252113124}
   _noInterrupt: 1
   _useTrigger: 0
+  _percentTriggerChance: 0
+  _maxTriggerTimes: 0
   _continiousRandom: 1
   _randomWaitRange:
     Min: 5
