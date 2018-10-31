@@ -36,13 +36,20 @@ public class PlayerController : Controller {
     [SerializeField] private List<string> _passcards;
     [SerializeField] private List<string> _escapePodParts;
 
+    [Header("Save")]
+    private List<string> _savedPasscards;
+    private List<string> _savedEscapePodParts;
+
     public override void Awake()
     {
         base.Awake();
 
         _passcards = new List<string>();
+        _escapePodParts = new List<string>();
+
         if(!audioSource)
             audioSource = GetComponent<AudioSource>();
+
         sanity = GetComponent<Sanity>();
     }
 
@@ -60,6 +67,9 @@ public class PlayerController : Controller {
             firstPersonCamera = GameObject.FindWithTag("FirstPersonCamera").transform;
         if (cam == null)
             cam = Camera.main;
+
+        GameManager.AddSaveEvent(Save);
+        GameManager.AddReloadEvent(ReloadSave);
     }
 
     /*private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -126,12 +136,29 @@ public class PlayerController : Controller {
 
     public void AddEscapePodPart(string escapePodPart)
     {
-        if (!_passcards.Contains(escapePodPart))
-            _passcards.Add(escapePodPart);
+        if (!_escapePodParts.Contains(escapePodPart))
+            _escapePodParts.Add(escapePodPart);
     }
 
     public bool HasEscapePodPart(string escapePodPart)
     {
-        return _passcards.Contains(escapePodPart);
+        return _escapePodParts.Contains(escapePodPart);
+    }
+
+    public bool HasSavedEscapePodPart(string escapePodPart)
+    {
+        return _savedEscapePodParts.Contains(escapePodPart);
+    }
+
+    public void Save()
+    {
+        _savedEscapePodParts = new List<string>(_escapePodParts);
+        _savedPasscards = new List<string>(_passcards);
+    }
+
+    public void ReloadSave()
+    {
+        _escapePodParts = new List<string>(_savedEscapePodParts);
+        _passcards = new List<string>(_savedPasscards);
     }
 }

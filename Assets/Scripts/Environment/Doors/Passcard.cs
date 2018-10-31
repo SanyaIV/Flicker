@@ -7,6 +7,12 @@ public class Passcard : Interactable {
     [Header("Passcard")]
     [SerializeField] private string _passcard;
 
+    public void Start()
+    {
+        GameManager.AddSaveEvent(Save);
+        GameManager.AddReloadEvent(ReloadSave);
+    }
+
     public override void Interact(PlayerController player)
     {
         player.AddPasscard(_passcard);
@@ -21,5 +27,20 @@ public class Passcard : Interactable {
     public override string GetName()
     {
         return "Passcard";
+    }
+
+    public void Save()
+    {
+        if (!gameObject.activeSelf)
+        {
+            GameManager.RemoveSaveEvent(Save);
+            GameManager.RemoveReloadEvent(ReloadSave);
+            Destroy(gameObject);
+        }
+    }
+
+    public void ReloadSave()
+    {
+        gameObject.SetActive(true);
     }
 }

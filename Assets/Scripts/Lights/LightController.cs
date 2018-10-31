@@ -31,6 +31,9 @@ public class LightController : MonoBehaviour {
     [SerializeField] private MinMaxFloat _flickerOffWait;
     private Coroutine _flickerCoroutine;
 
+    [Header("Save")]
+    private float _savedIntensity;
+
     void Start () {
         _light = GetComponent<Light>();
 
@@ -45,7 +48,10 @@ public class LightController : MonoBehaviour {
 
         if (_flickerOnStart)
             StartFlicker();
-	}
+
+        GameManager.AddSaveEvent(Save);
+        GameManager.AddReloadEvent(ReloadSave);
+    }
 
     public void Lock()
     {
@@ -334,4 +340,13 @@ public class LightController : MonoBehaviour {
             Debug.LogWarning("Current intensity: [" + _light.intensity + "] of light: [" + _light + "] is higher than the configured Max intensity: [" + _intensity.Max + "]", gameObject);
     }
 
+    public void Save()
+    {
+        _savedIntensity = _light.intensity;
+    }
+
+    public void ReloadSave()
+    {
+        _light.intensity = _savedIntensity;
+    }
 }

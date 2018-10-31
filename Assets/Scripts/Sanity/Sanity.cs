@@ -43,8 +43,9 @@ public class Sanity : MonoBehaviour {
         if (_sanity < _sanityRange.Min)
             _sanity = _sanityRange.Min;
         if (_sanity == _sanityRange.Min)
-            _player.TransitionTo<DeadState>();
-            
+            if(!(_player.currentState is DeadState))
+                _player.TransitionTo<DeadState>();
+
 
         UpdateVignette();
     }

@@ -34,7 +34,7 @@ public class DeadState : PlayerState {
 
     public void Respawn()
     {
-        controller.GetComponent<GameManager>().Respawn();
+        GameManager.Respawn();
         controller.sanity.ResetSanity();
         controller.StartCoroutine(FadeIn());
     }
@@ -55,13 +55,14 @@ public class DeadState : PlayerState {
     private IEnumerator FadeIn()
     {
         yield return new WaitForSeconds(1f);
-        while(_deadScreen.color.a > 0f)
+
+        controller.TransitionTo<AirState>();
+
+        while (_deadScreen.color.a > 0f)
         {
             _deadScreen.color = new Color(_deadScreen.color.r + _fadeSpeed * Time.deltaTime, _deadScreen.color.g + _fadeSpeed * Time.deltaTime, _deadScreen.color.b + _fadeSpeed * Time.deltaTime, _deadScreen.color.a - _fadeSpeed * Time.deltaTime);
             yield return null;
         }
-
-        controller.TransitionTo<AirState>();
 
         yield break;
     }

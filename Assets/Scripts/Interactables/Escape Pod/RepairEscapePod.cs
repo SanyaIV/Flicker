@@ -23,6 +23,8 @@ public class RepairEscapePod : Interactable {
 
         _text.text = _string + " 0 of " + _requiredPartsDict.Count;
         _text.color = Color.red;
+
+        GameManager.AddReloadEvent(ReloadSave);
     }
 
     public override void Interact(PlayerController player)
@@ -35,7 +37,7 @@ public class RepairEscapePod : Interactable {
 
         SetText();
 
-        if(CountParts() >= _requiredPartsDict.Count)
+        if(CheckParts(player))
         {
             _text.text = "Repair Complete";
             _text.color = Color.green;
@@ -47,9 +49,16 @@ public class RepairEscapePod : Interactable {
                 GetComponent<BasicAudio>().PlayAudio();
             }
 
-            Destroy(this);
+            this.enabled = false;
         }
+    }
 
+    private bool CheckParts(PlayerController player)
+    {
+        if (CountParts() >= _requiredPartsDict.Count)
+            return true;
+        else
+            return false;
     }
 
     public override string ActionType()
@@ -77,5 +86,23 @@ public class RepairEscapePod : Interactable {
     private void SetText()
     {
         _text.text = _string + " " + CountParts() + " of " + _requiredPartsDict.Count;
+    }
+
+    public void ReloadSave()
+    {
+        PlayerController player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+
+        foreach (string key in _requiredParts)
+        {
+            if (player.HasSavedEscapePodPart(key))
+                _requiredPartsDict[key] = true;
+            else
+                _requiredPartsDict[key] = false;
+        }
+
+        if (!CheckParts(player))
+            this.enabled = true;
+
+        SetText();
     }
 }

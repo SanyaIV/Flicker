@@ -19,6 +19,10 @@ public class Door : MonoBehaviour {
     [Header("State")]
     public bool locked;
 
+    [Header("Save")]
+    private bool _savedOpen;
+    private bool _saveLocked;
+
 	// Use this for initialization
 	void Start () {
         if (doorLength == 0)
@@ -40,15 +44,9 @@ public class Door : MonoBehaviour {
             _closePos = transform.position;
             _openPos = _closePos - transform.forward * (reverseDirection ? -1 : 1) * (doorLength > 0 ? doorLength : transform.lossyScale.z);
         }
-	}
 
-    void Update()
-    {
-        //For debugging
-        if (Input.GetKeyDown(KeyCode.O))
-            Open();
-        if (Input.GetKeyDown(KeyCode.C))
-            Close();
+        GameManager.AddSaveEvent(Save);
+        GameManager.AddReloadEvent(ReloadSave);
     }
 
     public void Open()
@@ -130,5 +128,23 @@ public class Door : MonoBehaviour {
                 StopCoroutine(_closeCoroutine);
             Open();
         }
+    }
+
+    public void Save()
+    {
+        _savedOpen = isOpen;
+        _saveLocked = locked;
+    }
+
+    public void ReloadSave()
+    {
+        StopAllCoroutines();
+        locked = _saveLocked;
+        isOpen = _savedOpen;
+
+        if (isOpen)
+            transform.position = _openPos;
+        else
+            transform.position = _closePos;
     }
 }

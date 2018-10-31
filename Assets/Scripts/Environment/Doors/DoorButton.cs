@@ -47,8 +47,6 @@ public class DoorButton : Interactable {
                     door.Unlock();
                 }
             }
-
-            return;
         }
 
         foreach (Door door in doors)
