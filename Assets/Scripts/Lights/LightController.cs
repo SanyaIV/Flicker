@@ -21,6 +21,8 @@ public class LightController : MonoBehaviour {
     [Header("Fade In/Out")]
     [SerializeField] private float _fadeInTime;
     [SerializeField] private float _fadeOutTime;
+    private Coroutine _fadeMax = null;
+    private Coroutine _fadeMin = null;
 
     [Header("Flicker")]
     [SerializeField] private bool _flickerOnStart;
@@ -184,13 +186,21 @@ public class LightController : MonoBehaviour {
         StartCoroutine(FlickerMinMaxForSecondsLeaveMin(timeInSeconds));
     }
 
-    public void StopFlicker(bool leaveOn = false)
+    public void StopFlicker()
     {
         if (_locked)
             return;
 
         if (_flickerCoroutine != null)
             StopCoroutine(_flickerCoroutine);
+    }
+
+    public void StopMinMax()
+    {
+        if (_fadeMin != null)
+            StopCoroutine(_fadeMin);
+        if (_fadeMax != null)
+            StopCoroutine(_fadeMax);
     }
 
     private void SetLampEmission()
@@ -208,12 +218,16 @@ public class LightController : MonoBehaviour {
         {
             if (_light.intensity < _intensity.Max / 2)
             {
-                StartCoroutine(FadeMax(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
+                StopMinMax();
+
+                _fadeMax = StartCoroutine(FadeMax(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
                 yield return new WaitForSeconds(Random.Range(_flickerOnWait.Min, _flickerOnWait.Max));
             }  
             else
             {
-                StartCoroutine(FadeOff(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
+                StopMinMax();
+
+                _fadeMin = StartCoroutine(FadeOff(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
                 yield return new WaitForSeconds(Random.Range(_flickerOffWait.Min, _flickerOffWait.Max));
             }
             
@@ -227,13 +241,17 @@ public class LightController : MonoBehaviour {
         {
             if (_light.intensity < (_intensity.Max - _intensity.Min) / 2)
             {
+                StopMinMax();
+
+                _fadeMax = StartCoroutine(FadeMax(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
                 yield return new WaitForSeconds(Random.Range(_flickerOnWait.Min, _flickerOnWait.Max));
-                StartCoroutine(FadeMax(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
             }
             else
             {
+                StopMinMax();
+
+                _fadeMin = StartCoroutine(FadeMin(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
                 yield return new WaitForSeconds(Random.Range(_flickerOffWait.Min, _flickerOffWait.Max));
-                StartCoroutine(FadeMin(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
             }
 
             yield return null;
@@ -244,7 +262,10 @@ public class LightController : MonoBehaviour {
     {
         _flickerCoroutine = StartCoroutine(Flicker());
         yield return new WaitForSeconds(seconds);
+
         StopCoroutine(_flickerCoroutine);
+        StopMinMax();
+
         _light.intensity = _intensity.Max;
         SetLampEmission();
     }
@@ -253,7 +274,10 @@ public class LightController : MonoBehaviour {
     {
         _flickerCoroutine = StartCoroutine(FlickerMinMax());
         yield return new WaitForSeconds(seconds);
+
         StopCoroutine(_flickerCoroutine);
+        StopMinMax();
+
         _light.intensity = _intensity.Max;
         SetLampEmission();
     }
@@ -262,7 +286,10 @@ public class LightController : MonoBehaviour {
     {
         _flickerCoroutine = StartCoroutine(Flicker());
         yield return new WaitForSeconds(seconds);
+
         StopCoroutine(_flickerCoroutine);
+        StopMinMax();
+
         _light.intensity = 0f;
         SetLampEmission();
     }
@@ -271,7 +298,10 @@ public class LightController : MonoBehaviour {
     {
         _flickerCoroutine = StartCoroutine(FlickerMinMax());
         yield return new WaitForSeconds(seconds);
+
         StopCoroutine(_flickerCoroutine);
+        StopMinMax();
+
         _light.intensity = _intensity.Min;
         SetLampEmission();
     }
