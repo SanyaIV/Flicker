@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.UI;
 
 public class Sanity : MonoBehaviour {
 
@@ -13,13 +14,25 @@ public class Sanity : MonoBehaviour {
     [SerializeField] private float _depletionRate = 0.01f;
     [SerializeField] private float _refillRate = 0.01f;
     private float _sanity = 1f;
+    private bool _tookDamage = false;
 
     [Header("Vignette")]
     [SerializeField] private PostProcessVolume _ppVolume;
     private Vignette _vignette;
 
+    [Header("Pulsing Vignette")]
+    [SerializeField] private Image _vignetteImage;
+    [SerializeField] private MinMaxFloat _vignetteImageOpacityRange;
+    [SerializeField] private float _pulseUpSpeed;
+    [SerializeField] private float _pulseDownSpeed;
+    [SerializeField] private float _pulseUpWaitForSeconds;
+    [SerializeField] private float _pulseDownWaitForSeconds;
+
     public void Start()
     {
+        if (!_vignetteImage)
+            _vignetteImage = GameObject.FindWithTag("PulseVignette").GetComponent<Image>();
+
         _player = GetComponent<PlayerController>();
         _sanity = _sanityRange.Max;
 
@@ -29,6 +42,7 @@ public class Sanity : MonoBehaviour {
         _vignette.smoothness.Override(1f);
 
         _ppVolume = PostProcessManager.instance.QuickVolume(LayerMask.NameToLayer("PostProcessing"), 100f, _vignette);
+        StartCoroutine(PulseSanity());
     }
 
     public float GetSanity()
@@ -39,7 +53,10 @@ public class Sanity : MonoBehaviour {
     public void DepleteSanity(float multiplier = 1f)
     {
         if (_sanity > _sanityRange.Min)
+        {
             _sanity -= _depletionRate * multiplier * Time.deltaTime;
+            _tookDamage = true;
+        }
         if (_sanity < _sanityRange.Min)
             _sanity = _sanityRange.Min;
         if (_sanity == _sanityRange.Min)
@@ -70,6 +87,46 @@ public class Sanity : MonoBehaviour {
     private void UpdateVignette()
     {
         _vignette.intensity.value = Mathf.Lerp(1f, 0f, _sanity / (_sanityRange.Max - _sanityRange.Min));
+    }
+
+    private IEnumerator PulseSanity()
+    {
+        bool up = false;
+        float tmpMin = 0f;
+        Color tmp = _vignetteImage.color;
+        while (true)
+        {
+            tmpMin = Mathf.Lerp(_vignetteImageOpacityRange.Max, _vignetteImageOpacityRange.Min, _sanity / (_sanityRange.Max - _sanityRange.Min));
+
+            if (_tookDamage)
+            {
+                if (up)
+                {
+                    tmp.a = Mathf.Clamp(tmp.a + _pulseUpSpeed * Time.deltaTime, tmpMin, _vignetteImageOpacityRange.Max);
+                    if (tmp.a >= _vignetteImageOpacityRange.Max)
+                    {
+                        up = false;
+                        yield return new WaitForSeconds(_pulseDownWaitForSeconds);
+                    }
+                }
+                else
+                {
+                    tmp.a = Mathf.Clamp(tmp.a - _pulseUpSpeed * Time.deltaTime, tmpMin, _vignetteImageOpacityRange.Max);
+                    if (tmp.a <= tmpMin)
+                    {
+                        up = true;
+                        yield return new WaitForSeconds(_pulseUpWaitForSeconds);
+                    }
+                }
+            }
+            else
+                tmp.a = Mathf.Clamp(tmp.a - _pulseUpSpeed * Time.deltaTime, tmpMin, _vignetteImageOpacityRange.Max);
+
+            _vignetteImage.color = tmp;
+            _tookDamage = false;
+
+            yield return null;
+        }
     }
 
     void Destroy()

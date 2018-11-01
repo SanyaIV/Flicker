@@ -458,7 +458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &170076734
 Light:
   m_ObjectHideFlags: 0
@@ -1406,7 +1406,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1229459746926314, guid: ca2fbf1feecf38d4fa4993539abe6be6, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca2fbf1feecf38d4fa4993539abe6be6, type: 2}
@@ -1915,6 +1915,21 @@ Prefab:
     - target: {fileID: 4876419766583074, guid: 3e629057dfc127440b10d68fab464f69, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114266675706499836, guid: 3e629057dfc127440b10d68fab464f69,
+        type: 2}
+      propertyPath: _vignetteImage
+      value: 
+      objectReference: {fileID: 1303147044}
+    - target: {fileID: 114266675706499836, guid: 3e629057dfc127440b10d68fab464f69,
+        type: 2}
+      propertyPath: _vignetteImageOpacityRange.Max
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114266675706499836, guid: 3e629057dfc127440b10d68fab464f69,
+        type: 2}
+      propertyPath: _pulseUpWaitForSeconds
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e629057dfc127440b10d68fab464f69, type: 2}
@@ -3567,6 +3582,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1236666940}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1303147044 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114471511819366838, guid: 62f9f092a7ada7742a4dd0be4fb46658,
+    type: 2}
+  m_PrefabInternal: {fileID: 1667867569}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1304137794
 GameObject:
   m_ObjectHideFlags: 0

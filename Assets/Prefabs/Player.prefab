@@ -510,9 +510,17 @@ MonoBehaviour:
   _sanityRange:
     Min: 0
     Max: 1
-  _depletionRate: 0.05
+  _depletionRate: 0.03
   _refillRate: 0.1
   _ppVolume: {fileID: 0}
+  _vignetteImage: {fileID: 0}
+  _vignetteImageOpacityRange:
+    Min: 0
+    Max: 0.1
+  _pulseUpSpeed: 0.1
+  _pulseDownSpeed: 0.1
+  _pulseUpWaitForSeconds: 0
+  _pulseDownWaitForSeconds: 0
 --- !u!114 &114297875559449558
 MonoBehaviour:
   m_ObjectHideFlags: 1
