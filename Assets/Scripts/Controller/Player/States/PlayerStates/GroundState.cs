@@ -50,6 +50,7 @@ public class GroundState : PlayerState {
 
     [Header("Temporary Variables")]
     private RaycastHit _hit;
+    private bool _firstRun = true;
 
     [Header("Goop")]
     [SerializeField] private float _goopSpeedMultiplier;
@@ -76,6 +77,12 @@ public class GroundState : PlayerState {
     public override void Enter()
     {
         inputGotten = false;
+
+        if (_firstRun) //Workaround to avoid playing footsteps when the player starts.
+        {
+            _firstRun = false;
+            return;
+        }
 
         if (controller.previousState is AirState) {
             if (Time.time - timeOfAirJump <= maxGhostAirJumpTime)

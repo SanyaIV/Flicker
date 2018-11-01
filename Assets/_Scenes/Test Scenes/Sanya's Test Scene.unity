@@ -1884,13 +1884,18 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114067606785529198, guid: 3e629057dfc127440b10d68fab464f69,
+        type: 2}
+      propertyPath: _states.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4876419766583074, guid: 3e629057dfc127440b10d68fab464f69, type: 2}
       propertyPath: m_LocalPosition.x
       value: -1.09
       objectReference: {fileID: 0}
     - target: {fileID: 4876419766583074, guid: 3e629057dfc127440b10d68fab464f69, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 9.73
+      value: 2.58
       objectReference: {fileID: 0}
     - target: {fileID: 4876419766583074, guid: 3e629057dfc127440b10d68fab464f69, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1921,6 +1926,16 @@ Prefab:
       propertyPath: _vignetteImage
       value: 
       objectReference: {fileID: 1303147044}
+    - target: {fileID: 1751560186011458, guid: 3e629057dfc127440b10d68fab464f69, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114067606785529198, guid: 3e629057dfc127440b10d68fab464f69,
+        type: 2}
+      propertyPath: _states.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 57b81a3d151e9314eb06b964ccf0869f,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e629057dfc127440b10d68fab464f69, type: 2}
   m_IsPrefabAsset: 0

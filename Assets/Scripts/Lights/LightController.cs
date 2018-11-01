@@ -15,28 +15,28 @@ public class LightController : MonoBehaviour {
     private Color _baseLampBulbEmissionColor;
 
     [Header("Light")]
-    [SerializeField] private Light _light;
-    [SerializeField] private MinMaxFloat _intensity;
+    [SerializeField] protected Light _light;
+    [SerializeField] protected MinMaxFloat _intensity;
 
     [Header("Fade In/Out")]
     [SerializeField] private float _fadeInTime;
     [SerializeField] private float _fadeOutTime;
-    private Coroutine _fadeMax = null;
-    private Coroutine _fadeMin = null;
+    protected Coroutine _fadeMax = null;
+    protected Coroutine _fadeMin = null;
 
     [Header("Flicker")]
     [SerializeField] private bool _flickerOnStart;
-    [SerializeField] private MinMaxFloat _flickerFadeSpeed;
+    [SerializeField] protected MinMaxFloat _flickerFadeSpeed;
     [Tooltip("Used to wait while the light is off and going to be turned on")]
-    [SerializeField] private MinMaxFloat _flickerOnWait;
+    [SerializeField] protected MinMaxFloat _flickerOnWait;
     [Tooltip("Used to wait while the light is on and going to be turned off")]
-    [SerializeField] private MinMaxFloat _flickerOffWait;
+    [SerializeField] protected MinMaxFloat _flickerOffWait;
     private Coroutine _flickerCoroutine;
 
     [Header("Save")]
     private float _savedIntensity;
 
-    void Start () {
+    public virtual void Start () {
         _light = GetComponent<Light>();
 
         if (_intensity.Max == 0f)
@@ -309,7 +309,7 @@ public class LightController : MonoBehaviour {
         SetLampEmission();
     }
 
-    private IEnumerator FadeMax(float speed)
+    protected IEnumerator FadeMax(float speed)
     {
         float start = _light.intensity;
         float time = 0f;
@@ -326,7 +326,7 @@ public class LightController : MonoBehaviour {
         yield break;
     }
 
-    private IEnumerator FadeMin(float speed)
+    protected IEnumerator FadeMin(float speed)
     {
         float start = _light.intensity;
         float time = 0f;
@@ -343,7 +343,7 @@ public class LightController : MonoBehaviour {
         yield break;
     }
 
-    private IEnumerator FadeOff(float speed)
+    protected IEnumerator FadeOff(float speed)
     {
         float start = _light.intensity;
         float time = 0f;
