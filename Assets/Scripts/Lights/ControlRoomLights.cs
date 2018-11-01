@@ -21,6 +21,13 @@ public class ControlRoomLights : Interactable {
     [SerializeField] private UnityEvent _methodGroup2;
 
     private bool _switchMethodGroup;
+    private bool _savedSwitchMethodGroup;
+
+    public void Start()
+    {
+        GameManager.AddSaveEvent(Save);
+        GameManager.AddReloadEvent(ReloadSave);
+    }
 
     public void SwitchMethodGroup()
     {
@@ -73,5 +80,15 @@ public class ControlRoomLights : Interactable {
                 _triggerTimes++;
             }
         }
+    }
+
+    public void Save()
+    {
+        _savedSwitchMethodGroup = _switchMethodGroup;
+    }
+
+    public void ReloadSave()
+    {
+        _switchMethodGroup = _savedSwitchMethodGroup;
     }
 }
