@@ -97,7 +97,8 @@ public class GroundState : PlayerState {
 
     public override void Exit()
     {
-        if(transform.parent != null &&  transform.parent.tag != "Escape Pod")
+        Debug.Log(transform.parent);
+        if(transform.parent != null && transform.parent.tag != "Escape Pod")
             transform.parent = null;
         if(_interactableText)
             _interactableText.text = "";
