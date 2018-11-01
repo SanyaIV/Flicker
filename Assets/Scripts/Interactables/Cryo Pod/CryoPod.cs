@@ -13,8 +13,10 @@ public class CryoPod : Interactable {
     private static Image _saveScreen;
     private bool _running;
 
-    public void Start()
+    public override void Start()
     {
+        base.Start();
+
         if (!_canvas)
         {
             _canvas = GameObject.FindGameObjectWithTag("HUD").GetComponent<Canvas>();

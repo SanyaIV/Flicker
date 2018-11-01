@@ -6,7 +6,7 @@ using UnityEngine;
 public class ControlRoomLights : Interactable {
 
     [Header("Switch")]
-    [SerializeField] private bool _enabled = true;
+    [SerializeField] private bool _switchEnabled = true;
 
     [Header("Trigger")]
     [SerializeField] private bool _useTrigger;
@@ -23,8 +23,10 @@ public class ControlRoomLights : Interactable {
     private bool _switchMethodGroup;
     private bool _savedSwitchMethodGroup;
 
-    public void Start()
+    public override void Start()
     {
+        base.Start();
+
         GameManager.AddSaveEvent(Save);
         GameManager.AddReloadEvent(ReloadSave);
     }
@@ -36,12 +38,12 @@ public class ControlRoomLights : Interactable {
 
     public void DisableSwitch()
     {
-        _enabled = false;
+        _switchEnabled = false;
     }
 
     public void EnableSwitch()
     {
-        _enabled = true;
+        _switchEnabled = true;
     }
 
     public override void Interact(PlayerController player)
@@ -51,7 +53,7 @@ public class ControlRoomLights : Interactable {
 
     private void Interact()
     {
-        if (_enabled)
+        if (_switchEnabled)
         {
             if (!_switchMethodGroup)
                 _methodGroup1.Invoke();

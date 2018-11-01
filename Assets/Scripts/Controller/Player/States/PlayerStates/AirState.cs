@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player/States/Air")]
 public class AirState : PlayerState {
 
+    [Header("Fast Falling")]
     public float fastFallingModifier = 2f;
     [HideInInspector] public bool canCancelJump = false;
 
@@ -36,6 +37,10 @@ public class AirState : PlayerState {
             controller.moveDir.y = -2f;
 
         controller.collision = controller.charCtrl.Move(moveDir * Time.deltaTime);
+
+        GetInteractible();
+        if (Input.GetButtonDown("Fire1"))
+            Interact();
     }
 
     public override void FixedUpdate()

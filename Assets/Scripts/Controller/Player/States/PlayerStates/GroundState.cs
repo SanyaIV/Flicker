@@ -48,11 +48,6 @@ public class GroundState : PlayerState {
     public AudioClip[] landingSounds;
     public AudioClip[] jumpSounds;
 
-    [Header("Interactable")]
-    [SerializeField] private float _range;
-    [SerializeField] private LayerMask _interactableLayerMask;
-    private Text _interactableText;
-
     [Header("Temporary Variables")]
     private RaycastHit _hit;
 
@@ -65,10 +60,6 @@ public class GroundState : PlayerState {
     public override void Initialize(Controller owner)
     {
         base.Initialize(owner);
-
-        GameObject interactText = GameObject.Find("InteractText");
-        if(interactText)
-            _interactableText = interactText.GetComponent<Text>();
 
         controller.gravity = (2 * jumpHeight.Max) / Mathf.Pow(timeToJumpApex, 2);
         jumpVelocity.Max = controller.gravity * timeToJumpApex;
@@ -97,11 +88,8 @@ public class GroundState : PlayerState {
 
     public override void Exit()
     {
-        Debug.Log(transform.parent);
         if(transform.parent != null && transform.parent.tag != "Escape Pod")
             transform.parent = null;
-        if(_interactableText)
-            _interactableText.text = "";
     }
 
     public override void Update()
@@ -250,35 +238,5 @@ public class GroundState : PlayerState {
         }
 
         controller.cam.transform.localPosition = newCameraPosition;
-    }
-
-    private Interactable GetInteractible()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(controller.cam.transform.position, controller.cam.transform.forward, out hit, _range, _interactableLayerMask))
-            if(hit.transform.gameObject.layer == LayerMask.NameToLayer("Interactable"))
-            {
-                Interactable actable = hit.transform.GetComponent<Interactable>();
-
-                if (!actable)
-                    return null;
-
-                if(_interactableText)
-                    _interactableText.text = actable.ActionType() + " " + actable.GetName();
-
-                return actable;
-            }
-
-        if(_interactableText)
-            _interactableText.text = "";
-
-        return null;
-    }
-
-    private void Interact()
-    {
-        Interactable actable = GetInteractible();
-        if (actable)
-            actable.Interact(controller);
     }
 }

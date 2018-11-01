@@ -11,6 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a13b8bedc9569949947c9a9537daeba, type: 3}
   m_Name: AirState
   m_EditorClassIdentifier: 
+  _range: 3
+  _interactableLayerMask:
+    serializedVersion: 2
+    m_Bits: 4608
   fastFallingModifier: 2
   canCancelJump: 0
   acceleration: 50

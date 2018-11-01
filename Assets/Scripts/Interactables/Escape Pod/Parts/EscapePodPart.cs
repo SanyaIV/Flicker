@@ -7,8 +7,10 @@ public class EscapePodPart : Interactable {
     [Header("Part")]
     [SerializeField] private string _part;
 
-    public void Start()
+    public override void Start()
     {
+        base.Start();
+
         GameManager.AddSaveEvent(Save);
         GameManager.AddReloadEvent(ReloadSave);
     }

@@ -16,8 +16,10 @@ public class RepairEscapePod : Interactable {
     [Header("Escape Pod Doors")]
     [SerializeField] Door[] _doors;
 
-    public void Start()
+    public override void Start()
     {
+        base.Start();
+
         foreach (string key in _requiredParts)
             _requiredPartsDict.Add(key, false);
 

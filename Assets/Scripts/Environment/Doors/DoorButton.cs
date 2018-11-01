@@ -35,8 +35,10 @@ public class DoorButton : Interactable {
         } 
     }
 
-    public void Start()
+    public override void Start()
     {
+        base.Start();
+
         _player = GameManager.player.GetComponent<PlayerController>();
 
         if(_passcard.Length > 0)

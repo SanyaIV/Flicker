@@ -11,8 +11,41 @@ public class PlayerState : State {
     protected Transform transform { get { return controller.transform; } }
     protected Vector3 moveDir { get { return controller.moveDir; } set { controller.moveDir = value; } }
 
+    [Header("Interactable")]
+    [SerializeField] private float _range;
+    [SerializeField] private LayerMask _interactableLayerMask;
+
     public override void Initialize(Controller owner)
     {
         controller = (PlayerController)owner;
+    }
+
+    protected Interactable GetInteractible()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(controller.cam.transform.position, controller.cam.transform.forward, out hit, _range, _interactableLayerMask))
+        {
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Interactable"))
+            {
+                Interactable actable = hit.transform.GetComponent<Interactable>();
+
+                if (actable)
+                {
+                    actable.Indicate();
+                    return actable;
+                }
+            }
+        }
+
+        Interactable.Conceal();
+
+        return null;
+    }
+
+    protected void Interact()
+    {
+        Interactable actable = GetInteractible();
+        if (actable)
+            actable.Interact(controller);
     }
 }
