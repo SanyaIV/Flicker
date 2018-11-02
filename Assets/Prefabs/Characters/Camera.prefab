@@ -161,11 +161,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a529242c423731946a198daba267b8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  PositionOffset: {x: 0, y: 0.8, z: 0}
-  RequiredInputMagnitude: 0.5
-  YAngleClamp:
-    Min: -89
-    Max: 75
-  YClamp: 1
-  Speed: {x: 100, y: 100}
+  useFollow: 0
+  target: {fileID: 0}
+  positionOffset: {x: 0, y: 0, z: 0}
+  yAngleClamp:
+    Min: 0
+    Max: 0
+  yClamp: 0
+  speed: {x: 0, y: 0}
+  requiredInputMagnitude: 0.3

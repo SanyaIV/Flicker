@@ -60,9 +60,8 @@ public class Sanity : MonoBehaviour {
         if (_sanity < _sanityRange.Min)
             _sanity = _sanityRange.Min;
         if (_sanity == _sanityRange.Min)
-            if(!(_player.currentState is DeadState))
+            if(!(_player.currentState is DeadState) && !(_player.currentState is MutualDestruction) && !(_player.currentState is MutualEscape))
                 _player.TransitionTo<DeadState>();
-
 
         UpdateVignette();
     }

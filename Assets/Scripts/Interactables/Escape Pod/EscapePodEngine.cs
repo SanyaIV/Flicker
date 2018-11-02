@@ -2,18 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class EscapePodEngine : MonoBehaviour {
 
     [Header("Engine")]
     [SerializeField] private float _speed;
-
-    [Header("Image")]
-    [SerializeField] private float _fadeSpeed;
-    [SerializeField] private Sprite _sprite;
-    private Canvas _canvas;
-    private RectTransform _imageTransform;
-    private Image _image;
 
     [Header("Pod")]
     [SerializeField] private Transform _pod;
@@ -21,16 +15,11 @@ public class EscapePodEngine : MonoBehaviour {
     [SerializeField] private GameObject _invisibleWall;
     private bool _activated = false;
 
+    [Header("Enemy Spawn Point")]
+    [SerializeField] Transform _spawnPoint;
+
     void Start()
     {
-        _canvas = GameObject.FindGameObjectWithTag("HUD").GetComponent<Canvas>();
-        _imageTransform = new GameObject().AddComponent<RectTransform>();
-        _imageTransform.transform.SetParent(_canvas.transform);
-        _imageTransform.sizeDelta = new Vector2(10000, 10000);
-        _imageTransform.localPosition = Vector3.zero;
-        _image = _imageTransform.gameObject.AddComponent<Image>();
-        _image.sprite = _sprite;
-        _image.color = new Color(1f, 1f, 1f, 0f);
         _invisibleWall.SetActive(false);
     }
 
@@ -64,8 +53,20 @@ public class EscapePodEngine : MonoBehaviour {
         }
 
         StartCoroutine(Shake());
-        StartCoroutine(FadeOut());
         StartCoroutine(Move());
+
+        if (!GameObject.FindWithTag("SelfDestruct").GetComponent<SelfDestruct>().Activated())
+        {
+            GameObject.FindWithTag("Player").GetComponent<PlayerController>().TransitionTo<MutualEscape>();
+            Transform enemy = GameObject.FindWithTag("Enemy").transform;
+            enemy.GetComponent<NavMeshAgent>().enabled = false;
+            enemy.position = _spawnPoint.position;
+            enemy.SetParent(gameObject.transform);
+        }
+        else
+        {
+            GameObject.FindWithTag("Player").GetComponent<PlayerController>().TransitionTo<Escape>();
+        }
 
         yield break;
     }
@@ -80,23 +81,12 @@ public class EscapePodEngine : MonoBehaviour {
         }
     }
 
-    private IEnumerator FadeOut()
-    {
-        while(_image.color.a < 1f)
-        {
-            _image.color = new Color(1f, 1f, 1f, _image.color.a + _fadeSpeed * Time.deltaTime);
-            yield return null;
-        }
-
-        StopAllCoroutines();
-    }
-
     private IEnumerator Shake()
     {
         while (true)
         {
             CameraShake.AddIntensity(1f);
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(1f);
         }
     }
 }

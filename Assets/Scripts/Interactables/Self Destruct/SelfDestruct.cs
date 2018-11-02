@@ -6,6 +6,19 @@ public class SelfDestruct : Interactable {
 
     [Header("Self Destruct")]
     [SerializeField] private float _timerInSeconds;
+    private Coroutine _selfDestruct;
+
+    [Header("Save")]
+    private bool _saveEnabled;
+    private float _saveTimerInSeconds;
+
+    public override void Start()
+    {
+        base.Start();
+
+        GameManager.AddSaveEvent(Save);
+        GameManager.AddReloadEvent(Reload);
+    }
 
     public override void Interact(PlayerController player)
     {
@@ -13,7 +26,7 @@ public class SelfDestruct : Interactable {
             return;
 
         _enabled = false;
-        StartCoroutine(InitiateSelfDestruct());
+        _selfDestruct = StartCoroutine(InitiateSelfDestruct());
     }
 
     public override string ActionType()
@@ -24,6 +37,11 @@ public class SelfDestruct : Interactable {
     public override string GetName()
     {
         return "Self Destruct";
+    }
+
+    public bool Activated()
+    {
+        return !_enabled;
     }
 
     private IEnumerator InitiateSelfDestruct()
@@ -38,5 +56,25 @@ public class SelfDestruct : Interactable {
         }
 
         Debug.LogWarning("BOOM!");
+        PlayerController player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        if(!(player.currentState is DeadState) && !(player.currentState is MutualDestruction) && !(player.currentState is MutualEscape) && !(player.currentState is Escape))
+            player.TransitionTo<MutualDestruction>();
+    }
+
+    public void Save()
+    {
+        _saveEnabled = _enabled;
+        _saveTimerInSeconds = _timerInSeconds;
+    }
+
+    public void Reload()
+    {
+        _enabled = _saveEnabled;
+        _timerInSeconds = _saveTimerInSeconds;
+
+        if(_enabled && _selfDestruct != null)
+        {
+            StopCoroutine(_selfDestruct);
+        }
     }
 }
