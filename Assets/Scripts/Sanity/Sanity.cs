@@ -102,7 +102,7 @@ public class Sanity : MonoBehaviour {
             {
                 if (up)
                 {
-                    tmp.a = Mathf.Clamp(tmp.a + _pulseUpSpeed * Time.deltaTime, tmpMin, _vignetteImageOpacityRange.Max);
+                    tmp.a = Mathf.Clamp(tmp.a + _pulseUpSpeed * Time.deltaTime, _vignetteImageOpacityRange.Min, _vignetteImageOpacityRange.Max);
                     if (tmp.a >= _vignetteImageOpacityRange.Max)
                     {
                         up = false;
@@ -111,7 +111,7 @@ public class Sanity : MonoBehaviour {
                 }
                 else
                 {
-                    tmp.a = Mathf.Clamp(tmp.a - _pulseUpSpeed * Time.deltaTime, tmpMin, _vignetteImageOpacityRange.Max);
+                    tmp.a = Mathf.Clamp(tmp.a - _pulseDownSpeed * Time.deltaTime, tmpMin, _vignetteImageOpacityRange.Max);
                     if (tmp.a <= tmpMin)
                     {
                         up = true;
@@ -120,7 +120,7 @@ public class Sanity : MonoBehaviour {
                 }
             }
             else
-                tmp.a = Mathf.Clamp(tmp.a - _pulseUpSpeed * Time.deltaTime, tmpMin, _vignetteImageOpacityRange.Max);
+                tmp.a = Mathf.Clamp(tmp.a - _pulseDownSpeed * Time.deltaTime, _vignetteImageOpacityRange.Min, _vignetteImageOpacityRange.Max);
 
             _vignetteImage.color = tmp;
             _tookDamage = false;
