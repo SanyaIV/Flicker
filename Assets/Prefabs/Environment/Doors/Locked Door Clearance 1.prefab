@@ -395,7 +395,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1750447546870186}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 3.6527588, y: -9.3985815, z: 12.899419}
+  m_LocalPosition: {x: 4.800227, y: -9.3985815, z: 13.085616}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4200071140783228}
@@ -1179,7 +1179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorLength: 1
   reverseDirection: 1
-  speed: 0.5
+  speed: 1
   isOpen: 0
   closing: 0
   opening: 0
@@ -1221,7 +1221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorLength: 1
   reverseDirection: 0
-  speed: 0.5
+  speed: 1
   isOpen: 0
   closing: 0
   opening: 0
@@ -1299,6 +1299,9 @@ MonoBehaviour:
   _master: {fileID: 114954687403754364}
   _doors: []
   _passcard: 
+  _audioSource: {fileID: 0}
+  _audioLatch: {fileID: 0}
+  _audioHiss: {fileID: 0}
   _basicAudio: {fileID: 0}
   _background: {fileID: 114016935927453892}
   _lockedImage: {fileID: 114599592514859706}
@@ -1386,6 +1389,9 @@ MonoBehaviour:
   - {fileID: 114148225341846828}
   - {fileID: 114597026690464898}
   _passcard: 1
+  _audioSource: {fileID: 82234986960940584}
+  _audioLatch: {fileID: 8300000, guid: b7dbdbed46a911e429ea82cfac5ebce4, type: 3}
+  _audioHiss: {fileID: 8300000, guid: ced5a04aa775b204480ccdb43930fc49, type: 3}
   _basicAudio: {fileID: 114911046411744566}
   _background: {fileID: 114136418089559040}
   _lockedImage: {fileID: 114770676491876692}

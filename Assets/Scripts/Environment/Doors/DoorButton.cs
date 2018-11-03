@@ -16,6 +16,9 @@ public class DoorButton : Interactable {
     [SerializeField] private string _passcard;
 
     [Header("Basic Audio")]
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _audioLatch;
+    [SerializeField] private AudioClip _audioHiss;
     [SerializeField] private BasicAudio _basicAudio;
 
     [Header("Canvas")]
@@ -26,6 +29,7 @@ public class DoorButton : Interactable {
     [SerializeField] private Color _openColor;
 
     private PlayerController _player;
+    private Coroutine _coroutine;
 
     public void Awake()
     {
@@ -61,36 +65,67 @@ public class DoorButton : Interactable {
             return;
         }
 
+        if (!Unlock(player))
+            return;
+
+        bool open = false;
+        bool closing = false;
+        bool opening = false;
+
+        foreach(Door door in _doors)
+        {
+            if (door.isOpen)
+                open = true;
+            if (door.closing)
+                closing = true;
+            if (door.opening)
+                opening = true;
+        }
+
+        if (opening || closing)
+        {
+            return;
+        }
+        else if (open)
+        {
+            if (_coroutine != null)
+                StopCoroutine(_coroutine);
+
+            _coroutine = StartCoroutine(Close());
+        }
+        else
+        {
+            if (_coroutine != null)
+                StopCoroutine(_coroutine);
+
+            _coroutine = StartCoroutine(Open());
+        }
+            
+
+        SetCanvas();
+    }
+
+    private bool Unlock(PlayerController player)
+    {
         if (_passcard.Length > 0 && _doors[0].locked)
         {
             if (!player.HasPasscard(_passcard))
-                return;
+                return false;
             else
             {
                 foreach(Door door in _doors)
                 {
                     door.Unlock();
                 }
+
+                return true;
             }
         }
 
-        foreach (Door door in _doors)
-        {
-            if (door.opening)
-                door.Close();
-            else if (door.closing)
-                door.Open();
-            else if (door.isOpen)
-                door.Close();
-            else
-                door.Open();
-
-            if (_basicAudio)
-                _basicAudio.PlayAudio();
-        }
-
-        SetCanvas();
+        return true;
     }
+
+
 
     private void SetCanvas()
     {
@@ -122,6 +157,56 @@ public class DoorButton : Interactable {
         {
             slave.SetCanvas();
         }
+    }
+
+    private void PlayAudio(AudioClip clip)
+    {
+        _audioSource.PlayOneShot(clip);
+    }
+
+    private IEnumerator Open()
+    {
+        _audioSource.Stop();
+        _audioSource.PlayOneShot(_audioLatch);
+
+        yield return new WaitForSeconds(0.5f);
+
+        foreach(Door door in _doors)
+            door.Open();
+
+        _audioSource.PlayOneShot(_audioHiss);
+    }
+
+    private IEnumerator Close()
+    {
+        _audioSource.PlayOneShot(_audioHiss);
+
+        foreach (Door door in _doors)
+            door.Close();
+
+        bool closing = true;
+        while (closing)
+        {
+            foreach(Door door in _doors)
+                if (door.opening)
+                    closing = false;
+
+            if (!closing)
+            {
+                foreach (Door door in _doors)
+                    door.Open();
+
+                _audioSource.Stop();
+                yield break;
+            }
+
+            foreach (Door door in _doors)
+                closing = door.closing;
+
+            yield return null;
+        }
+
+        _audioSource.PlayOneShot(_audioLatch);
     }
 
     public override string ActionType()
