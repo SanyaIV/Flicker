@@ -53,14 +53,14 @@ public class IntroScene : LightController {
             {
                 StopMinMax();
 
-                _fadeMax = StartCoroutine(FadeMax(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
+                _fadeMax = StartCoroutine(FadeMax(Random.Range(_flickerOnFadeSpeed.Min, _flickerOnFadeSpeed.Max)));
                 yield return new WaitForSeconds(Random.Range(_flickerOnWait.Min, _flickerOnWait.Max));
             }
             else
             {
                 StopMinMax();
 
-                _fadeMin = StartCoroutine(FadeOff(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
+                _fadeMin = StartCoroutine(FadeOff(Random.Range(_flickerOnFadeSpeed.Min, _flickerOnFadeSpeed.Max)));
                 yield return new WaitForSeconds(Random.Range(_flickerOffWait.Min, _flickerOffWait.Max));
             }
 

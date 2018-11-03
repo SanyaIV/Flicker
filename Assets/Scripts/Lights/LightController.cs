@@ -26,7 +26,8 @@ public class LightController : MonoBehaviour {
 
     [Header("Flicker")]
     [SerializeField] private bool _flickerOnStart;
-    [SerializeField] protected MinMaxFloat _flickerFadeSpeed;
+    [SerializeField] protected MinMaxFloat _flickerOnFadeSpeed;
+    [SerializeField] protected MinMaxFloat _flickerOffFadeSpeed;
     [Tooltip("Used to wait while the light is off and going to be turned on")]
     [SerializeField] protected MinMaxFloat _flickerOnWait;
     [Tooltip("Used to wait while the light is on and going to be turned off")]
@@ -223,14 +224,14 @@ public class LightController : MonoBehaviour {
             {
                 StopMinMax();
 
-                _fadeMax = StartCoroutine(FadeMax(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
+                _fadeMax = StartCoroutine(FadeMax(Random.Range(_flickerOnFadeSpeed.Min, _flickerOnFadeSpeed.Max)));
                 yield return new WaitForSeconds(Random.Range(_flickerOnWait.Min, _flickerOnWait.Max));
             }  
             else
             {
                 StopMinMax();
 
-                _fadeMin = StartCoroutine(FadeOff(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
+                _fadeMin = StartCoroutine(FadeOff(Random.Range(_flickerOffFadeSpeed.Min, _flickerOffFadeSpeed.Max)));
                 yield return new WaitForSeconds(Random.Range(_flickerOffWait.Min, _flickerOffWait.Max));
             }
             
@@ -246,14 +247,14 @@ public class LightController : MonoBehaviour {
             {
                 StopMinMax();
 
-                _fadeMax = StartCoroutine(FadeMax(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
+                _fadeMax = StartCoroutine(FadeMax(Random.Range(_flickerOnFadeSpeed.Min, _flickerOnFadeSpeed.Max)));
                 yield return new WaitForSeconds(Random.Range(_flickerOnWait.Min, _flickerOnWait.Max));
             }
             else
             {
                 StopMinMax();
 
-                _fadeMin = StartCoroutine(FadeMin(Random.Range(_flickerFadeSpeed.Min, _flickerFadeSpeed.Max)));
+                _fadeMin = StartCoroutine(FadeMin(Random.Range(_flickerOffFadeSpeed.Min, _flickerOffFadeSpeed.Max)));
                 yield return new WaitForSeconds(Random.Range(_flickerOffWait.Min, _flickerOffWait.Max));
             }
 
