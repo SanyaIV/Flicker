@@ -54,11 +54,15 @@ public class SelfDestruct : Interactable {
 
             yield return null;
         }
-
-        Debug.LogWarning("BOOM!");
+        
         PlayerController player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         if(!(player.currentState is DeadState) && !(player.currentState is MutualDestruction) && !(player.currentState is MutualEscape) && !(player.currentState is Escape))
+        {
+            Debug.LogWarning("BOOM!");
+            GetComponent<AudioSource>().Play();
             player.TransitionTo<MutualDestruction>();
+        }
+            
     }
 
     public void Save()
