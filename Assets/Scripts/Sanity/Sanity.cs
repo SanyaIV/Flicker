@@ -50,6 +50,16 @@ public class Sanity : MonoBehaviour {
         return _sanity;
     }
 
+    public float GetSanity01()
+    {
+        return Mathf.Lerp(1f, 0f, (_sanity - _sanityRange.Min) / (_sanityRange.Max - _sanityRange.Min));
+    }
+
+    public float GetSanity10()
+    {
+        return Mathf.Lerp(0f, 1f, (_sanity - _sanityRange.Min) / (_sanityRange.Max - _sanityRange.Min));
+    }
+
     public void DepleteSanity(float multiplier = 1f)
     {
         if (_sanity > _sanityRange.Min)
@@ -85,7 +95,7 @@ public class Sanity : MonoBehaviour {
 
     private void UpdateVignette()
     {
-        _vignette.intensity.value = Mathf.Lerp(1f, 0f, _sanity / (_sanityRange.Max - _sanityRange.Min));
+        _vignette.intensity.value = GetSanity01();
     }
 
     private IEnumerator PulseSanity()
@@ -95,7 +105,7 @@ public class Sanity : MonoBehaviour {
         Color tmp = _vignetteImage.color;
         while (true)
         {
-            tmpMin = Mathf.Lerp(_vignetteImageOpacityRange.Max, _vignetteImageOpacityRange.Min, _sanity / (_sanityRange.Max - _sanityRange.Min));
+            tmpMin = Mathf.Lerp(_vignetteImageOpacityRange.Max, _vignetteImageOpacityRange.Min, GetSanity10());
 
             if (_tookDamage)
             {
