@@ -11,6 +11,7 @@ public abstract class Interactable : MonoBehaviour {
     private static Text _interactableText;
     private static Image _mouseImage;
     private static Image _crosshair;
+    private static bool _initialized = false;
 
     public abstract void Interact(PlayerController player);
     public abstract string ActionType();
@@ -18,7 +19,15 @@ public abstract class Interactable : MonoBehaviour {
 
     public virtual void Start()
     {
-        if(!_interactableText)
+        Initialize();
+    }
+
+    public static void Initialize()
+    {
+        if (_initialized)
+            return;
+
+        if (!_interactableText)
             _interactableText = GameObject.Find("InteractText").GetComponent<Text>();
         if (!_mouseImage)
         {
@@ -27,7 +36,8 @@ public abstract class Interactable : MonoBehaviour {
         }
         if (!_crosshair)
             _crosshair = GameObject.Find("Crosshair").GetComponent<Image>();
-            
+
+        _initialized = true;
     }
 
     public bool IsEnabled()
@@ -47,6 +57,9 @@ public abstract class Interactable : MonoBehaviour {
 
     public static void Conceal()
     {
+        if (!_initialized)
+            Initialize();
+
         _interactableText.text = "";
         _mouseImage.enabled = false;
         _crosshair.enabled = true;
