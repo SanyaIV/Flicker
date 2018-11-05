@@ -94,8 +94,10 @@ public class BasicAudio : OffScreenIndicator {
     private IEnumerator OffScreenIndicator() {
         while (true)
         {
-            if(_audioSource.isPlaying && !_isPaused)
+            if (_audioSource.isPlaying && !_isPaused && !_enabled)
                 EnableIndicator(_audioSource.GetComponentInParent<Transform>());
+            else if (_audioSource.isPlaying && !_isPaused && _enabled)
+                yield return null;
             else
                 DisableIndicator();
 

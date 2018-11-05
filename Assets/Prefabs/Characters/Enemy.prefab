@@ -43,7 +43,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1229459746926314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.8085928, y: -8.5, z: 13.123705}
+  m_LocalPosition: {x: -12.74, y: -8.5, z: -15.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -320,8 +320,10 @@ MonoBehaviour:
   spriteColor: {r: 1, g: 0, b: 0, a: 1}
   iconScale: {x: 1, y: 1, z: 1}
   spriteScale: {x: 0.5, y: 0.5, z: 0.5}
-  spriteOffset: -10
+  spriteOffset: -15
   maxRange: 30
+  _audioWavePrefab: {fileID: 1311678410086206, guid: 4501ca8d0b0105645b73819acee0a367,
+    type: 2}
   edgeBuffer: 100
   _audioClips:
   - {fileID: 8300000, guid: b07e5975ca4164741ad5203f5cdb92b3, type: 3}

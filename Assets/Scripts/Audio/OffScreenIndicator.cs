@@ -7,7 +7,7 @@ public class OffScreenIndicator : MonoBehaviour {
 
     [Header("Off-Screen Indicator")]
     [SerializeField] protected bool _enableIndicator;
-    private bool _enabled;
+    protected bool _enabled;
     private Transform _source;
 
     [Header("Camera")]
@@ -34,9 +34,12 @@ public class OffScreenIndicator : MonoBehaviour {
     public float spriteOffset = -15f;
     public float maxRange = 30f;
 
+    [Header("Audio Wave")]
+    public GameObject _audioWavePrefab;
+    private Coroutine _audioWaveCoroutine;
+
     [Header("Edge")]
     public float edgeBuffer = 100f;
-
 
 	// Use this for initialization
 	public virtual void Start () {
@@ -69,6 +72,10 @@ public class OffScreenIndicator : MonoBehaviour {
         tmp.a = 1f;
         _iconImage.color = tmp;
         _iconsIconImage.color = tmp;
+
+        if (_audioWaveCoroutine != null)
+            StopCoroutine(_audioWaveCoroutine);
+        _audioWaveCoroutine = StartCoroutine(AudioWave());
     }
 
     public void DisableIndicator()
@@ -82,6 +89,9 @@ public class OffScreenIndicator : MonoBehaviour {
         tmp.a = 0f;
         _iconImage.color = tmp;
         _iconsIconImage.color = tmp;
+
+        if (_audioWaveCoroutine != null)
+            StopCoroutine(_audioWaveCoroutine);
     }
 
     private void InstantiateIcon()
@@ -155,5 +165,17 @@ public class OffScreenIndicator : MonoBehaviour {
         tmp.a = Mathf.Lerp(0f, 1f, (maxRange - Vector3.Distance(_cam.transform.position, _source.position)) / maxRange);
         _iconImage.color = tmp;
         _iconsIconImage.color = tmp;
+    }
+
+    private IEnumerator AudioWave()
+    {
+        while (true)
+        {
+            if (!_audioWavePrefab || Vector3.Distance(_cam.transform.position, _source.position) > maxRange)
+                yield break;
+
+            Instantiate(_audioWavePrefab, _iconsIconImage.transform);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }
