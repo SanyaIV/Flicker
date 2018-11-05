@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114842453619982794}
   - component: {fileID: 65211434034843470}
   m_Layer: 12
-  m_Name: Escape Pod Part
+  m_Name: Engine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,14 +52,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1616036215363552}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.045495, y: -3.8940802, z: 1.8696842}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalRotation: {x: -0, y: 0.94998294, z: -0, w: 0.31230175}
+  m_LocalPosition: {x: -6.6689997, y: -3.8940802, z: 3.7180004}
+  m_LocalScale: {x: 1.016355, y: 1.016355, z: 1.016355}
   m_Children:
   - {fileID: 4871900263268632}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 143.604, z: 0}
 --- !u!4 &4871900263268632
 Transform:
   m_ObjectHideFlags: 1
@@ -122,7 +122,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1616036215363552}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -152,4 +152,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enabled: 1
   _showMouse: 1
-  _part: The One True Part
+  _module: Engine
+  _part: 1

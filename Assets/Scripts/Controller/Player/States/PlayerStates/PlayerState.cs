@@ -25,11 +25,11 @@ public class PlayerState : State {
         RaycastHit hit;
         if (Physics.Raycast(controller.cam.transform.position, controller.cam.transform.forward, out hit, _range, _interactableLayerMask))
         {
-            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Interactable"))
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Interactable"))
             {
-                Interactable actable = hit.transform.GetComponent<Interactable>();
+                Interactable actable = hit.collider.GetComponent<Interactable>();
 
-                if (actable)
+                if (actable && actable.IsEnabled())
                 {
                     actable.Indicate();
                     return actable;
@@ -45,7 +45,7 @@ public class PlayerState : State {
     protected void Interact()
     {
         Interactable actable = GetInteractible();
-        if (actable)
+        if (actable && actable.IsEnabled())
             actable.Interact(controller);
     }
 }

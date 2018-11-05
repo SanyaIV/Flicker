@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EscapePodPart : Interactable {
 
-    [Header("Part")]
+    [Header("Repair Part")]
+    [SerializeField] private string _module;
     [SerializeField] private string _part;
 
     public override void Start()
@@ -17,7 +18,7 @@ public class EscapePodPart : Interactable {
 
     public override void Interact(PlayerController player)
     {
-        player.AddEscapePodPart(_part);
+        player.AddEscapePodPart(this);
         gameObject.SetActive(false);
     }
 
@@ -28,7 +29,32 @@ public class EscapePodPart : Interactable {
 
     public override string GetName()
     {
-        return "Part";
+        return _module;
+    }
+
+    public string GetModule()
+    {
+        return _module;
+    }
+
+    public string GetPart()
+    {
+        return _part;
+    }
+
+    public bool IsModule(string module)
+    {
+        return _module == module;
+    }
+
+    public bool IsPart(string part)
+    {
+        return _part == part;
+    }
+
+    public bool IsPart(string module, string part)
+    {
+        return IsModule(module) && IsPart(part);
     }
 
     public void Save()
@@ -37,9 +63,7 @@ public class EscapePodPart : Interactable {
         {
             GameManager.RemoveSaveEvent(Save);
             GameManager.RemoveReloadEvent(ReloadSave);
-            Destroy(gameObject);
         }
-           
     }
 
     public void ReloadSave()

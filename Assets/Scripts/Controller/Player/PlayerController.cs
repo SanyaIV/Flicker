@@ -33,19 +33,19 @@ public class PlayerController : Controller {
     [SerializeField] public AudioSource audioSource;
 
     [Header("Inventory")]
-    [SerializeField] private List<string> _passcards;
-    [SerializeField] private List<string> _escapePodParts;
+    private List<string> _passcards;
+    private List<EscapePodPart> _escapePodParts;
 
     [Header("Save")]
     private List<string> _savedPasscards;
-    private List<string> _savedEscapePodParts;
+    private List<EscapePodPart> _savedEscapePodParts;
 
     public override void Awake()
     {
         base.Awake();
 
         _passcards = new List<string>();
-        _escapePodParts = new List<string>();
+        _escapePodParts = new List<EscapePodPart>();
 
         if(!audioSource)
             audioSource = GetComponent<AudioSource>();
@@ -134,31 +134,30 @@ public class PlayerController : Controller {
         return _passcards.Contains(passcard);
     }
 
-    public void AddEscapePodPart(string escapePodPart)
+    public void AddEscapePodPart(EscapePodPart escapePodPart)
     {
         if (!_escapePodParts.Contains(escapePodPart))
             _escapePodParts.Add(escapePodPart);
     }
 
-    public bool HasEscapePodPart(string escapePodPart)
+    public bool HasEscapePodPart(string module, string part)
     {
-        return _escapePodParts.Contains(escapePodPart);
-    }
+        foreach(EscapePodPart _part in _escapePodParts)
+            if (_part.IsPart(module, part))
+                return true;
 
-    public bool HasSavedEscapePodPart(string escapePodPart)
-    {
-        return _savedEscapePodParts.Contains(escapePodPart);
+        return false;
     }
 
     public void Save()
     {
-        _savedEscapePodParts = new List<string>(_escapePodParts);
+        _savedEscapePodParts = new List<EscapePodPart>(_escapePodParts);
         _savedPasscards = new List<string>(_passcards);
     }
 
     public void ReloadSave()
     {
-        _escapePodParts = new List<string>(_savedEscapePodParts);
+        _escapePodParts = new List<EscapePodPart>(_savedEscapePodParts);
         _passcards = new List<string>(_savedPasscards);
     }
 }

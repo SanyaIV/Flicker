@@ -30,6 +30,11 @@ public abstract class Interactable : MonoBehaviour {
             
     }
 
+    public bool IsEnabled()
+    {
+        return _enabled;
+    }
+
     public void Indicate()
     {
         if (!_enabled)
