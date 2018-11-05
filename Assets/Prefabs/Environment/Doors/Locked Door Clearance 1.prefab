@@ -324,6 +324,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4461379716745506}
   - component: {fileID: 82234986960940584}
+  - component: {fileID: 114699827905540132}
   m_Layer: 0
   m_Name: Door Audio Source
   m_TagString: Untagged
@@ -1249,6 +1250,38 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114699827905540132
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1977070109886950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32a0e5c8c9d71c34eb5ad897fba14dae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enableIndicator: 1
+  iconOnScreen: {fileID: 21300000, guid: 4ea43f05ce036d2478708fc0e62762d2, type: 3}
+  iconOffScreen: {fileID: 21300000, guid: 939c2622ea4d7164a9b681bc597b1bfd, type: 3}
+  sprite: {fileID: 21300000, guid: 59253cfe86085e04982affef26a98e31, type: 3}
+  iconColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  spriteColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  iconScale: {x: 1, y: 1, z: 1}
+  spriteScale: {x: 0.5, y: 0.5, z: 0.5}
+  spriteOffset: -15
+  maxRange: 30
+  edgeBuffer: 100
+  _audioClips: []
+  _audioSource: {fileID: 82234986960940584}
+  _noInterrupt: 0
+  _useTrigger: 0
+  _percentTriggerChance: 0
+  _maxTriggerTimes: 0
+  _continiousRandom: 0
+  _randomWaitRange:
+    Min: 0
+    Max: 0
 --- !u!114 &114710391205924400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1354,7 +1387,7 @@ MonoBehaviour:
   _audioSource: {fileID: 82234986960940584}
   _audioLatch: {fileID: 8300000, guid: b7dbdbed46a911e429ea82cfac5ebce4, type: 3}
   _audioHiss: {fileID: 8300000, guid: ced5a04aa775b204480ccdb43930fc49, type: 3}
-  _basicAudio: {fileID: 0}
+  _basicAudio: {fileID: 114699827905540132}
   _background: {fileID: 114016935927453892}
   _lockedImage: {fileID: 114599592514859706}
   _unlockedImage: {fileID: 114127377243375246}

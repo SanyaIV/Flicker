@@ -29,13 +29,13 @@ public class OffScreenIndicator : MonoBehaviour {
     public Sprite sprite;
     public Color iconColor = Color.yellow;
     public Color spriteColor = Color.yellow;
-    public Vector3 iconScale;
-    public Vector3 spriteScale;
-    public float spriteOffset;
-    public float maxRange;
+    public Vector3 iconScale = Vector3.one;
+    public Vector3 spriteScale = Vector3.one / 2;
+    public float spriteOffset = -15f;
+    public float maxRange = 30f;
 
     [Header("Edge")]
-    public float edgeBuffer;
+    public float edgeBuffer = 100f;
 
 
 	// Use this for initialization
