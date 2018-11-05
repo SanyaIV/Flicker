@@ -38,6 +38,11 @@ public class BasicAudio : OffScreenIndicator {
         _isPaused = true;
     }
 
+    public void Stop()
+    {
+        _audioSource.Stop();
+    }
+
     public void Resume()
     {
         if (_isPaused)
@@ -67,6 +72,11 @@ public class BasicAudio : OffScreenIndicator {
         }
         else
             return;
+    }
+
+    public void PlayOneShot(AudioClip clip)
+    {
+        _audioSource.PlayOneShot(clip);
     }
 
     void OnTriggerEnter(Collider other)

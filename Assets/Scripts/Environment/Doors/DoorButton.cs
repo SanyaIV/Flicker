@@ -161,25 +161,25 @@ public class DoorButton : Interactable {
 
     private void PlayAudio(AudioClip clip)
     {
-        _audioSource.PlayOneShot(clip);
+        _basicAudio.PlayOneShot(clip);
     }
 
     private IEnumerator Open()
     {
-        _audioSource.Stop();
-        _audioSource.PlayOneShot(_audioLatch);
+        _basicAudio.Stop();
+        _basicAudio.PlayOneShot(_audioLatch);
 
         yield return new WaitForSeconds(0.5f);
 
         foreach(Door door in _doors)
             door.Open();
 
-        _audioSource.PlayOneShot(_audioHiss);
+        _basicAudio.PlayOneShot(_audioHiss);
     }
 
     private IEnumerator Close()
     {
-        _audioSource.PlayOneShot(_audioHiss);
+        _basicAudio.PlayOneShot(_audioHiss);
 
         foreach (Door door in _doors)
             door.Close();
@@ -196,7 +196,7 @@ public class DoorButton : Interactable {
                 foreach (Door door in _doors)
                     door.Open();
 
-                _audioSource.Stop();
+                _basicAudio.Stop();
                 yield break;
             }
 
@@ -206,7 +206,7 @@ public class DoorButton : Interactable {
             yield return null;
         }
 
-        _audioSource.PlayOneShot(_audioLatch);
+        _basicAudio.PlayOneShot(_audioLatch);
     }
 
     public override string ActionType()

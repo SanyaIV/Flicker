@@ -27,6 +27,8 @@ public class OffScreenIndicator : MonoBehaviour {
     public Sprite iconOnScreen;
     public Sprite iconOffScreen;
     public Sprite sprite;
+    public Color iconColor = Color.yellow;
+    public Color spriteColor = Color.yellow;
     public Vector3 iconScale;
     public Vector3 spriteScale;
     public float spriteOffset;
@@ -96,6 +98,9 @@ public class OffScreenIndicator : MonoBehaviour {
         _iconsIconImage = _iconsIcon.gameObject.AddComponent<Image>();
         _iconsIconImage.sprite = sprite;
         _iconsIcon.localPosition = _icon.up * -15f;
+
+        _iconImage.color = iconColor;
+        _iconsIconImage.color = spriteColor;
     }
 
     private void DrawIcon()
