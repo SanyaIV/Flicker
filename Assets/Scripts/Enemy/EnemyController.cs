@@ -14,6 +14,10 @@ public class EnemyController : EnemyStateController
     private float maxDistance = 30f;
     public NavMeshAgent _navMeshAgent;
 
+    public float detectDistance = 0.00000005f;
+
+    public LayerMask _doorLayer;
+
     //private List<RaycastHit> hits;
     public BoxCollider[] colls;
 
@@ -22,7 +26,6 @@ public class EnemyController : EnemyStateController
     public Transform player;
     public Sanity sanity;
     public float speed;
-    public float detectDistance = 20f;
 
     private Vector3 _startPos;
     private Quaternion _startRot;
@@ -41,9 +44,21 @@ public class EnemyController : EnemyStateController
     [HideInInspector] public CharacterController _charCtrl;
     [HideInInspector] public CollisionFlags _collision;
 
+    [Header("Footstep")]
+    [SerializeField] private float _stepInterval;
+    [SerializeField] [Range(0f, 1f)] private float _runStepLengthen;
+    private float _stepCycle;
+    private float _nextStep;
+
     [Header("Audio")]
     [SerializeField] public BasicAudio basicAudio;
+    public AudioClip[] footstepSounds;
+    public AudioClip doorPound;
 
+    public AudioSource audioSource;
+
+    //privates
+    public bool hittingDoor = false;
     public override void Awake()
     {
         base.Awake();
@@ -52,6 +67,9 @@ public class EnemyController : EnemyStateController
     public override void Start()
     {
         base.Start();
+
+        _stepCycle = 0f;
+        _nextStep = _stepCycle / 2f;
 
         rend = GetComponent<Renderer>();
         cam = Camera.main;
@@ -64,34 +82,65 @@ public class EnemyController : EnemyStateController
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         sanity = GameObject.FindGameObjectWithTag("Player").GetComponent<Sanity>();
 
+        AudioSource audioSource = GetComponent<AudioSource>();
+
         _startPos = transform.position;
         _startRot = transform.rotation;
+
+        TransitionTo<Patrol>();
     }
 
     public override void Update()
     {
         base.Update();
+        if (hittingDoor) return;
 
-        if (!CheckIfVisible())
+        if (!CheckIfEnemyIsVisible())
         {
-            //transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-           
-            _navMeshAgent.isStopped = false;
-            if(!(CurrentState is Hunt))
-                TransitionTo<Hunt>();
+            Debug.Log("is hidden");
+            UpdateIfHidden();
         }
         else
         {
-            _navMeshAgent.isStopped = true;
-            if(!(CurrentState is Idle))
-                TransitionTo<Idle>();
-
-            sanity.DepleteSanity();
+            Debug.Log("Is visible");
+            UpdateIfVisible();
         }
-        detectPlayer();
+
+        ProgressStepCycle();
+
     }
 
-    private bool CheckIfVisible()
+    private void UpdateIfVisible()
+    {
+        _navMeshAgent.isStopped = true;
+
+        if (!(CurrentState is Idle))
+            Debug.Log("Transitioning to idle");
+        TransitionTo<Idle>();
+   
+        sanity.DepleteSanity();
+    }
+
+    private void UpdateIfHidden()
+    {
+        _navMeshAgent.isStopped = false;
+
+        //if enemy stands in front of door, play pounding noise
+        if (HitDoor())
+        {
+            StartCoroutine(PoundOnDoor());
+        }
+    }
+
+    //Check if enemy stands in front of door
+    private bool HitDoor()
+    {
+        RaycastHit hit = new RaycastHit();
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.cyan);
+        return (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), 0.5f, LayerMask.GetMask("Door")));   
+    }
+
+    public bool CheckIfEnemyIsVisible()
     {
         if (rend.isVisible) //Check if Unity thinks the renderer is visible (Not perfect but works as a quick and easy out in case it's not)
         {
@@ -152,13 +201,59 @@ public class EnemyController : EnemyStateController
         transform.rotation = _startRot;
     }
 
-    public void detectPlayer()
+    //Stop enemy and play pound on door audio
+    public IEnumerator PoundOnDoor()
     {
-        if(player.transform.position.magnitude - transform.position.magnitude < detectDistance)
-        {
-            //Debug.Log("player detected");
-        }
+        hittingDoor = true;
+        _navMeshAgent.isStopped = true;
+        audioSource.PlayOneShot(doorPound);
+        Debug.Log("Play sound");
+
+        yield return new WaitForSeconds(2);
+        TransitionTo<Patrol>();
+        _navMeshAgent.isStopped = false;
+        yield return new WaitForSeconds(3);
+        hittingDoor = false;
     }
+
+    private void ProgressStepCycle()
+    {
+        if (_navMeshAgent.velocity.magnitude > 1f)
+            _stepCycle += (velocity.magnitude + (speed * 1f)) * Time.fixedDeltaTime;
+
+        if (!(_stepCycle > _nextStep))
+            return;
+
+        _nextStep = _stepCycle + _stepInterval;
+
+        PlayAudio(ref footstepSounds);
+    }
+
+    private void PlayAudio(ref AudioClip[] audio)
+    {
+        if (audio.Length > 1)
+        {
+            int n = Random.Range(1, audio.Length);
+            audioSource.clip = audio[n];
+            audioSource.PlayOneShot(audioSource.clip);
+            audio[n] = audio[0];
+            audio[0] = audioSource.clip;
+        }
+        else if (audio.Length == 1)
+            audioSource.PlayOneShot(audio[0]);
+        else
+            return;
+    }
+
+    public bool PlayerClose()
+    {
+        if (Vector3.Distance(player.position, transform.position) < detectDistance)
+        {
+            return true;
+        }
+        return false;
+    }
+
 }
 
 

@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "EnemyStates/Hunt")]
-public class Hunt : EnemyState
+[CreateAssetMenu(menuName = "EnemyStates/Patrol")]
+public class Patrol : EnemyState
 {
     [Header("Settings")]
     [SerializeField] public float _distanceToDepleteSanity;
     Transform _destination;
     NavMeshAgent _navMeshAgent;
 
-    private EnemyController _controller;
     public Transform target;
 
+    private EnemyController _controller;
+    private int destPoint = 0;
     private Transform transform { get { return _controller.transform; } }
     private Vector3 velocity
     {
@@ -28,10 +29,8 @@ public class Hunt : EnemyState
 
     public override void Enter()
     {
+        Debug.Log("Patrolling");
         _navMeshAgent = _controller.GetComponent<NavMeshAgent>();
-        _destination = _controller.player;
-
-        Debug.Log("Entering hunt");
 
         if (_navMeshAgent == null)
         {
@@ -39,8 +38,16 @@ public class Hunt : EnemyState
         }
 
         _navMeshAgent.isStopped = false;
-
         _controller.basicAudio.Resume();
+
+    }
+
+    private void Start()
+    {
+        _destination = _controller.wayPoints[0];
+
+        _navMeshAgent.autoBraking = false;
+        GoToNextPoint();
     }
 
     private void SetDestination()
@@ -55,22 +62,29 @@ public class Hunt : EnemyState
 
     public override void Update()
     {
-        Debug.Log("Hunting");
         SetDestination();
 
-        if(Vector3.Distance(_controller.player.position, transform.position) < _distanceToDepleteSanity)
+        if(!_navMeshAgent.pathPending && _navMeshAgent.remainingDistance < 0.5f)
         {
-            _controller.sanity.DepleteSanity(2f);
+            GoToNextPoint();
         }
 
-        if (!_controller.PlayerClose())
+        if (_controller.PlayerClose())
         {
-            Debug.Log("Player not close");
-            _controller.TransitionTo<Patrol>();
+            Debug.Log("Player close");
+            _controller.TransitionTo<Hunt>();
         }
-
     }
 
+    private void GoToNextPoint()
+    {
+        if (_controller.wayPoints.Length == 0)
+            return;
+
+        _navMeshAgent.destination = _controller.wayPoints[destPoint].position;
+        destPoint = (destPoint + 1) % _controller.wayPoints.Length;
+    }
 }
+
 
 

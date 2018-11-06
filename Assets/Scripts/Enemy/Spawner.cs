@@ -9,9 +9,7 @@ public class Spawner : MonoBehaviour
     NavMeshAgent _navMeshAgent;
     private List<Transform> spawnPoints;
     public EnemyController _controller;
-
     public float spawnTime = 0;
-
     public float correct = 10f;
 
     [SerializeField] private MinMaxFloat _randomNum;
@@ -19,20 +17,18 @@ public class Spawner : MonoBehaviour
     public void Start()
     {
         _navMeshAgent = _controller.GetComponent<NavMeshAgent>();  
-
         spawnPoints = new List<Transform>();
 
         foreach(GameObject go in GameObject.FindGameObjectsWithTag("Spawn Point"))
         {
             spawnPoints.Add(go.transform);
         }
-
         StartCoroutine(SpawnWhenClose());
+        
     }
 
     public IEnumerator SpawnWhenClose()
     {
-
         float drainDistance = _controller.GetState<Hunt>()._distanceToDepleteSanity;
        
         while(true)
@@ -42,10 +38,8 @@ public class Spawner : MonoBehaviour
                 if (Random.Range(0, 100) <= correct)
                 {
                     _controller.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].position;
-
                 }
             }
-           
             yield return new WaitForSeconds(Random.Range(_randomNum.Min, _randomNum.Max));
         }
     }
