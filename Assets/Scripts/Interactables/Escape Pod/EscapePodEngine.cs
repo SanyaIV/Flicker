@@ -11,47 +11,21 @@ public class EscapePodEngine : MonoBehaviour {
 
     [Header("Pod")]
     [SerializeField] private Transform _pod;
-    [SerializeField] private Door[] _doors;
-    [SerializeField] private GameObject _invisibleWall;
     private bool _activated = false;
 
     [Header("Enemy Spawn Point")]
     [SerializeField] Transform _spawnPoint;
 
-    void Start()
-    {
-        _invisibleWall.SetActive(false);
-    }
+
 
 	void OnTriggerEnter(Collider coll)
     {
         if(!_activated && coll.tag == "Player")
-        {
-            _activated = true;
-            _invisibleWall.SetActive(true);
-            foreach(Door door in _doors)
-            {
-                door.Close();
-            }
-            StartCoroutine(CheckDoors());
-        }
+            StartCoroutine(Launch());
     }
 
-    private IEnumerator CheckDoors()
+    private IEnumerator Launch()
     {
-        int n = 0;
-        while (n < 2)
-        {
-            n = 0;
-            foreach(Door door in _doors)
-            {
-                if (!door.isOpen && !door.closing)
-                    n++;
-            }
-
-            yield return null;
-        }
-
         StartCoroutine(Shake());
         StartCoroutine(Move());
 

@@ -105,6 +105,27 @@ public class DoorButton : Interactable {
         SetCanvas();
     }
 
+    public void CloseLockDisable()
+    {
+        if (_master)
+        {
+            _master.CloseLockDisable();
+            return;
+        }
+
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+
+        foreach (DoorButton slave in _slaves)
+            slave._enabled = false;
+
+        Lock();
+        _passcard = "DeadLock";
+        _coroutine = StartCoroutine(Close());
+        _enabled = false;
+        SetCanvas();
+    }
+
     private bool Unlock(PlayerController player)
     {
         if (_passcard.Length > 0 && _doors[0].locked)
@@ -125,7 +146,11 @@ public class DoorButton : Interactable {
         return true;
     }
 
-
+    private void Lock()
+    {
+        foreach (Door door in _doors)
+            door.Lock();
+    }
 
     private void SetCanvas()
     {
