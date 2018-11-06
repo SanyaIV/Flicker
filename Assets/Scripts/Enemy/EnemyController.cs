@@ -8,15 +8,20 @@ using UnityEngine.AI;
 public class EnemyController : EnemyStateController
 {
     public Plane[] planes;
+
+
+    //Array för fiendens modeller
+    
+
     public Camera cam;
     public Renderer rend;
     public Vector3[] points = new Vector3[9];
-    private float maxDistance = 30f;
+    private float _maxDistance = 30f;
     public NavMeshAgent _navMeshAgent;
 
-    public float detectDistance = 0.00000005f;
+    public float detectDistance;
 
-    public LayerMask _doorLayer;
+    public LayerMask doorLayer;
 
     //private List<RaycastHit> hits;
     public BoxCollider[] colls;
@@ -57,7 +62,6 @@ public class EnemyController : EnemyStateController
 
     public AudioSource audioSource;
 
-    //privates
     public bool hittingDoor = false;
     public override void Awake()
     {
@@ -98,16 +102,16 @@ public class EnemyController : EnemyStateController
         if (!CheckIfEnemyIsVisible())
         {
             Debug.Log("is hidden");
+            audioSource.Play();
             UpdateIfHidden();
+            
         }
         else
         {
             Debug.Log("Is visible");
+            audioSource.Stop();
             UpdateIfVisible();
         }
-
-        ProgressStepCycle();
-
     }
 
     private void UpdateIfVisible()
@@ -125,14 +129,14 @@ public class EnemyController : EnemyStateController
     {
         _navMeshAgent.isStopped = false;
 
-        //if enemy stands in front of door, play pounding noise
-        if (HitDoor())
+        if (HitDoor() && !hittingDoor)
         {
             StartCoroutine(PoundOnDoor());
         }
+
+        ProgressStepCycle();
     }
 
-    //Check if enemy stands in front of door
     private bool HitDoor()
     {
         RaycastHit hit = new RaycastHit();
@@ -209,10 +213,10 @@ public class EnemyController : EnemyStateController
         audioSource.PlayOneShot(doorPound);
         Debug.Log("Play sound");
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
         TransitionTo<Patrol>();
         _navMeshAgent.isStopped = false;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(6);
         hittingDoor = false;
     }
 
@@ -227,6 +231,7 @@ public class EnemyController : EnemyStateController
         _nextStep = _stepCycle + _stepInterval;
 
         PlayAudio(ref footstepSounds);
+       
     }
 
     private void PlayAudio(ref AudioClip[] audio)
@@ -247,11 +252,7 @@ public class EnemyController : EnemyStateController
 
     public bool PlayerClose()
     {
-        if (Vector3.Distance(player.position, transform.position) < detectDistance)
-        {
-            return true;
-        }
-        return false;
+        return (Vector3.Distance(player.position, transform.position) < detectDistance);
     }
 
 }

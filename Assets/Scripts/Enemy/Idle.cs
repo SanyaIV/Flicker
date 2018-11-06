@@ -7,9 +7,9 @@ using UnityEngine.AI;
 public class Idle : EnemyState
 {
     private EnemyController _controller;
-    private bool inLineOfSight = true;
+    private bool _inLineOfSight = true;
+    private float _minHuntDistance = 1f;
     public Transform target;
-    private float minHuntDistance = 1f;
     NavMeshAgent _navMeshAgent;
 
     private Transform transform { get { return _controller.transform; } }

@@ -11,8 +11,9 @@ public class Hunt : EnemyState
     Transform _destination;
     NavMeshAgent _navMeshAgent;
 
-    private EnemyController _controller;
     public Transform target;
+
+    private EnemyController _controller;
 
     private Transform transform { get { return _controller.transform; } }
     private Vector3 velocity
@@ -66,6 +67,7 @@ public class Hunt : EnemyState
         if (!_controller.PlayerClose())
         {
             Debug.Log("Player not close");
+            _navMeshAgent.SetDestination(_controller.wayPoints[0].position);
             _controller.TransitionTo<Patrol>();
         }
 

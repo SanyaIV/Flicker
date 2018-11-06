@@ -14,7 +14,7 @@ public class Patrol : EnemyState
     public Transform target;
 
     private EnemyController _controller;
-    private int destPoint = 0;
+    private int _destPoint = 0;
     private Transform transform { get { return _controller.transform; } }
     private Vector3 velocity
     {
@@ -25,6 +25,7 @@ public class Patrol : EnemyState
     public override void Initialize(EnemyStateController owner)
     {
         _controller = (EnemyController)owner;
+      
     }
 
     public override void Enter()
@@ -44,10 +45,11 @@ public class Patrol : EnemyState
 
     private void Start()
     {
-        _destination = _controller.wayPoints[0];
 
+        _destination = _controller.wayPoints[0];
         _navMeshAgent.autoBraking = false;
         GoToNextPoint();
+
     }
 
     private void SetDestination()
@@ -62,18 +64,21 @@ public class Patrol : EnemyState
 
     public override void Update()
     {
-        SetDestination();
-
-        if(!_navMeshAgent.pathPending && _navMeshAgent.remainingDistance < 0.5f)
-        {
-            GoToNextPoint();
-        }
-
         if (_controller.PlayerClose())
         {
             Debug.Log("Player close");
             _controller.TransitionTo<Hunt>();
         }
+        else
+        {
+            SetDestination();
+
+            if (!_navMeshAgent.pathPending && _navMeshAgent.remainingDistance < 0.5f)
+            {
+                GoToNextPoint();
+            }
+        }
+      
     }
 
     private void GoToNextPoint()
@@ -81,8 +86,8 @@ public class Patrol : EnemyState
         if (_controller.wayPoints.Length == 0)
             return;
 
-        _navMeshAgent.destination = _controller.wayPoints[destPoint].position;
-        destPoint = (destPoint + 1) % _controller.wayPoints.Length;
+        _navMeshAgent.destination = _controller.wayPoints[_destPoint].position;
+        _destPoint = (_destPoint + 1) % _controller.wayPoints.Length;
     }
 }
 
