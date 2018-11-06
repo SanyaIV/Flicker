@@ -45,7 +45,8 @@ public class Patrol : EnemyState
 
     private void Start()
     {
-
+        if (_controller.wayPoints[0] == null)
+            return;
         _destination = _controller.wayPoints[0];
         _navMeshAgent.autoBraking = false;
         GoToNextPoint();
@@ -83,7 +84,7 @@ public class Patrol : EnemyState
 
     private void GoToNextPoint()
     {
-        if (_controller.wayPoints.Length == 0)
+        if (_controller.wayPoints.Length == 0 || _controller.wayPoints[0] == null)
             return;
 
         _navMeshAgent.destination = _controller.wayPoints[_destPoint].position;
