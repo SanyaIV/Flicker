@@ -85,7 +85,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1163637387112492}
-  m_LocalRotation: {x: -1, y: 0, z: 0, w: 0}
+  m_LocalRotation: {x: -0.0000029504295, y: -0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -94,7 +94,7 @@ Transform:
   - {fileID: 4374619999827682}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -180, y: 180, z: 0}
 --- !u!4 &4374619999827682
 Transform:
   m_ObjectHideFlags: 1
@@ -103,7 +103,7 @@ Transform:
   m_GameObject: {fileID: 1448038600152582}
   m_LocalRotation: {x: -0.70710677, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.231, z: -0}
-  m_LocalScale: {x: 16.7, y: 16.7, z: 16.7}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children: []
   m_Father: {fileID: 4258158999465620}
   m_RootOrder: 2
@@ -228,9 +228,9 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 39.788734
-  m_Range: 16.7
-  m_SpotAngle: 139
+  m_Intensity: 159.15494
+  m_Range: 50
+  m_SpotAngle: 158
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1
@@ -271,7 +271,7 @@ MonoBehaviour:
   _light: {fileID: 108314133606614450}
   _intensity:
     Min: 0
-    Max: 39.788734
+    Max: 159.15494
   _fadeInTime: 1
   _fadeOutTime: 0.5
   _flickerOnStart: 0
@@ -303,7 +303,7 @@ MonoBehaviour:
   punctualIntensity: 600
   areaIntensity: 200
   enableSpotReflector: 0
-  m_InnerSpotPercent: 38.9
+  m_InnerSpotPercent: 75
   lightDimmer: 1
   volumetricDimmer: 1
   lightUnit: 0
@@ -322,7 +322,7 @@ MonoBehaviour:
   useOldInspector: 0
   featuresFoldout: 1
   showAdditionalSettings: 0
-  displayLightIntensity: 500
+  displayLightIntensity: 2000
   displayAreaLightEmissiveMesh: 0
 --- !u!114 &114961230075004688
 MonoBehaviour:
