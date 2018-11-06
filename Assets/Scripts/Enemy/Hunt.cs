@@ -31,6 +31,8 @@ public class Hunt : EnemyState
         _navMeshAgent = _controller.GetComponent<NavMeshAgent>();
         _destination = _controller.player;
 
+        Debug.Log("Entering hunt");
+
         if (_navMeshAgent == null)
         {
             Debug.LogError("The NavMeshAgent is not attached to " + _controller.name);
@@ -53,13 +55,22 @@ public class Hunt : EnemyState
 
     public override void Update()
     {
+        Debug.Log("Hunting");
         SetDestination();
 
         if(Vector3.Distance(_controller.player.position, transform.position) < _distanceToDepleteSanity)
         {
             _controller.sanity.DepleteSanity(2f);
         }
+
+        if (!_controller.PlayerClose())
+        {
+            Debug.Log("Player not close");
+            _controller.TransitionTo<Patrol>();
+        }
+
     }
+
 }
 
 

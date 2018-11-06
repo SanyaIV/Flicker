@@ -39,8 +39,11 @@ public class Idle : EnemyState
 
     public override void Update()
     {
-         //transform.position = Vector3.MoveTowards(transform.position, _controller.player.transform.position, _controller.speed * Time.deltaTime);
-          //_controller.TransitionTo<Hunt>();
-         // _navMeshAgent.isStopped = false;
+        if (!(_controller.CheckIfEnemyIsVisible()))
+        {
+            Debug.Log("Hidden");
+            Debug.Log("Transitioning from idle to patrol");
+            _controller.TransitionTo<Patrol>();
+        }
     }
 }
