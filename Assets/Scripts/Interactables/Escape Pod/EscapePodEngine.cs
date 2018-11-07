@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
 
-public class EscapePodEngine : MonoBehaviour {
+public class EscapePodEngine : Interactable {
 
     [Header("Engine")]
     [SerializeField] private float _speed;
@@ -16,12 +16,29 @@ public class EscapePodEngine : MonoBehaviour {
     [Header("Enemy Spawn Point")]
     [SerializeField] Transform _spawnPoint;
 
-
-
-	void OnTriggerEnter(Collider coll)
+    public override void Start()
     {
-        if(!_activated && coll.tag == "Player")
+        base.Start();
+    }
+
+    public override void Interact(PlayerController player)
+    {
+        if (!_activated)
+        {
+            _activated = true;
+            _enabled = false;
             StartCoroutine(Launch());
+        }
+    }
+
+    public override string ActionType()
+    {
+        return "Activate";
+    }
+
+    public override string GetName()
+    {
+        return "Emergency Escape";
     }
 
     private IEnumerator Launch()

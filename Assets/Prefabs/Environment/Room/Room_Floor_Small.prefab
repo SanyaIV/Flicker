@@ -9,74 +9,45 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1734776981347464}
+  m_RootGameObject: {fileID: 1297718808283904}
   m_IsPrefabAsset: 1
---- !u!1 &1734776981347464
+--- !u!1 &1297718808283904
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4687005451639542}
+  - component: {fileID: 4278012574130596}
+  - component: {fileID: 33132820141949252}
+  - component: {fileID: 23984157487227864}
+  - component: {fileID: 65169535318134004}
   m_Layer: 0
-  m_Name: Room_Floor
+  m_Name: Room_Floor_Small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1947312807383174
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4445192363644618}
-  - component: {fileID: 33694635124018692}
-  - component: {fileID: 23912889539069164}
-  - component: {fileID: 65780051196839434}
-  m_Layer: 0
-  m_Name: Room_Floor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4445192363644618
+--- !u!4 &4278012574130596
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1947312807383174}
+  m_GameObject: {fileID: 1297718808283904}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.016581725, z: 0}
+  m_LocalPosition: {x: -206.17313, y: 44.188416, z: 139.50185}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4687005451639542}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4687005451639542
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1734776981347464}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -191.87, y: 46.223022, z: 147.26495}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4445192363644618}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23912889539069164
+--- !u!23 &23984157487227864
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1947312807383174}
+  m_GameObject: {fileID: 1297718808283904}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -86,7 +57,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: abe9e329a6b23004886f5c1cef5bd09e, type: 3}
+  - {fileID: 2100000, guid: 035ec643758f52840bf66ad6bd4f6e1b, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,22 +77,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33694635124018692
+--- !u!33 &33132820141949252
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1947312807383174}
-  m_Mesh: {fileID: 4300000, guid: abe9e329a6b23004886f5c1cef5bd09e, type: 3}
---- !u!65 &65780051196839434
+  m_GameObject: {fileID: 1297718808283904}
+  m_Mesh: {fileID: 4300000, guid: 035ec643758f52840bf66ad6bd4f6e1b, type: 3}
+--- !u!65 &65169535318134004
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1947312807383174}
+  m_GameObject: {fileID: 1297718808283904}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 1.239901, z: 5}
-  m_Center: {x: -1.5, y: -2.3634677, z: 0}
+  m_Size: {x: 3, y: 1.2600985, z: 3}
+  m_Center: {x: 0, y: -2.3800495, z: 0}
