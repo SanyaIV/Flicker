@@ -19,6 +19,7 @@ public class EscapePodEngine : Interactable {
     public override void Start()
     {
         base.Start();
+        _enabled = false;
     }
 
     public override void Interact(PlayerController player)

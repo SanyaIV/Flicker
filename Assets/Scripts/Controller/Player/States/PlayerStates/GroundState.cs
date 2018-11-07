@@ -150,7 +150,7 @@ public class GroundState : PlayerState {
         Vector3 input = controller.Input;
         input = transform.forward * input.z + transform.right * input.x;
 
-        if (_hit.collider != null && _hit.collider.CompareTag("Escape Pod"))
+        if (_hit.collider != null && _hit.collider.CompareTag("Escape Pod") && transform.parent != null && transform.parent.tag != "Escape Pod")
             controller.SetParent(_hit.collider.gameObject.transform.parent);
         else if (transform.parent != null && transform.parent.tag != "Escape Pod")
             controller.SetParent(null);

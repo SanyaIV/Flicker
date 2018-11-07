@@ -64,4 +64,14 @@ public abstract class Interactable : MonoBehaviour {
         _mouseImage.enabled = false;
         _crosshair.enabled = true;
     }
+
+    public void Enable()
+    {
+        _enabled = true;
+    }
+
+    public void Disable()
+    {
+        _enabled = false;
+    }
 }

@@ -14,9 +14,12 @@ public class EscapePodScreen : MonoBehaviour {
     [SerializeField] private Color _repairedBackgroundColor;
     private List<EscapePodModule> _modules = new List<EscapePodModule>();
 
+    [Header("Escape Pod Engine")]
+    [SerializeField] private EscapePodEngine _engine;
+
     [Header("Escape Pod Doors")]
-    [SerializeField] DoorButton _doors;
-    [SerializeField] GameObject _invisibleWall;
+    [SerializeField] private DoorButton _doors;
+    [SerializeField] private GameObject _invisibleWall;
 
     [Header("Save")]
     private string _savedText;
@@ -50,6 +53,7 @@ public class EscapePodScreen : MonoBehaviour {
         _screenText.text = _fullyRepairedText;
         _doors.CloseLockDisable();
         _invisibleWall.SetActive(true);
+        _engine.Enable();
     }
 
     public void AddModule(EscapePodModule module)
