@@ -111,7 +111,6 @@ public class PlayerController : Controller {
 
     public void SetParent(Transform parent)
     {
-        Debug.Log(parent.tag);
         transform.parent = parent;
         firstPersonCamera.GetComponent<FirstPersonCamera>().HandleParentChange();
     }
