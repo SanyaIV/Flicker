@@ -72,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1872566877313814}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.93, y: -5.736, z: 21.76}
+  m_LocalPosition: {x: -11.200716, y: -8.5, z: -12.563273}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4188206074998906}
@@ -389,7 +389,7 @@ MonoBehaviour:
   _enableIndicator: 1
   iconOnScreen: {fileID: 21300000, guid: 4ea43f05ce036d2478708fc0e62762d2, type: 3}
   iconOffScreen: {fileID: 21300000, guid: 939c2622ea4d7164a9b681bc597b1bfd, type: 3}
-  sprite: {fileID: 21300000, guid: e874da02899cd8f4ea77a5cb4a71b1b5, type: 3}
+  sprite: {fileID: 21300000, guid: 7c532196a03f1d94abfa6cab76d8dbb4, type: 3}
   iconColor: {r: 1, g: 0, b: 0, a: 1}
   spriteColor: {r: 1, g: 0, b: 0, a: 1}
   iconScale: {x: 1, y: 1, z: 1}
@@ -447,7 +447,7 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   _navMeshAgent: {fileID: 0}
-  detectDistance: 10
+  detectDistance: 25
   doorLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -462,7 +462,6 @@ MonoBehaviour:
   speed: 4
   velocity: {x: 3, y: 3, z: 3}
   wayPoints:
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   MaxSpeed: 10

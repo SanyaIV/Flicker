@@ -109,6 +109,12 @@ public class PlayerController : Controller {
         return hitInfo;
     }
 
+    public void SetParent(Transform parent)
+    {
+        transform.parent = parent;
+        firstPersonCamera.GetComponent<FirstPersonCamera>().HandleParentChange();
+    }
+
     public bool GoopCheck()
     {
         RaycastHit hitInfo;
