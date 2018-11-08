@@ -72,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1872566877313814}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.93, y: -5.736, z: 21.76}
+  m_LocalPosition: {x: -11.200716, y: -8.5, z: -12.563273}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4188206074998906}
@@ -156,9 +156,10 @@ AudioSource:
   m_GameObject: {fileID: 1641929153217878}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243251861688580062, guid: e87a97a8e557dca4398190947066b313,
+    type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -203,7 +204,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -466,7 +467,6 @@ MonoBehaviour:
   wayPoints:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
   MaxSpeed: 10
   Gravity: 50
   MoveDir: {x: 0, y: 0, z: 0}
@@ -476,14 +476,15 @@ MonoBehaviour:
   GroundCheckDistance: 0.15
   _charCtrl: {fileID: 0}
   _collision: 0
-  _stepInterval: 2
+  _stepInterval: 3.5
   _runStepLengthen: 0
   basicAudio: {fileID: 114100488566440292}
   footstepSounds:
-  - {fileID: 8300000, guid: b328aa66fe901bc4fa611c31c40310e8, type: 3}
+  - {fileID: 8300000, guid: 81052ce840960d34697a9e8deecf93b3, type: 3}
+  - {fileID: 8300000, guid: c63de8f35b336e2418a6e8a6b1978502, type: 3}
+  - {fileID: 8300000, guid: 79ab370fc22b04a4a9ef2406b65f7684, type: 3}
+  - {fileID: 8300000, guid: 797edd6ae2e352e4a9e07ed108be2c0a, type: 3}
   doorPound: {fileID: 8300000, guid: 388d4d03438c41e43b60a61c6a0bbf59, type: 3}
-  audioDetectDistance: 0
-  releaseDistance: 0
   audioSource: {fileID: 82616541429728464}
   hittingDoor: 0
 --- !u!136 &136193473752542910

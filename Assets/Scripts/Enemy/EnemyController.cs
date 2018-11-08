@@ -242,8 +242,6 @@ public class EnemyController : EnemyStateController
 
     private void PlayAudio(ref AudioClip[] audio)
     {
-        if (audioSource.isPlaying)
-            return;
         if (audio.Length > 1)
         {
             int n = Random.Range(1, audio.Length);
