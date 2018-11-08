@@ -7,7 +7,6 @@ using UnityEngine.AI;
 public class Patrol : EnemyState
 {
     [Header("Settings")]
-    [SerializeField] public float _distanceToDepleteSanity;
     Transform _destination;
     NavMeshAgent _navMeshAgent;
 

@@ -7,7 +7,6 @@ using UnityEngine.AI;
 public class Hunt : EnemyState
 {
     [Header("Settings")]
-    [SerializeField] public float _distanceToDepleteSanity;
     Transform _destination;
     NavMeshAgent _navMeshAgent;
 
@@ -57,11 +56,12 @@ public class Hunt : EnemyState
     public override void Update()
     {
         Debug.Log("Hunting");
+        Debug.Log(_controller._distanceToDepleteSanity);
         SetDestination();
 
-        if(Vector3.Distance(_controller.player.position, transform.position) < _distanceToDepleteSanity)
+        if(Vector3.Distance(_controller.player.position, transform.position) < _controller._distanceToDepleteSanity)
         {
-            _controller.sanity.DepleteSanity(2f);
+            _controller.sanity.DepleteSanity(_controller.depletionAmount);
         }
 
         if (!_controller.PlayerClose())

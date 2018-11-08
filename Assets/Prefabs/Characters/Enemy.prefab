@@ -72,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1872566877313814}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.200716, y: -8.5, z: -12.563273}
+  m_LocalPosition: {x: -5.93, y: -5.736, z: 21.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4188206074998906}
@@ -434,6 +434,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d625c3d60ccb043439207c9c6b2a2c74, type: 2}
   CurrentState: {fileID: 0}
   PreviousState: {fileID: 11400000, guid: a4a7c37903ae808468d15854831f2576, type: 2}
+  _distanceToDepleteSanity: 10
+  depletionAmount: 5
   cam: {fileID: 0}
   rend: {fileID: 23114941409619482}
   points:
@@ -464,6 +466,7 @@ MonoBehaviour:
   wayPoints:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   MaxSpeed: 10
   Gravity: 50
   MoveDir: {x: 0, y: 0, z: 0}
@@ -479,6 +482,8 @@ MonoBehaviour:
   footstepSounds:
   - {fileID: 8300000, guid: b328aa66fe901bc4fa611c31c40310e8, type: 3}
   doorPound: {fileID: 8300000, guid: 388d4d03438c41e43b60a61c6a0bbf59, type: 3}
+  audioDetectDistance: 0
+  releaseDistance: 0
   audioSource: {fileID: 82616541429728464}
   hittingDoor: 0
 --- !u!136 &136193473752542910

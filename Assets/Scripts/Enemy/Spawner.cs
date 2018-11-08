@@ -29,13 +29,14 @@ public class Spawner : MonoBehaviour
 
     public IEnumerator SpawnWhenClose()
     {
-        float drainDistance = _controller.GetState<Hunt>()._distanceToDepleteSanity;
+        Debug.Log("Teleporting");
+        float drainDistance = _controller._distanceToDepleteSanity;
        
         while(true)
         {
             if(Vector3.Distance(_controller.transform.position, _controller.player.transform.position) < drainDistance && !(_controller.visible))
             {
-                if (Random.Range(0, 100) <= correct)
+                if (Random.Range(1, 50) <= correct)
                 {
                     _controller.transform.position = _spawnPoints[Random.Range(0, _spawnPoints.Count)].position;
                 }

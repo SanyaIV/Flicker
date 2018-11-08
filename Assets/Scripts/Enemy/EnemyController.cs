@@ -9,10 +9,13 @@ public class EnemyController : EnemyStateController
 {
     public Plane[] planes;
 
+    [SerializeField]
+    public float _distanceToDepleteSanity;
+    public float depletionAmount;
 
     //Array för fiendens modeller
+    //public string[] posePlaceHolders;
     
-
     public Camera cam;
     public Renderer rend;
     public Vector3[] points = new Vector3[9];
@@ -34,6 +37,7 @@ public class EnemyController : EnemyStateController
 
     private Vector3 _startPos;
     private Quaternion _startRot;
+    private int _aggression;
     public Vector3 velocity;
 
     public Transform[] wayPoints;
@@ -91,6 +95,8 @@ public class EnemyController : EnemyStateController
         _startPos = transform.position;
         _startRot = transform.rotation;
 
+        _aggression = 0;
+
         TransitionTo<Patrol>();
     }
 
@@ -102,7 +108,6 @@ public class EnemyController : EnemyStateController
         if (!CheckIfEnemyIsVisible())
         {
             Debug.Log("is hidden");
-            audioSource.Play();
             UpdateIfHidden();
             
         }
@@ -135,6 +140,7 @@ public class EnemyController : EnemyStateController
         }
 
         ProgressStepCycle();
+        UpdateAggression();
     }
 
     private bool HitDoor()
@@ -236,6 +242,8 @@ public class EnemyController : EnemyStateController
 
     private void PlayAudio(ref AudioClip[] audio)
     {
+        if (audioSource.isPlaying)
+            return;
         if (audio.Length > 1)
         {
             int n = Random.Range(1, audio.Length);
@@ -254,6 +262,30 @@ public class EnemyController : EnemyStateController
     {
         return (Vector3.Distance(player.position, transform.position) < detectDistance);
     }
+
+    private void UpdateAggression()
+    {
+        if (Time.time > 250)
+        {
+            _aggression = 2;
+        }
+            
+        if (Time.time > 500)
+        {
+            _aggression = 3;
+        }
+            
+    }
+
+    /*private void ChangePose()
+    {
+        string currentPose = posePlaceHolders[0];
+        for(int i = 0; i < posePlaceHolders.Length; i++)
+        {
+            currentPose = posePlaceHolders[0 + i];
+            Debug.Log(currentPose);
+        }
+    }*/
 
 }
 
