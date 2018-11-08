@@ -85,8 +85,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1163637387112492}
-  m_LocalRotation: {x: 0.38268006, y: -0, z: 0.923881, w: 0}
-  m_LocalPosition: {x: -19.259998, y: 0, z: -69.71}
+  m_LocalRotation: {x: 0.7071037, y: -0, z: 0.7071099, w: 0}
+  m_LocalPosition: {x: 12.2117, y: 5.3137884, z: 9.197281}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4635398098840918}
@@ -94,7 +94,7 @@ Transform:
   - {fileID: 4413313963593262}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -180, y: 225, z: 0}
+  m_LocalEulerAnglesHint: {x: -180, y: 269.999, z: 0}
 --- !u!4 &4413313963593262
 Transform:
   m_ObjectHideFlags: 1
@@ -103,7 +103,7 @@ Transform:
   m_GameObject: {fileID: 1768552842660456}
   m_LocalRotation: {x: -0.70710677, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.231, z: -0}
-  m_LocalScale: {x: 50, y: 50, z: 50}
+  m_LocalScale: {x: 15, y: 15, z: 15}
   m_Children: []
   m_Father: {fileID: 4258158999465620}
   m_RootOrder: 2
@@ -228,9 +228,9 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 47.746483
-  m_Range: 50
-  m_SpotAngle: 158
+  m_Intensity: 39.788734
+  m_Range: 15
+  m_SpotAngle: 177
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1
@@ -271,7 +271,7 @@ MonoBehaviour:
   _light: {fileID: 108185693517087988}
   _intensity:
     Min: 0
-    Max: 159.15494
+    Max: 39.788734
   _fadeInTime: 1
   _fadeOutTime: 0.5
   _flickerOnStart: 0
@@ -301,7 +301,7 @@ MonoBehaviour:
   version: 1
   shadowResolution: 512
   shadowDimmer: 1
-  shadowFadeDistance: 10000
+  shadowFadeDistance: 30
   contactShadows: 0
   viewBiasMin: 0.2
   viewBiasMax: 100
@@ -348,11 +348,11 @@ MonoBehaviour:
   punctualIntensity: 600
   areaIntensity: 200
   enableSpotReflector: 0
-  m_InnerSpotPercent: 75
-  lightDimmer: 1
+  m_InnerSpotPercent: 51
+  lightDimmer: 0.55
   volumetricDimmer: 1
   lightUnit: 0
-  fadeDistance: 10000
+  fadeDistance: 200
   affectDiffuse: 1
   affectSpecular: 1
   nonLightmappedOnly: 0
@@ -366,6 +366,6 @@ MonoBehaviour:
   applyRangeAttenuation: 1
   useOldInspector: 0
   featuresFoldout: 1
-  showAdditionalSettings: 0
-  displayLightIntensity: 600
+  showAdditionalSettings: 1
+  displayLightIntensity: 500
   displayAreaLightEmissiveMesh: 0

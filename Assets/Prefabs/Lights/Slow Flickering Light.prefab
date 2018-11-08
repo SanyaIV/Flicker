@@ -85,8 +85,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1437978243534498}
-  m_LocalRotation: {x: -1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: -12.358, y: 0.57, z: -11.84}
+  m_LocalRotation: {x: -0.7071066, y: -0, z: -0.70710707, w: 0}
+  m_LocalPosition: {x: -56.269012, y: 5.248783, z: 9.298622}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4577910476823832}
@@ -94,7 +94,7 @@ Transform:
   - {fileID: 4818664265601254}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -180, y: -90, z: 0}
 --- !u!4 &4577910476823832
 Transform:
   m_ObjectHideFlags: 1
@@ -228,7 +228,7 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 39.788734
+  m_Intensity: 40.743664
   m_Range: 16.7
   m_SpotAngle: 139
   m_CookieSize: 10
@@ -269,7 +269,7 @@ MonoBehaviour:
   version: 1
   shadowResolution: 512
   shadowDimmer: 1
-  shadowFadeDistance: 10000
+  shadowFadeDistance: 30
   contactShadows: 0
   viewBiasMin: 0.2
   viewBiasMax: 100
@@ -320,7 +320,7 @@ MonoBehaviour:
   lightDimmer: 1
   volumetricDimmer: 1
   lightUnit: 0
-  fadeDistance: 10000
+  fadeDistance: 250
   affectDiffuse: 1
   affectSpecular: 1
   nonLightmappedOnly: 0
@@ -334,8 +334,8 @@ MonoBehaviour:
   applyRangeAttenuation: 1
   useOldInspector: 0
   featuresFoldout: 1
-  showAdditionalSettings: 0
-  displayLightIntensity: 500
+  showAdditionalSettings: 1
+  displayLightIntensity: 512
   displayAreaLightEmissiveMesh: 0
 --- !u!114 &114810933662034332
 MonoBehaviour:
@@ -353,19 +353,19 @@ MonoBehaviour:
   _light: {fileID: 108990632906577242}
   _intensity:
     Min: 0
-    Max: 39.788734
+    Max: 40.743664
   _fadeInTime: 1
   _fadeOutTime: 0.5
   _flickerOnStart: 1
   _flickerOnFadeSpeed:
-    Min: 0.5
-    Max: 3
-  _flickerOffFadeSpeed:
     Min: 0.1
     Max: 0.5
+  _flickerOffFadeSpeed:
+    Min: 0.07
+    Max: 0.15
   _flickerOnWait:
-    Min: 0.05
-    Max: 0.5
+    Min: 0.3
+    Max: 0.7
   _flickerOffWait:
-    Min: 0.05
-    Max: 0.1
+    Min: 0.1
+    Max: 0.7
