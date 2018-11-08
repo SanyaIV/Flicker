@@ -36,13 +36,13 @@ public class Door : MonoBehaviour {
 
         if (isOpen)
         {
-            _openPos = transform.position;
-            _closePos = _openPos + transform.forward * (reverseDirection ? -1 : 1) * (doorLength > 0 ? doorLength : transform.lossyScale.z);
+            _openPos = transform.localPosition;
+            _closePos = _openPos - transform.right * (reverseDirection ? -1 : 1) * (doorLength > 0 ? doorLength : transform.lossyScale.z);
         }
         else
         {
-            _closePos = transform.position;
-            _openPos = _closePos - transform.forward * (reverseDirection ? -1 : 1) * (doorLength > 0 ? doorLength : transform.lossyScale.z);
+            _closePos = transform.localPosition;
+            _openPos = _closePos + transform.right * (reverseDirection ? -1 : 1) * (doorLength > 0 ? doorLength : transform.lossyScale.z);
         }
 
         GameManager.AddSaveEvent(Save);
@@ -78,13 +78,13 @@ public class Door : MonoBehaviour {
 
         while (opening)
         {
-            if (Vector3.Distance(transform.position, _openPos) > MathHelper.FloatEpsilon)
+            if (Vector3.Distance(transform.localPosition, _openPos) > MathHelper.FloatEpsilon)
             {
-                transform.position = Vector3.MoveTowards(transform.position, _openPos, speed * Time.deltaTime);
+                transform.localPosition = Vector3.MoveTowards(transform.localPosition, _openPos, speed * Time.deltaTime);
             }
             else
             {
-                transform.position = _openPos;
+                transform.localPosition = _openPos;
                 opening = false;
                 isOpen = true;
             }
@@ -102,14 +102,14 @@ public class Door : MonoBehaviour {
 
         while (closing)
         {
-            if (Vector3.Distance(transform.position, _closePos) > MathHelper.FloatEpsilon)
+            if (Vector3.Distance(transform.localPosition, _closePos) > MathHelper.FloatEpsilon)
             {
-                transform.position = Vector3.MoveTowards(transform.position, _closePos, speed * Time.deltaTime);
+                transform.localPosition = Vector3.MoveTowards(transform.localPosition, _closePos, speed * Time.deltaTime);
                 AutomaticOpen();
             }
             else
             {
-                transform.position = _closePos;
+                transform.localPosition = _closePos;
                 closing = false;
                 isOpen = false;
             } 
@@ -143,8 +143,8 @@ public class Door : MonoBehaviour {
         isOpen = _savedOpen;
 
         if (isOpen)
-            transform.position = _openPos;
+            transform.localPosition = _openPos;
         else
-            transform.position = _closePos;
+            transform.localPosition = _closePos;
     }
 }
