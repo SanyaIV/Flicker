@@ -25,6 +25,7 @@ public class Door : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
         if (doorLength == 0)
         {
             BoxCollider box = GetComponent<BoxCollider>();
@@ -37,12 +38,12 @@ public class Door : MonoBehaviour {
         if (isOpen)
         {
             _openPos = transform.localPosition;
-            _closePos = _openPos - transform.right * (reverseDirection ? -1 : 1) * (doorLength > 0 ? doorLength : transform.lossyScale.z);
+            _closePos = _openPos + Vector3.forward * (reverseDirection ? -1 : 1) * (doorLength > 0 ? doorLength : transform.lossyScale.z);
         }
         else
         {
             _closePos = transform.localPosition;
-            _openPos = _closePos + transform.right * (reverseDirection ? -1 : 1) * (doorLength > 0 ? doorLength : transform.lossyScale.z);
+            _openPos = _closePos - Vector3.forward * (reverseDirection ? -1 : 1) * (doorLength > 0 ? doorLength : transform.lossyScale.z);
         }
 
         GameManager.AddSaveEvent(Save);
