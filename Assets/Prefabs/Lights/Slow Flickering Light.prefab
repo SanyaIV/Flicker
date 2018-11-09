@@ -85,8 +85,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1437978243534498}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.000003904104}
-  m_LocalPosition: {x: 72.31766, y: 0, z: -78.217384}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -215.04391, y: 67.4109, z: 42.647514}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4577910476823832}
@@ -94,7 +94,7 @@ Transform:
   - {fileID: 4818664265601254}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -180, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4577910476823832
 Transform:
   m_ObjectHideFlags: 1
@@ -129,7 +129,7 @@ Transform:
   m_GameObject: {fileID: 1273642774743828}
   m_LocalRotation: {x: -0.70710677, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.231, z: -0}
-  m_LocalScale: {x: 16.7, y: 16.7, z: 16.7}
+  m_LocalScale: {x: 15, y: 15, z: 15}
   m_Children: []
   m_Father: {fileID: 4137006780106542}
   m_RootOrder: 2
@@ -229,8 +229,8 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 11.936621
-  m_Range: 16.7
-  m_SpotAngle: 139
+  m_Range: 15
+  m_SpotAngle: 177
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1
@@ -316,7 +316,7 @@ MonoBehaviour:
   punctualIntensity: 600
   areaIntensity: 200
   enableSpotReflector: 0
-  m_InnerSpotPercent: 38.9
+  m_InnerSpotPercent: 51
   lightDimmer: 1
   volumetricDimmer: 1
   lightUnit: 0
@@ -359,14 +359,14 @@ MonoBehaviour:
   _fadeOutTime: 0.5
   _flickerOnStart: 1
   _flickerOnFadeSpeed:
-    Min: 0.1
-    Max: 0.5
+    Min: 0.05
+    Max: 0.2
   _flickerOffFadeSpeed:
-    Min: 0.07
-    Max: 0.15
+    Min: 0.05
+    Max: 0.2
   _flickerOnWait:
-    Min: 0.3
+    Min: 0.05
     Max: 0.7
   _flickerOffWait:
     Min: 0.1
-    Max: 0.7
+    Max: 1
