@@ -85,8 +85,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1437978243534498}
-  m_LocalRotation: {x: -0.7071066, y: -0, z: -0.70710707, w: 0}
-  m_LocalPosition: {x: -56.269012, y: 5.248783, z: 9.298622}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.000003904104}
+  m_LocalPosition: {x: 72.31766, y: 0, z: -78.217384}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4577910476823832}
@@ -228,7 +228,7 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 40.743664
+  m_Intensity: 11.936621
   m_Range: 16.7
   m_SpotAngle: 139
   m_CookieSize: 10
@@ -335,7 +335,7 @@ MonoBehaviour:
   useOldInspector: 0
   featuresFoldout: 1
   showAdditionalSettings: 1
-  displayLightIntensity: 512
+  displayLightIntensity: 150
   displayAreaLightEmissiveMesh: 0
 --- !u!114 &114810933662034332
 MonoBehaviour:
@@ -350,10 +350,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _locked: 0
   _lampBulb: {fileID: 1408747586042712}
+  _intensityMultiplier: 2.5
   _light: {fileID: 108990632906577242}
   _intensity:
     Min: 0
-    Max: 40.743664
+    Max: 11.936621
   _fadeInTime: 1
   _fadeOutTime: 0.5
   _flickerOnStart: 1

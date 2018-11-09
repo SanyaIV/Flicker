@@ -16,12 +16,6 @@ public class EscapePodEngine : Interactable {
     [Header("Enemy Spawn Point")]
     [SerializeField] Transform _spawnPoint;
 
-    public override void Start()
-    {
-        base.Start();
-        _enabled = false;
-    }
-
     public override void Interact(PlayerController player)
     {
         if (!_activated)

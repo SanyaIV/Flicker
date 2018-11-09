@@ -51,7 +51,8 @@ public abstract class Interactable : MonoBehaviour {
             return;
 
         _interactableText.text = ActionType() + " " + GetName();
-        _mouseImage.enabled = true;
+        if(_showMouse)
+            _mouseImage.enabled = true;
         _crosshair.enabled = false;
     }
 

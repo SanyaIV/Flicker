@@ -10,6 +10,7 @@ public class LightController : MonoBehaviour {
 
     [Header("Lamp")]
     [SerializeField] private GameObject _lampBulb;
+    [SerializeField] private float _intensityMultiplier;
     private Renderer _lampBulbRenderer;
     private Material _lampBulbMaterial;
     private Color _baseLampBulbEmissionColor;
@@ -211,8 +212,8 @@ public class LightController : MonoBehaviour {
     {
         if (_lampBulbMaterial)
         {
-            Color finalColor = _baseLampBulbEmissionColor * Mathf.LinearToGammaSpace(Mathf.Lerp(0f, 1f, _light.intensity / _intensity.Max));
-            _lampBulbMaterial.SetColor("_EmissiveColor", finalColor * _light.intensity / 10);
+            Color finalColor = _baseLampBulbEmissionColor * Mathf.LinearToGammaSpace(Mathf.Lerp(0f, 1f, _light.intensity / _intensity.Max) * _intensityMultiplier);
+            _lampBulbMaterial.SetColor("_EmissiveColor", finalColor * _light.intensity * _intensityMultiplier / 10);
         }
     }
 

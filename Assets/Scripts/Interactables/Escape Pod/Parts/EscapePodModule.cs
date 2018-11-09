@@ -19,8 +19,12 @@ public class EscapePodModule : Interactable {
     private List<EscapePodModel> _savedRequiredParts;
     private bool _savedEnabled;
 
+    [Header("Private Variables")]
+    [SerializeField] private PlayerController _player;
+
     public override void Start ()
     {
+        _player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         _screen.AddModule(this);
         GameManager.AddSaveEvent(Save);
         GameManager.AddReloadEvent(Reload);
@@ -38,7 +42,18 @@ public class EscapePodModule : Interactable {
 
     public override string ActionType()
     {
-        return "Repair";
+
+        foreach (EscapePodModel part in _requiredParts)
+        {
+            if (_player.HasEscapePodPart(_module, part.GetPartName()))
+            {
+                _showMouse = true;
+                return "Repair";
+            }
+        }
+
+        _showMouse = false;
+        return "Damaged";
     }
 
     public override string GetName()
