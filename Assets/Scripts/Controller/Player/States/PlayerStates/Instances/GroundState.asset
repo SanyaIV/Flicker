@@ -11,6 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d358d041b8988004badc7410746c1799, type: 3}
   m_Name: GroundState
   m_EditorClassIdentifier: 
+  _range: 3
+  _interactableLayerMask:
+    serializedVersion: 2
+    m_Bits: 4608
   walkSpeed: 3
   joggSpeed: 7
   runSpeed: 12
@@ -21,9 +25,9 @@ MonoBehaviour:
   inputGotten: 0
   stickToGroundForce: 10
   jumpHeight:
-    Min: 0.5
-    Max: 2
-  timeToJumpApex: 0.4
+    Min: 0.2
+    Max: 0.7
+  timeToJumpApex: 0.25
   initialJumpDistance: 0.15
   maxGhostAirJumpTime: 0.2
   jumpVelocity:
@@ -100,9 +104,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ac9e5b85a94366846a1b5b50c4497e7c, type: 3}
   jumpSounds:
   - {fileID: 8300000, guid: 26b33ea8059bc1448ac365b628823755, type: 3}
-  _range: 3
-  _interactableLayerMask:
-    serializedVersion: 2
-    m_Bits: 4608
   _goopSpeedMultiplier: 0.5
   _goopSanityDrainMultiplier: 2

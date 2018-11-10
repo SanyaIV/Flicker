@@ -18,6 +18,8 @@ public class FirstPersonCamera : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(transform.localRotation.eulerAngles + " World: " + transform.rotation.eulerAngles);
+
         if (target == null)
             target = GameObject.FindWithTag("Player").transform;
 
