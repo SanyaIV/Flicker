@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SelfDestruct : Interactable {
 
     [Header("Self Destruct")]
     [SerializeField] private float _timerInSeconds;
     private Coroutine _selfDestruct;
+
+    [Header("GUI")]
+    [SerializeField] private Text _timerText;
+    private int _minutes;
+    private int _seconds;
 
     [Header("Save")]
     private bool _saveEnabled;
@@ -26,6 +32,7 @@ public class SelfDestruct : Interactable {
             return;
 
         _enabled = false;
+        _timerText.gameObject.SetActive(true);
         _selfDestruct = StartCoroutine(InitiateSelfDestruct());
     }
 
@@ -51,6 +58,9 @@ public class SelfDestruct : Interactable {
         while(_timerInSeconds > 0)
         {
             _timerInSeconds -= Time.deltaTime;
+            _minutes = Mathf.Clamp((int)_timerInSeconds / 60, 0, 99);
+            _seconds = Mathf.Clamp((int)_timerInSeconds - _minutes * 60, 0, 59);
+            _timerText.text = _minutes + ":" + _seconds;
 
             yield return null;
         }
@@ -58,7 +68,6 @@ public class SelfDestruct : Interactable {
         PlayerController player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         if(!(player.currentState is DeadState) && !(player.currentState is MutualDestruction) && !(player.currentState is MutualEscape) && !(player.currentState is Escape))
         {
-            Debug.LogWarning("BOOM!");
             GetComponent<AudioSource>().Play();
             player.TransitionTo<MutualDestruction>();
         }
