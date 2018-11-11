@@ -20,6 +20,7 @@ public class EscapePodEngine : Interactable {
     {
         if (!_activated)
         {
+            player.transform.parent = transform;
             _activated = true;
             _enabled = false;
             StartCoroutine(Launch());

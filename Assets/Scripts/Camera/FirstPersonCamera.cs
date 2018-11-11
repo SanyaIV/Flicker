@@ -18,8 +18,6 @@ public class FirstPersonCamera : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(transform.localRotation.eulerAngles + " World: " + transform.rotation.eulerAngles);
-
         if (target == null)
             target = GameObject.FindWithTag("Player").transform;
 
@@ -28,8 +26,8 @@ public class FirstPersonCamera : MonoBehaviour
 
     private void InitializeRotation()
     {
-        _V2Rotation.x = target.localRotation.eulerAngles.y;
-        _V2Rotation.y = transform.localRotation.eulerAngles.x;
+        _V2Rotation.x = target.rotation.eulerAngles.y;
+        _V2Rotation.y = transform.rotation.eulerAngles.x;
     }
 
     private void Update()
@@ -40,7 +38,7 @@ public class FirstPersonCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        UpdateLocalRotation();
+        UpdateOwnRotation();
     }
 
     private void UpdateRotation()
@@ -58,16 +56,11 @@ public class FirstPersonCamera : MonoBehaviour
 
     private void UpdateTargetRotation()
     {
-        target.localRotation = Quaternion.Euler(0.0f, _V2Rotation.x, 0.0f);
+        target.rotation = Quaternion.Euler(0.0f, _V2Rotation.x, 0.0f);
     }
 
-    private void UpdateLocalRotation()
+    private void UpdateOwnRotation()
     {
         transform.localRotation = Quaternion.Euler(_V2Rotation.y, 0f, 0f);
-    }
-
-    public void HandleParentChange()
-    {
-        InitializeRotation();
     }
 }
