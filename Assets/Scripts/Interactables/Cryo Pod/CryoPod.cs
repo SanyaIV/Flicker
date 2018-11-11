@@ -57,21 +57,22 @@ public class CryoPod : Interactable {
 
         _running = true;
 
-        _saveScreen.color = new Color(1f, 1f, 1f, 0f);
+        _saveScreen.color = new Color(0f, 0f, 0f, 0f);
         while(_saveScreen.color.a < 1f)
         {
-            _saveScreen.color = new Color(1f, 1f, 1f, _saveScreen.color.a + _fadeSpeed * Time.deltaTime);
+            _saveScreen.color = new Color(0f, 0f, 0f, _saveScreen.color.a + _fadeSpeed * Time.deltaTime);
             yield return null;
         }
 
         yield return new WaitForSeconds(1f);
+
         while (_saveScreen.color.a > 0f)
         {
-            _saveScreen.color = new Color(1f, 1f, 1f, _saveScreen.color.a - _fadeSpeed * Time.deltaTime);
+            _saveScreen.color = new Color(0f, 0f, 0f, _saveScreen.color.a - _fadeSpeed * Time.deltaTime);
             yield return null;
         }
 
-        _saveScreen.color = new Color(1f, 1f, 1f, 0f);
+        _saveScreen.color = new Color(0f, 0f, 0f, 0f);
         _running = false;
         yield break;
     }
