@@ -50,8 +50,8 @@ public class FirstPersonCamera : MonoBehaviour
         input.y = Mathf.Abs(input.y) > requiredInputMagnitude ? input.y : 0.0f;
         input += new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y") * INVERSE);
 
-        _V2Rotation.x += input.x * speed.x * Time.deltaTime;
-        _V2Rotation.y += input.y * speed.y * Time.deltaTime;
+        _V2Rotation.x += input.x * speed.x;
+        _V2Rotation.y += input.y * speed.y;
 
         if (yClamp) _V2Rotation.y = Mathf.Clamp(_V2Rotation.y, yAngleClamp.Min, yAngleClamp.Max);
     }
