@@ -13,16 +13,10 @@ public class Idle : EnemyState
     NavMeshAgent _navMeshAgent;
 
     private Transform transform { get { return _controller.transform; } }
-    private Vector3 velocity
-    {
-        get { return _controller.velocity; }
-        set { _controller.velocity = value; }
-    }
 
     public override void Initialize(EnemyStateController owner)
     {
         _controller = (EnemyController)owner;
-        _controller.velocity = new Vector3(0, 0);
     }
 
     public override void Enter()
@@ -41,8 +35,6 @@ public class Idle : EnemyState
     {
         if (!(_controller.CheckIfEnemyIsVisible()))
         {
-            Debug.Log("Hidden");
-            Debug.Log("Transitioning from idle to patrol");
             _controller.TransitionTo<Patrol>();
         }
     }

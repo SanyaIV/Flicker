@@ -7,55 +7,47 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CharacterController))]
 public class EnemyController : EnemyStateController
 {
-    public Plane[] planes;
-
-    [SerializeField]
-    public float _distanceToDepleteSanity;
-    public float depletionAmount;
-
-    //Array for the enemy's models
-    //public string[] posePlaceHolders;
-    
-    public Camera cam;
-    public Renderer rend;
-    private Vector3[] points = new Vector3[9];
-    //private float _maxDistance = 30f;
-    public NavMeshAgent _navMeshAgent;
-
-    public float detectDistance;
-
-    public LayerMask doorLayer;
-
-    //private List<RaycastHit> hits;
-    public BoxCollider[] colls;
-
-    public LayerMask ignoreLayers;
-    public bool visible = false;
+    [Header("Target")]
     public Transform player;
     public Sanity sanity;
-    public float speed;
 
-    private Vector3 _startPos;
-    private Quaternion _startRot;
-    //private int _aggression;
-    public Vector3 velocity;
+    [Header("Visibility Check")]
+    [SerializeField] private BoxCollider[] _colls;
+    [SerializeField] private LayerMask _blockVisibilityLayers;
+    private Camera _cam;
+    private Renderer _rend;
+    private Plane[] _planes;
+    private Vector3[] _points = new Vector3[9];
+    private bool _visible = false;
 
+    [Header("Detection")]
+    public float detectDistance;
+
+    [Header("Sanity")]
+    [SerializeField] private float _depletionAmount;
+
+    [Header("Nav Mesh Agent")]
+    [SerializeField] private NavMeshAgent _navMeshAgent;
     public Transform[] wayPoints;
 
-    [Header("Footstep")]
+    [Header("Doors")]
+    [SerializeField] private LayerMask _doorLayer;
+    [SerializeField] private bool _hittingDoor = false;
+
+    [Header("Footsteps")]
+    [SerializeField] private float _speed;
+    [SerializeField] private Vector3 _velocity;
     [SerializeField] private float _stepInterval;
     [SerializeField] [Range(0f, 1f)] private float _runStepLengthen;
     private float _stepCycle;
     private float _nextStep;
 
     [Header("Audio")]
-    [SerializeField] public BasicAudio basicAudio;
-    public AudioClip[] footstepSounds;
-    public AudioClip doorPound;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip[] _footstepSounds;
+    [SerializeField] private AudioClip[] _doorPound;
+    public BasicAudio basicAudio;
 
-    public AudioSource audioSource;
-
-    public bool hittingDoor = false;
     public override void Awake()
     {
         base.Awake();
@@ -68,17 +60,15 @@ public class EnemyController : EnemyStateController
         _stepCycle = 0f;
         _nextStep = _stepCycle / 2f;
 
-        rend = GetComponent<Renderer>();
-        cam = Camera.main;
+        _rend = GetComponent<Renderer>();
+        _cam = Camera.main;
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.acceleration = 60f;
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         sanity = GameObject.FindGameObjectWithTag("Player").GetComponent<Sanity>();
 
-        audioSource = GetComponent<AudioSource>();
-
-        //_aggression = 0;
+        _audioSource = GetComponent<AudioSource>();
 
         TransitionTo<Patrol>();
     }
@@ -94,7 +84,7 @@ public class EnemyController : EnemyStateController
         }
         else
         {
-            audioSource.Stop();
+            _audioSource.Stop();
             UpdateIfVisible();
         }
     }
@@ -104,97 +94,93 @@ public class EnemyController : EnemyStateController
         _navMeshAgent.isStopped = true;
 
         if (!(CurrentState is Idle))
-            Debug.Log("Transitioning to idle");
-        TransitionTo<Idle>();
+            TransitionTo<Idle>();
    
-        sanity.DepleteSanity();
+        sanity.DepleteSanity(_depletionAmount);
     }
 
     private void UpdateIfHidden()
     {
         _navMeshAgent.isStopped = false;
 
-        if (HitDoor() && !hittingDoor)
+        if (HitDoor() && !_hittingDoor)
         {
             StartCoroutine(PoundOnDoor());
         }
 
         ProgressStepCycle();
-        //UpdateAggression();
     }
 
     private bool HitDoor()
     {
         RaycastHit hit = new RaycastHit();
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.cyan);
-        return (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 0.5f, doorLayer));
+        return (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 0.5f, _doorLayer));
     }
 
     public bool CheckIfEnemyIsVisible()
     {
-        if (rend.isVisible) //Check if Unity thinks the renderer is visible (Not perfect but works as a quick and easy out in case it's not)
+        if (_rend.isVisible) //Check if Unity thinks the renderer is visible (Not perfect but works as a quick and easy out in case it's not)
         {
-            if (Vector3.Dot((cam.transform.position - transform.position).normalized, cam.transform.forward) > Mathf.Lerp(-0.6f, -0.25f, Vector3.Distance(cam.transform.position, transform.position) / 10)) //Bad attempt at checking if the player is looking towards the enemy through the dot products of directions
-                return visible = false; //Set visible to false and return visible (which is false)
+            if (Vector3.Dot((_cam.transform.position - transform.position).normalized, _cam.transform.forward) > Mathf.Lerp(-0.6f, -0.25f, Vector3.Distance(_cam.transform.position, transform.position) / 10)) //Bad attempt at checking if the player is looking towards the enemy through the dot products of directions
+                return _visible = false; //Set visible to false and return visible (which is false)
 
-            int taskNumber = Time.frameCount % colls.Length; //Run one box per frame
+            int taskNumber = Time.frameCount % _colls.Length; //Run one box per frame
 
             if (taskNumber == 0)
-                visible = false; //Reset visibility status at start of the "loop"
-            if (visible)
+                _visible = false; //Reset visibility status at start of the "loop"
+            if (_visible)
                 return true; //If visible is true then just return since it means the enemy has been seen for this round of the "loop"
 
-            planes = GeometryUtility.CalculateFrustumPlanes(cam); //Get the frustum planes of the camera
+            _planes = GeometryUtility.CalculateFrustumPlanes(_cam); //Get the frustum planes of the camera
 
-            if (GeometryUtility.TestPlanesAABB(planes, colls[taskNumber].bounds)) //Test if the current boxcollider is within the camera's frustum
+            if (GeometryUtility.TestPlanesAABB(_planes, _colls[taskNumber].bounds)) //Test if the current boxcollider is within the camera's frustum
             {
-                BoxCollider coll = colls[taskNumber]; //Get the current boxcollider
-                points[0] = transform.TransformPoint(colls[taskNumber].center);
-                points[1] = transform.TransformPoint(colls[taskNumber].center + new Vector3(coll.size.x, -coll.size.y, coll.size.z) * 0.5f); //One corner of the boxcollider
-                points[2] = transform.TransformPoint(colls[taskNumber].center + new Vector3(coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
-                points[3] = transform.TransformPoint(colls[taskNumber].center + new Vector3(-coll.size.x, -coll.size.y, coll.size.z) * 0.5f);
-                points[4] = transform.TransformPoint(colls[taskNumber].center + new Vector3(-coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
-                points[5] = transform.TransformPoint(colls[taskNumber].center + new Vector3(coll.size.x, coll.size.y, coll.size.z) * 0.5f);
-                points[6] = transform.TransformPoint(colls[taskNumber].center + new Vector3(coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
-                points[7] = transform.TransformPoint(colls[taskNumber].center + new Vector3(-coll.size.x, coll.size.y, coll.size.z) * 0.5f);
-                points[8] = transform.TransformPoint(colls[taskNumber].center + new Vector3(-coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
+                BoxCollider coll = _colls[taskNumber]; //Get the current boxcollider
+                _points[0] = transform.TransformPoint(_colls[taskNumber].center);
+                _points[1] = transform.TransformPoint(_colls[taskNumber].center + new Vector3(coll.size.x, -coll.size.y, coll.size.z) * 0.5f); //One corner of the boxcollider
+                _points[2] = transform.TransformPoint(_colls[taskNumber].center + new Vector3(coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
+                _points[3] = transform.TransformPoint(_colls[taskNumber].center + new Vector3(-coll.size.x, -coll.size.y, coll.size.z) * 0.5f);
+                _points[4] = transform.TransformPoint(_colls[taskNumber].center + new Vector3(-coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
+                _points[5] = transform.TransformPoint(_colls[taskNumber].center + new Vector3(coll.size.x, coll.size.y, coll.size.z) * 0.5f);
+                _points[6] = transform.TransformPoint(_colls[taskNumber].center + new Vector3(coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
+                _points[7] = transform.TransformPoint(_colls[taskNumber].center + new Vector3(-coll.size.x, coll.size.y, coll.size.z) * 0.5f);
+                _points[8] = transform.TransformPoint(_colls[taskNumber].center + new Vector3(-coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
 
-                foreach (Vector3 point in points) //Loop through the points array
-                    if (!Physics.Linecast(point, cam.transform.position, ignoreLayers)) //Linecast between the enemy and the camera to check if there is anything in the way
-                        return visible = true; //If there is nothing in the way then the enemy is visible, so set visible to true and return it.        
+                foreach (Vector3 point in _points) //Loop through the points array
+                    if (!Physics.Linecast(point, _cam.transform.position, _blockVisibilityLayers)) //Linecast between the enemy and the camera to check if there is anything in the way
+                        return _visible = true; //If there is nothing in the way then the enemy is visible, so set visible to true and return it.        
             }
         }
 
-        return visible = false; //Set visible to false and return it
+        return _visible = false; //Set visible to false and return it
     }
 
     //Stop enemy and play pound on door audio
     public IEnumerator PoundOnDoor()
     {
-        hittingDoor = true;
+        _hittingDoor = true;
         _navMeshAgent.isStopped = true;
-        audioSource.PlayOneShot(doorPound);
-        Debug.Log("Play sound");
+        _audioSource.PlayOneShot(_doorPound[0]);
 
         yield return new WaitForSeconds(5);
         TransitionTo<Patrol>();
         _navMeshAgent.isStopped = false;
         yield return new WaitForSeconds(6);
-        hittingDoor = false;
+        _hittingDoor = false;
     }
 
     private void ProgressStepCycle()
     {
         if (_navMeshAgent.velocity.magnitude > 1f)
-            _stepCycle += (velocity.magnitude + (speed * 1f)) * Time.fixedDeltaTime;
+            _stepCycle += (_velocity.magnitude + (_speed * 1f)) * Time.deltaTime;
 
         if (!(_stepCycle > _nextStep))
             return;
 
         _nextStep = _stepCycle + _stepInterval;
 
-        PlayAudio(ref footstepSounds);
-       
+        PlayAudio(ref _footstepSounds);
     }
 
     private void PlayAudio(ref AudioClip[] audio)
@@ -202,13 +188,13 @@ public class EnemyController : EnemyStateController
         if (audio.Length > 1)
         {
             int n = Random.Range(1, audio.Length);
-            audioSource.clip = audio[n];
-            audioSource.PlayOneShot(audioSource.clip);
+            _audioSource.clip = audio[n];
+            _audioSource.PlayOneShot(_audioSource.clip);
             audio[n] = audio[0];
-            audio[0] = audioSource.clip;
+            audio[0] = _audioSource.clip;
         }
         else if (audio.Length == 1)
-            audioSource.PlayOneShot(audio[0]);
+            _audioSource.PlayOneShot(audio[0]);
         else
             return;
     }
@@ -217,26 +203,6 @@ public class EnemyController : EnemyStateController
     {
         return (Vector3.Distance(player.position, transform.position) < detectDistance);
     }
-
-    /*private void UpdateAggression()
-    {
-        if (Time.time > 250)
-            _aggression = 2;
-            
-        if (Time.time > 500)
-            _aggression = 3;
-    }*/
-
-    /*private void ChangePose()
-    {
-        string currentPose = posePlaceHolders[0];
-        for(int i = 0; i < posePlaceHolders.Length; i++)
-        {
-            currentPose = posePlaceHolders[0 + i];
-            Debug.Log(currentPose);
-        }
-    }*/
-
 }
 
 

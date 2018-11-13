@@ -470,36 +470,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a4a7c37903ae808468d15854831f2576, type: 2}
   - {fileID: 11400000, guid: d625c3d60ccb043439207c9c6b2a2c74, type: 2}
   CurrentState: {fileID: 0}
-  PreviousState: {fileID: 11400000, guid: a4a7c37903ae808468d15854831f2576, type: 2}
-  _distanceToDepleteSanity: 10
-  depletionAmount: 5
-  cam: {fileID: 0}
-  rend: {fileID: 23114941409619482}
-  points:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  _navMeshAgent: {fileID: 0}
-  detectDistance: 25
-  doorLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  colls:
-  - {fileID: 65713704170283280}
-  ignoreLayers:
-    serializedVersion: 2
-    m_Bits: 512
-  visible: 0
+  PreviousState: {fileID: 0}
   player: {fileID: 0}
   sanity: {fileID: 0}
-  speed: 4
-  velocity: {x: 3, y: 3, z: 3}
+  _colls:
+  - {fileID: 65713704170283280}
+  _blockVisibilityLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  detectDistance: 25
+  _depletionAmount: 1
+  _navMeshAgent: {fileID: 0}
   wayPoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -532,26 +513,23 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  MaxSpeed: 10
-  Gravity: 50
-  MoveDir: {x: 0, y: 0, z: 0}
-  CollisionLayers:
+  _doorLayer:
     serializedVersion: 2
-    m_Bits: 0
-  GroundCheckDistance: 0.15
-  _charCtrl: {fileID: 0}
-  _collision: 0
+    m_Bits: 512
+  _hittingDoor: 0
+  _speed: 4
+  _velocity: {x: 3, y: 3, z: 3}
   _stepInterval: 3.5
   _runStepLengthen: 0
-  basicAudio: {fileID: 114100488566440292}
-  footstepSounds:
+  _audioSource: {fileID: 82616541429728464}
+  _footstepSounds:
   - {fileID: 8300000, guid: 81052ce840960d34697a9e8deecf93b3, type: 3}
   - {fileID: 8300000, guid: c63de8f35b336e2418a6e8a6b1978502, type: 3}
   - {fileID: 8300000, guid: 79ab370fc22b04a4a9ef2406b65f7684, type: 3}
   - {fileID: 8300000, guid: 797edd6ae2e352e4a9e07ed108be2c0a, type: 3}
-  doorPound: {fileID: 8300000, guid: 388d4d03438c41e43b60a61c6a0bbf59, type: 3}
-  audioSource: {fileID: 82616541429728464}
-  hittingDoor: 0
+  _doorPound:
+  - {fileID: 8300000, guid: 388d4d03438c41e43b60a61c6a0bbf59, type: 3}
+  basicAudio: {fileID: 114100488566440292}
 --- !u!136 &136193473752542910
 CapsuleCollider:
   m_ObjectHideFlags: 1

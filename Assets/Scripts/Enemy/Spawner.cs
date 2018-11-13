@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Spawner : MonoBehaviour
-{
+{/*
 
     //NavMeshAgent _navMeshAgent;
     private List<Transform> _spawnPoints;
@@ -43,5 +43,5 @@ public class Spawner : MonoBehaviour
             }
             yield return new WaitForSeconds(Random.Range(_randomNum.Min, _randomNum.Max));
         }
-    }
+    }*/
 }

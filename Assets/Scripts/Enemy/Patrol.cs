@@ -15,11 +15,6 @@ public class Patrol : EnemyState
     private EnemyController _controller;
     private int _destPoint = 0;
     private Transform transform { get { return _controller.transform; } }
-    private Vector3 velocity
-    {
-        get { return _controller.velocity; }
-        set { _controller.velocity = value; }
-    }
 
     public override void Initialize(EnemyStateController owner)
     {
@@ -29,7 +24,6 @@ public class Patrol : EnemyState
 
     public override void Enter()
     {
-        Debug.Log("Patrolling");
         _navMeshAgent = _controller.GetComponent<NavMeshAgent>();
 
         if (_navMeshAgent == null)
@@ -66,7 +60,6 @@ public class Patrol : EnemyState
     {
         if (_controller.PlayerClose())
         {
-            Debug.Log("Player close");
             _controller.TransitionTo<Hunt>();
         }
         else

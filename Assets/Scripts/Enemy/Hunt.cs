@@ -6,6 +6,10 @@ using UnityEngine.AI;
 [CreateAssetMenu(menuName = "EnemyStates/Hunt")]
 public class Hunt : EnemyState
 {
+    [Header("Sanity")]
+    [SerializeField] private float _distanceToDeplete;
+    [SerializeField] private float _depletionAmount;
+
     [Header("Settings")]
     Transform _destination;
     NavMeshAgent _navMeshAgent;
@@ -15,11 +19,6 @@ public class Hunt : EnemyState
     private EnemyController _controller;
 
     private Transform transform { get { return _controller.transform; } }
-    private Vector3 velocity
-    {
-        get { return _controller.velocity; }
-        set { _controller.velocity = value; }
-    }
 
     public override void Initialize(EnemyStateController owner)
     {
@@ -30,8 +29,6 @@ public class Hunt : EnemyState
     {
         _navMeshAgent = _controller.GetComponent<NavMeshAgent>();
         _destination = _controller.player;
-
-        Debug.Log("Entering hunt");
 
         if (_navMeshAgent == null)
         {
@@ -55,24 +52,17 @@ public class Hunt : EnemyState
 
     public override void Update()
     {
-        Debug.Log("Hunting");
-        Debug.Log(_controller._distanceToDepleteSanity);
         SetDestination();
 
-        if(Vector3.Distance(_controller.player.position, transform.position) < _controller._distanceToDepleteSanity)
-        {
-            _controller.sanity.DepleteSanity(_controller.depletionAmount);
-        }
+        if(Vector3.Distance(_controller.player.position, transform.position) < _distanceToDeplete)
+            _controller.sanity.DepleteSanity(_depletionAmount);
 
         if (!_controller.PlayerClose())
         {
-            Debug.Log("Player not close");
             _navMeshAgent.SetDestination(_controller.wayPoints[0].position);
             _controller.TransitionTo<Patrol>();
         }
-
     }
-
 }
 
 
