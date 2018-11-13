@@ -131,6 +131,11 @@ public class Door : MonoBehaviour {
         }
     }
 
+    public bool GetSavedLockState()
+    {
+        return _saveLocked;
+    }
+
     public void Save()
     {
         _savedOpen = isOpen;

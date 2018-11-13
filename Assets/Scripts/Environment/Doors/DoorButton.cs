@@ -50,6 +50,8 @@ public class DoorButton : Interactable {
                 door.Lock();
 
         SetCanvas();
+
+        GameManager.AddReloadEvent(Reload);
     }
 
     public void Submit(DoorButton slave)
@@ -152,13 +154,15 @@ public class DoorButton : Interactable {
             door.Lock();
     }
 
-    private void SetCanvas()
+    private void SetCanvas(bool reload = false)
     {
         bool locked = false;
 
         foreach(Door door in _doors)
         {
-            if (door.locked)
+            if (!reload && door.locked)
+                locked = true;
+            else if (reload && door.GetSavedLockState())
                 locked = true;
 
             if (locked)
@@ -170,12 +174,14 @@ public class DoorButton : Interactable {
             _background.color = _lockedColor;
             _lockedImage.enabled = true;
             _unlockedImage.enabled = false;
+            _showMouse = false;
         }
         else
         {
             _background.color = _openColor;
             _lockedImage.enabled = false;
             _unlockedImage.enabled = true;
+            _showMouse = true;
         }
 
         foreach (DoorButton slave in _slaves)
@@ -240,10 +246,17 @@ public class DoorButton : Interactable {
             return _master.ActionType();
 
         if (_doors[0].locked && !_player.HasPasscard(_passcard))
+        {
+            _showMouse = false;
             return "Locked";
+        } 
         else if (_doors[0].locked && _player.HasPasscard(_passcard))
+        {
+            _showMouse = true;
             return "Unlock";
+        }
 
+        _showMouse = true;
         foreach (Door door in _doors)
         {
             if (door.opening)
@@ -268,5 +281,10 @@ public class DoorButton : Interactable {
             return "Doors";
         else
             return "Door";
+    }
+
+    public void Reload()
+    {
+        SetCanvas(true);
     }
 }

@@ -60,7 +60,7 @@ public class SelfDestruct : Interactable {
             _timerInSeconds -= Time.deltaTime;
             _minutes = Mathf.Clamp((int)_timerInSeconds / 60, 0, 99);
             _seconds = Mathf.Clamp((int)_timerInSeconds - _minutes * 60, 0, 59);
-            _timerText.text = _minutes + ":" + _seconds;
+            _timerText.text = string.Format("{0:00}:{1:00}", _minutes, _seconds);
 
             yield return null;
         }
