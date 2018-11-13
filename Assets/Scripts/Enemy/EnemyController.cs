@@ -13,13 +13,13 @@ public class EnemyController : EnemyStateController
     public float _distanceToDepleteSanity;
     public float depletionAmount;
 
-    //Array för fiendens modeller
+    //Array for the enemy's models
     //public string[] posePlaceHolders;
     
     public Camera cam;
     public Renderer rend;
-    public Vector3[] points = new Vector3[9];
-    private float _maxDistance = 30f;
+    private Vector3[] points = new Vector3[9];
+    //private float _maxDistance = 30f;
     public NavMeshAgent _navMeshAgent;
 
     public float detectDistance;
@@ -37,21 +37,10 @@ public class EnemyController : EnemyStateController
 
     private Vector3 _startPos;
     private Quaternion _startRot;
-    private int _aggression;
+    //private int _aggression;
     public Vector3 velocity;
 
     public Transform[] wayPoints;
-
-    [Header("Movement")]
-    public float MaxSpeed = 10f;
-    public float Gravity = 50f;
-    public Vector3 MoveDir = Vector3.zero;
-
-    [Header("Collision")]
-    public LayerMask CollisionLayers;
-    public float GroundCheckDistance = 0.15f;
-    [HideInInspector] public CharacterController _charCtrl;
-    [HideInInspector] public CollisionFlags _collision;
 
     [Header("Footstep")]
     [SerializeField] private float _stepInterval;
@@ -83,19 +72,13 @@ public class EnemyController : EnemyStateController
         cam = Camera.main;
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.acceleration = 60f;
-        _charCtrl = GetComponent<CharacterController>();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         sanity = GameObject.FindGameObjectWithTag("Player").GetComponent<Sanity>();
 
-        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
 
-        _startPos = transform.position;
-        _startRot = transform.rotation;
-
-        _aggression = 0;
+        //_aggression = 0;
 
         TransitionTo<Patrol>();
     }
@@ -103,17 +86,14 @@ public class EnemyController : EnemyStateController
     public override void Update()
     {
         base.Update();
-        if (hittingDoor) return;
+        //if (hittingDoor) return;
 
         if (!CheckIfEnemyIsVisible())
         {
-            Debug.Log("is hidden");
             UpdateIfHidden();
-            
         }
         else
         {
-            Debug.Log("Is visible");
             audioSource.Stop();
             UpdateIfVisible();
         }
@@ -140,14 +120,14 @@ public class EnemyController : EnemyStateController
         }
 
         ProgressStepCycle();
-        UpdateAggression();
+        //UpdateAggression();
     }
 
     private bool HitDoor()
     {
         RaycastHit hit = new RaycastHit();
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.cyan);
-        return (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), 0.5f, LayerMask.GetMask("Door")));   
+        return (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 0.5f, doorLayer));
     }
 
     public bool CheckIfEnemyIsVisible()
@@ -186,29 +166,6 @@ public class EnemyController : EnemyStateController
         }
 
         return visible = false; //Set visible to false and return it
-    }
-
-    public bool IsGrounded()
-    {
-        RaycastHit hitInfo;
-        bool hit = Physics.SphereCast(transform.position, _charCtrl.radius, Vector3.down, out hitInfo, GroundCheckDistance, CollisionLayers, QueryTriggerInteraction.Ignore);
-
-        return ((!hit || hitInfo.point.magnitude < MathHelper.FloatEpsilon) ? false : true);
-    }
-
-    public RaycastHit GroundCheck()
-    {
-        RaycastHit hitInfo;
-        Physics.SphereCast(transform.position, _charCtrl.radius, Vector3.down, out hitInfo, GroundCheckDistance, CollisionLayers, QueryTriggerInteraction.Ignore);
-
-        Debug.Log(hitInfo);
-        return hitInfo;
-    }
-
-    public void ResetTransform()
-    {
-        transform.position = _startPos;
-        transform.rotation = _startRot;
     }
 
     //Stop enemy and play pound on door audio
@@ -261,19 +218,14 @@ public class EnemyController : EnemyStateController
         return (Vector3.Distance(player.position, transform.position) < detectDistance);
     }
 
-    private void UpdateAggression()
+    /*private void UpdateAggression()
     {
         if (Time.time > 250)
-        {
             _aggression = 2;
-        }
             
         if (Time.time > 500)
-        {
             _aggression = 3;
-        }
-            
-    }
+    }*/
 
     /*private void ChangePose()
     {

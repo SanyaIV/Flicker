@@ -7,7 +7,7 @@ public class Passcard : Interactable {
     [Header("Passcard")]
     [SerializeField] private string _passcard;
 
-    public void Start()
+    public override void Start()
     {
         GameManager.AddSaveEvent(Save);
         GameManager.AddReloadEvent(ReloadSave);

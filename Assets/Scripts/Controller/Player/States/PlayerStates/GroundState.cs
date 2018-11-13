@@ -7,8 +7,8 @@ using UnityEngine.UI;
 [CreateAssetMenu(menuName = "Player/States/Ground")]
 public class GroundState : PlayerState {
 
-    [Header("Constants")]
-    [HideInInspector] public readonly MinMaxFloat CLAMP_SANITY_SPEED_MULTIPLIER = new MinMaxFloat(0.5f, 1f);
+    [Header("Sanity")]
+    [SerializeField] private MinMaxFloat _clampSanitySpeedMultiplier = new MinMaxFloat(0.7f, 1f);
 
     [Header("Movement")]
     public float walkSpeed = 4f;
@@ -106,7 +106,7 @@ public class GroundState : PlayerState {
         else
             controller.maxSpeed = joggSpeed;
 
-        controller.maxSpeed *= Mathf.Clamp(controller.sanity.GetSanity(), CLAMP_SANITY_SPEED_MULTIPLIER.Min, CLAMP_SANITY_SPEED_MULTIPLIER.Max);
+        controller.maxSpeed *= Mathf.Clamp(controller.sanity.GetSanity(), _clampSanitySpeedMultiplier.Min, _clampSanitySpeedMultiplier.Max);
 
         if (controller.GoopCheck())
         {

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Spawner : MonoBehaviour
 {
 
-    NavMeshAgent _navMeshAgent;
+    //NavMeshAgent _navMeshAgent;
     private List<Transform> _spawnPoints;
     public EnemyController _controller;
     public float spawnTime = 0;
@@ -16,7 +16,7 @@ public class Spawner : MonoBehaviour
 
     public void Start()
     {
-        _navMeshAgent = _controller.GetComponent<NavMeshAgent>();  
+        //_navMeshAgent = _controller.GetComponent<NavMeshAgent>();  
         _spawnPoints = new List<Transform>();
 
         foreach(GameObject go in GameObject.FindGameObjectsWithTag("Spawn Point"))
