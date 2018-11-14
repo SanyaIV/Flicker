@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: NaN, g: NaN, b: NaN, a: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -25361,11 +25361,6 @@ Prefab:
       propertyPath: wayPoints.Array.data[30]
       value: 
       objectReference: {fileID: 685774838}
-    - target: {fileID: 114738807327640740, guid: a0e3758fe3091e240bdcd896335f1199,
-        type: 2}
-      propertyPath: detectDistance
-      value: 15
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0e3758fe3091e240bdcd896335f1199, type: 2}
   m_IsPrefabAsset: 0

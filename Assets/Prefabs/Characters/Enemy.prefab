@@ -469,8 +469,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ebfcdff48d428a547a41447741ead6f5, type: 2}
   - {fileID: 11400000, guid: a4a7c37903ae808468d15854831f2576, type: 2}
   - {fileID: 11400000, guid: d625c3d60ccb043439207c9c6b2a2c74, type: 2}
-  CurrentState: {fileID: 0}
-  PreviousState: {fileID: 0}
+  currentState: {fileID: 0}
+  previousState: {fileID: 0}
   player: {fileID: 0}
   sanity: {fileID: 0}
   _colls:
@@ -478,7 +478,7 @@ MonoBehaviour:
   _blockVisibilityLayers:
     serializedVersion: 2
     m_Bits: 512
-  detectDistance: 25
+  detectDistance: 15
   _depletionAmount: 1
   _navMeshAgent: {fileID: 0}
   wayPoints:
