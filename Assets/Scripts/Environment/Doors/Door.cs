@@ -6,6 +6,7 @@ public class Door : MonoBehaviour {
     private Vector3 _openPos;
     private Vector3 _closePos;
     private Coroutine _closeCoroutine;
+    private BoxCollider _coll;
 
     [Header("Movement")]
     public float doorLength;
@@ -14,6 +15,10 @@ public class Door : MonoBehaviour {
     public bool isOpen;
     public bool closing;
     public bool opening;
+
+    [Header("Automatic Open")]
+    public float checkDistance = 0f;
+    public Vector3 offset = Vector3.zero;
     public LayerMask automaticOpenLayers;
 
     [Header("State")]
@@ -24,16 +29,20 @@ public class Door : MonoBehaviour {
     private bool _saveLocked;
 
 	// Use this for initialization
-	void Start () {
+
+    void Awake()
+    {
+        _coll = GetComponent<BoxCollider>();
 
         if (doorLength == 0)
         {
-            BoxCollider box = GetComponent<BoxCollider>();
-
-            Vector3 vertice1 = transform.TransformPoint(box.center + new Vector3(box.size.x, -box.size.y, box.size.z) * 0.5f);
-            Vector3 vertice2 = transform.TransformPoint(box.center + new Vector3(box.size.x, -box.size.y, -box.size.z) * 0.5f);
+            Vector3 vertice1 = transform.TransformPoint(_coll.center + new Vector3(_coll.size.x, -_coll.size.y, _coll.size.z) * 0.5f);
+            Vector3 vertice2 = transform.TransformPoint(_coll.center + new Vector3(_coll.size.x, -_coll.size.y, -_coll.size.z) * 0.5f);
             doorLength = Vector3.Distance(vertice1, vertice2);
         }
+
+        if (checkDistance == 0f)
+            checkDistance = doorLength;
 
         if (isOpen)
         {
@@ -45,7 +54,9 @@ public class Door : MonoBehaviour {
             _closePos = transform.localPosition;
             _openPos = _closePos - Vector3.forward * (reverseDirection ? -1 : 1) * (doorLength > 0 ? doorLength : transform.lossyScale.z);
         }
+    }
 
+	void Start () {
         GameManager.AddSaveEvent(Save);
         GameManager.AddReloadEvent(ReloadSave);
     }
@@ -123,9 +134,10 @@ public class Door : MonoBehaviour {
 
     private void AutomaticOpen()
     {
-        if (Physics.Raycast(transform.position, reverseDirection ? -transform.forward : transform.forward, doorLength, automaticOpenLayers))
+
+        if (Physics.BoxCast(_coll.bounds.center, _coll.bounds.extents, reverseDirection ? -transform.forward : transform.forward, Quaternion.identity, checkDistance, automaticOpenLayers, QueryTriggerInteraction.Collide))
         {
-            if(_closeCoroutine != null)
+            if (_closeCoroutine != null)
                 StopCoroutine(_closeCoroutine);
             Open();
         }
