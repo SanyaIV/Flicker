@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(CharacterController))]
-public class EnemyController : EnemyStateController
+public class EnemyController : Controller
 {
     [Header("Target")]
     public Transform player;
@@ -93,7 +93,7 @@ public class EnemyController : EnemyStateController
     {
         _navMeshAgent.isStopped = true;
 
-        if (!(CurrentState is Idle))
+        if (!(currentState is Idle))
             TransitionTo<Idle>();
    
         sanity.DepleteSanity(_depletionAmount);

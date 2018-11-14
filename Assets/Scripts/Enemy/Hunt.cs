@@ -16,13 +16,9 @@ public class Hunt : EnemyState
 
     public Transform target;
 
-    private EnemyController _controller;
-
-    private Transform transform { get { return _controller.transform; } }
-
-    public override void Initialize(EnemyStateController owner)
+    public override void Initialize(Controller owner)
     {
-        _controller = (EnemyController)owner;
+        base.Initialize(owner);
     }
 
     public override void Enter()
@@ -44,7 +40,7 @@ public class Hunt : EnemyState
     {
         if (_destination != null)
         {
-            Vector3 direction = (_destination.position - transform.position).normalized;
+            Vector3 direction = (_destination.position - _transform.position).normalized;
             Vector3 _targetVector = _destination.position - direction;
             _navMeshAgent.SetDestination(_targetVector);
         }
@@ -54,7 +50,7 @@ public class Hunt : EnemyState
     {
         SetDestination();
 
-        if(Vector3.Distance(_controller.player.position, transform.position) < _distanceToDeplete)
+        if(Vector3.Distance(_controller.player.position, _transform.position) < _distanceToDeplete)
             _controller.sanity.DepleteSanity(_depletionAmount);
 
         if (!_controller.PlayerClose())

@@ -11,15 +11,11 @@ public class Patrol : EnemyState
     NavMeshAgent _navMeshAgent;
 
     public Transform target;
-
-    private EnemyController _controller;
     private int _destPoint = 0;
-    private Transform transform { get { return _controller.transform; } }
 
-    public override void Initialize(EnemyStateController owner)
+    public override void Initialize(Controller owner)
     {
-        _controller = (EnemyController)owner;
-      
+        base.Initialize(owner);
     }
 
     public override void Enter()
@@ -50,7 +46,7 @@ public class Patrol : EnemyState
     {
         if (_destination != null)
         {
-            Vector3 direction = (_destination.position - transform.position).normalized;
+            Vector3 direction = (_destination.position - _transform.position).normalized;
             Vector3 _targetVector = _destination.position - direction;
             _navMeshAgent.SetDestination(_targetVector);
         }

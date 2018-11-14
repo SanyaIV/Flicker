@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyState : ScriptableObject
+public abstract class EnemyState : State
 {
-    public virtual void Initialize(EnemyStateController owner) { }
-    public virtual void LateInitialize() { }
-    public virtual void Enter() { }
-    public virtual void Update() { }
-    public virtual void FixedUpdate() { }
-    public virtual void Exit() { }
+    protected EnemyController _controller;
+    protected Transform _transform { get { return _controller.transform; } }
+
+    public override void Initialize(Controller owner) {
+        _controller = (EnemyController)owner;
+    }
 }
