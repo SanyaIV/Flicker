@@ -6,15 +6,16 @@ using UnityEngine.AI;
 [CreateAssetMenu(menuName = "EnemyStates/Hunt")]
 public class Hunt : EnemyState
 {
+    [Header("Hunt")]
+    [SerializeField] private float _maxFollowDistance = 10f;
+
     [Header("Sanity")]
     [SerializeField] private float _distanceToDeplete;
-    [SerializeField] private float _depletionAmount;
+    [SerializeField] private MinMaxFloat _depletionAmount;
 
     [Header("Settings")]
-    Transform _destination;
-    NavMeshAgent _navMeshAgent;
-
-    public Transform target;
+    private Transform _target;
+    private NavMeshAgent _navMeshAgent;
 
     public override void Initialize(Controller owner)
     {
@@ -24,7 +25,7 @@ public class Hunt : EnemyState
     public override void Enter()
     {
         _navMeshAgent = _controller.GetComponent<NavMeshAgent>();
-        _destination = _controller.player;
+        _target = _controller.player;
 
         if (_navMeshAgent == null)
         {
@@ -38,10 +39,10 @@ public class Hunt : EnemyState
 
     private void SetDestination()
     {
-        if (_destination != null)
+        if (_target != null)
         {
-            Vector3 direction = (_destination.position - _transform.position).normalized;
-            Vector3 _targetVector = _destination.position - direction;
+            Vector3 direction = (_target.position - _transform.position).normalized;
+            Vector3 _targetVector = _target.position - direction;
             _navMeshAgent.SetDestination(_targetVector);
         }
     }
@@ -49,11 +50,11 @@ public class Hunt : EnemyState
     public override void Update()
     {
         SetDestination();
+        float distance = Vector3.Distance(_controller.player.position, _transform.position);
+        if (distance < _distanceToDeplete)
+            _controller.sanity.DepleteSanity(Mathf.Lerp(_depletionAmount.Min, _depletionAmount.Max, (_distanceToDeplete - distance) / _distanceToDeplete));
 
-        if(Vector3.Distance(_controller.player.position, _transform.position) < _distanceToDeplete)
-            _controller.sanity.DepleteSanity(_depletionAmount);
-
-        if (!_controller.PlayerClose())
+        if (Vector3.Distance(_target.position, _controller.transform.position) > _maxFollowDistance)
         {
             _navMeshAgent.SetDestination(_controller.wayPoints[0].position);
             _controller.TransitionTo<Patrol>();

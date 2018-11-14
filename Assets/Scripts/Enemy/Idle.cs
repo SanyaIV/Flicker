@@ -8,8 +8,7 @@ public class Idle : EnemyState
 {
     //private bool _inLineOfSight = true;
     //private float _minHuntDistance = 1f;
-    public Transform target;
-    NavMeshAgent _navMeshAgent;
+    private NavMeshAgent _navMeshAgent;
 
     public override void Initialize(Controller owner)
     {

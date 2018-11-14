@@ -7,10 +7,9 @@ using UnityEngine.AI;
 public class Patrol : EnemyState
 {
     [Header("Settings")]
-    Transform _destination;
-    NavMeshAgent _navMeshAgent;
+    private Transform _destination;
+    private NavMeshAgent _navMeshAgent;
 
-    public Transform target;
     private int _destPoint = 0;
 
     public override void Initialize(Controller owner)
