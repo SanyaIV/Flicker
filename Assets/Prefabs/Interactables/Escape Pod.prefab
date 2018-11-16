@@ -456,7 +456,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1139895521601400
 GameObject:
   m_ObjectHideFlags: 1
@@ -3107,7 +3107,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1112169134546176}
   m_LocalRotation: {x: -0, y: -0.9999965, z: -0, w: -0.0026609781}
-  m_LocalPosition: {x: 1.64, y: -0.511, z: -14.04}
+  m_LocalPosition: {x: 1.65, y: -0.441, z: -15.748}
   m_LocalScale: {x: 0.48000047, y: 0.48, z: 0.48000047}
   m_Children:
   - {fileID: 4718082318235628}
@@ -3453,14 +3453,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1195011751762332}
-  m_LocalRotation: {x: -0, y: -0.96877563, z: -0, w: -0.24793932}
-  m_LocalPosition: {x: -3.5814, y: -4.4548, z: -10.037}
+  m_LocalRotation: {x: -0, y: -0.71501523, z: -0, w: -0.6991089}
+  m_LocalPosition: {x: -3.9569993, y: -4.4548035, z: -10.037006}
   m_LocalScale: {x: 1.2500004, y: 1.25, z: 1.2500004}
   m_Children:
   - {fileID: 4849821998605032}
   m_Father: {fileID: 4437218240859560}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: -118.711006, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -268.711, z: 0}
 --- !u!4 &4352219817003354
 Transform:
   m_ObjectHideFlags: 1
@@ -4322,14 +4322,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1627927203025996}
-  m_LocalRotation: {x: -0, y: -0.640357, z: -0, w: 0.7680775}
-  m_LocalPosition: {x: -3.5814047, y: -4.4548035, z: -10.037007}
+  m_LocalRotation: {x: -0, y: -0.7069075, z: -0, w: 0.7073061}
+  m_LocalPosition: {x: -3.771, y: -4.4548035, z: -10.037}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_Children:
   - {fileID: 4818982151198566}
   m_Father: {fileID: 4437218240859560}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 10.363001, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -89.968, z: 0}
 --- !u!4 &4826496001414958
 Transform:
   m_ObjectHideFlags: 1
@@ -9282,7 +9282,7 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 11.936621
   m_Range: 15
-  m_SpotAngle: 177
+  m_SpotAngle: 150
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1
@@ -9356,7 +9356,7 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 11.936621
   m_Range: 15
-  m_SpotAngle: 177
+  m_SpotAngle: 150
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1
@@ -10554,6 +10554,8 @@ MonoBehaviour:
   isOpen: 0
   closing: 0
   opening: 0
+  checkDistance: 1
+  offset: {x: 0, y: 0, z: 0}
   automaticOpenLayers:
     serializedVersion: 2
     m_Bits: 3072
@@ -10635,6 +10637,8 @@ MonoBehaviour:
   isOpen: 0
   closing: 0
   opening: 0
+  checkDistance: 1
+  offset: {x: 0, y: 0, z: 0}
   automaticOpenLayers:
     serializedVersion: 2
     m_Bits: 3072
