@@ -4,21 +4,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(CharacterController))]
 public class EnemyController : Controller
 {
     [Header("Target")]
-    public Transform player;
-    public Sanity sanity;
+    [HideInInspector] public Transform player;
+    [HideInInspector] public Sanity sanity;
 
     [Header("Visibility Check")]
-    [SerializeField] private BoxCollider[] _colls;
     [SerializeField] private LayerMask _blockVisibilityLayers;
-    private Camera _cam;
-    private Renderer _rend;
-    private Plane[] _planes;
+    private List<GameObject> _models = new List<GameObject>();
+    private List<BoxCollider> _colls = new List<BoxCollider>();
+    private MeshRenderer _rend;
     private Vector3[] _points = new Vector3[9];
+    private Camera _cam;
+    private Plane[] _planes;
     private bool _visible = false;
+    private bool _visibleLastFrame = false;
 
     [Header("Detection")]
     public float detectDistance;
@@ -27,8 +28,8 @@ public class EnemyController : Controller
     [SerializeField] private float _depletionAmount;
 
     [Header("Nav Mesh Agent")]
-    [SerializeField] private NavMeshAgent _navMeshAgent;
     public Transform[] wayPoints;
+    private NavMeshAgent _navMeshAgent;
 
     [Header("Doors")]
     [SerializeField] private LayerMask _doorLayer;
@@ -36,9 +37,7 @@ public class EnemyController : Controller
 
     [Header("Footsteps")]
     [SerializeField] private float _speed;
-    [SerializeField] private Vector3 _velocity;
     [SerializeField] private float _stepInterval;
-    [SerializeField] [Range(0f, 1f)] private float _runStepLengthen;
     private float _stepCycle;
     private float _nextStep;
 
@@ -48,6 +47,15 @@ public class EnemyController : Controller
     [SerializeField] private AudioClip[] _doorPound;
     public BasicAudio basicAudio;
 
+    public override void Awake()
+    {
+        base.Awake();
+
+        AddModels();
+        DisableAllModels();
+        SwitchModel();
+    }
+
     public override void Start()
     {
         base.Start();
@@ -55,7 +63,6 @@ public class EnemyController : Controller
         _stepCycle = 0f;
         _nextStep = _stepCycle / 2f;
 
-        _rend = GetComponent<Renderer>();
         _cam = Camera.main;
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.acceleration = 60f;
@@ -84,6 +91,11 @@ public class EnemyController : Controller
         }
     }
 
+    public void LateUpdate()
+    {
+        _visibleLastFrame = _visible;
+    }
+
     private void UpdateIfVisible()
     {
         _navMeshAgent.isStopped = true;
@@ -99,9 +111,10 @@ public class EnemyController : Controller
         _navMeshAgent.isStopped = false;
 
         if (HitDoor() && !_hittingDoor)
-        {
             StartCoroutine(PoundOnDoor());
-        }
+
+        if (_visibleLastFrame)
+            SwitchModel();
 
         ProgressStepCycle();
     }
@@ -120,8 +133,8 @@ public class EnemyController : Controller
             if (Vector3.Dot((_cam.transform.position - transform.position).normalized, _cam.transform.forward) > Mathf.Lerp(-0.6f, -0.25f, Vector3.Distance(_cam.transform.position, transform.position) / 10)) //Bad attempt at checking if the player is looking towards the enemy through the dot products of directions
                 return _visible = false; //Set visible to false and return visible (which is false)
 
-            int taskNumber = Time.frameCount % _colls.Length; //Run one box per frame
-
+            int taskNumber = Time.frameCount % _colls.Count(); //Run one box per frame
+            
             if (taskNumber == 0)
                 _visible = false; //Reset visibility status at start of the "loop"
             if (_visible)
@@ -168,7 +181,7 @@ public class EnemyController : Controller
     private void ProgressStepCycle()
     {
         if (_navMeshAgent.velocity.magnitude > 1f)
-            _stepCycle += (_velocity.magnitude + (_speed * 1f)) * Time.deltaTime;
+            _stepCycle += (_navMeshAgent.velocity.magnitude + _speed) * Time.deltaTime;
 
         if (!(_stepCycle > _nextStep))
             return;
@@ -197,6 +210,37 @@ public class EnemyController : Controller
     public bool PlayerClose()
     {
         return (Vector3.Distance(player.position, transform.position) < detectDistance);
+    }
+
+    private void AddModels()
+    {
+        MeshRenderer[] meshes = GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer rend in meshes)
+            _models.Add(rend.gameObject);
+    }
+
+    private void SwitchModel()
+    {
+        int n = Random.Range(1, _models.Count());
+        GameObject tmp = _models[0];
+        _models[0] = _models[n];
+        _models[n] = tmp;
+        _models[0].SetActive(true);
+        _models[n].SetActive(false);
+        _colls = new List<BoxCollider>(_models[0].GetComponentsInChildren<BoxCollider>());
+        _rend = _models[0].GetComponent<MeshRenderer>();
+    }
+
+    private void DisableAllModels()
+    {
+        foreach (GameObject go in _models)
+            go.SetActive(false);
+    }
+
+    private void EnableAllModels()
+    {
+        foreach (GameObject go in _models)
+            go.SetActive(true);
     }
 }
 
