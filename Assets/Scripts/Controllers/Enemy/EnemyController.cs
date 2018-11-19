@@ -19,17 +19,13 @@ public class EnemyController : Controller
     private Camera _cam;
     private Plane[] _planes;
     private bool _visible = false;
-    private bool _visibleLastFrame = false;
 
     [Header("Detection")]
     public float detectDistance;
 
-    [Header("Sanity")]
-    [SerializeField] private float _depletionAmount;
-
     [Header("Nav Mesh Agent")]
-    public Transform[] wayPoints;
-    private NavMeshAgent _navMeshAgent;
+    [HideInInspector] public Dictionary<string, List<Transform>> wayPoints = new Dictionary<string, List<Transform>>();
+    public NavMeshAgent navMeshAgent;
 
     [Header("Doors")]
     [SerializeField] private LayerMask _doorLayer;
@@ -51,9 +47,16 @@ public class EnemyController : Controller
     {
         base.Awake();
 
+        AddWayPoints();
         AddModels();
         DisableAllModels();
         SwitchModel();
+
+        _cam = Camera.main;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        sanity = player.GetComponent<Sanity>();
+
+        _audioSource = GetComponent<AudioSource>();
     }
 
     public override void Start()
@@ -63,60 +66,18 @@ public class EnemyController : Controller
         _stepCycle = 0f;
         _nextStep = _stepCycle / 2f;
 
-        _cam = Camera.main;
-        _navMeshAgent = GetComponent<NavMeshAgent>();
-        _navMeshAgent.acceleration = 60f;
-
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        sanity = GameObject.FindGameObjectWithTag("Player").GetComponent<Sanity>();
-
-        _audioSource = GetComponent<AudioSource>();
+        navMeshAgent.acceleration = 60f;
 
         TransitionTo<Patrol>();
+
+        GameManager.AddSaveEvent(SaveOrReload);
+        GameManager.AddReloadEvent(SaveOrReload);
     }
 
     public override void Update()
     {
+        CheckIfVisible();
         base.Update();
-        //if (hittingDoor) return;
-
-        if (!CheckIfEnemyIsVisible())
-        {
-            UpdateIfHidden();
-        }
-        else
-        {
-            _audioSource.Stop();
-            UpdateIfVisible();
-        }
-    }
-
-    public void LateUpdate()
-    {
-        _visibleLastFrame = _visible;
-    }
-
-    private void UpdateIfVisible()
-    {
-        _navMeshAgent.isStopped = true;
-
-        if (!(currentState is Idle))
-            TransitionTo<Idle>();
-   
-        sanity.DepleteSanity(_depletionAmount);
-    }
-
-    private void UpdateIfHidden()
-    {
-        _navMeshAgent.isStopped = false;
-
-        if (HitDoor() && !_hittingDoor)
-            StartCoroutine(PoundOnDoor());
-
-        if (_visibleLastFrame)
-            SwitchModel();
-
-        ProgressStepCycle();
     }
 
     private bool HitDoor()
@@ -126,7 +87,7 @@ public class EnemyController : Controller
         return (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 0.5f, _doorLayer));
     }
 
-    public bool CheckIfEnemyIsVisible()
+    public bool CheckIfVisible()
     {
         if (_rend.isVisible) //Check if Unity thinks the renderer is visible (Not perfect but works as a quick and easy out in case it's not)
         {
@@ -168,20 +129,20 @@ public class EnemyController : Controller
     public IEnumerator PoundOnDoor()
     {
         _hittingDoor = true;
-        _navMeshAgent.isStopped = true;
+        navMeshAgent.isStopped = true;
         _audioSource.PlayOneShot(_doorPound[0]);
 
         yield return new WaitForSeconds(5);
         TransitionTo<Patrol>();
-        _navMeshAgent.isStopped = false;
+        navMeshAgent.isStopped = false;
         yield return new WaitForSeconds(6);
         _hittingDoor = false;
     }
 
-    private void ProgressStepCycle()
+    public void ProgressStepCycle()
     {
-        if (_navMeshAgent.velocity.magnitude > 1f)
-            _stepCycle += (_navMeshAgent.velocity.magnitude + _speed) * Time.deltaTime;
+        if (navMeshAgent.velocity.magnitude > 1f)
+            _stepCycle += (navMeshAgent.velocity.magnitude + _speed) * Time.deltaTime;
 
         if (!(_stepCycle > _nextStep))
             return;
@@ -212,6 +173,50 @@ public class EnemyController : Controller
         return (Vector3.Distance(player.position, transform.position) < detectDistance);
     }
 
+    private void AddWayPoints()
+    {
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Spawn Point"))
+        {
+            SpawnPoint sp = go.GetComponent<SpawnPoint>();
+            if (sp != null)
+            {
+                if (!wayPoints.ContainsKey(sp.GetArea()))
+                    wayPoints.Add(sp.GetArea(), new List<Transform>());
+
+                wayPoints[sp.GetArea()].Add(go.transform);
+            }
+        }
+    }
+
+    public Transform GetWayPointInArea(string area)
+    {
+        if (wayPoints.ContainsKey(area))
+            return wayPoints[area][Random.Range(0, wayPoints[area].Count)];
+
+        Debug.LogError("Tried to get way point for area: " + area + " But no such area exists in wayPoints.");
+        return null;
+    }
+
+    public Transform GetSpawnPointInArea(string area)
+    {
+        if (wayPoints.ContainsKey(area))
+        {
+            List<Transform> potentialSpawnPoints = new List<Transform>();
+            foreach (Transform trans in wayPoints[area])
+                if (trans.GetComponent<SpawnPoint>().GetSpawnAllowed())
+                    potentialSpawnPoints.Add(trans);
+
+            if (potentialSpawnPoints.Count > 0)
+                return potentialSpawnPoints[Random.Range(0, potentialSpawnPoints.Count)];
+
+            Debug.LogError("Tried to get spawn point in area: " + area + " But no spawn point in the specified area was found.");
+            return null;
+        }
+
+        Debug.LogError("Tried to get spawn point for area: " + area + " But no such area exists in wayPoints.");
+        return null;
+    }
+
     private void AddModels()
     {
         MeshRenderer[] meshes = GetComponentsInChildren<MeshRenderer>();
@@ -219,7 +224,7 @@ public class EnemyController : Controller
             _models.Add(rend.gameObject);
     }
 
-    private void SwitchModel()
+    public void SwitchModel()
     {
         int n = Random.Range(1, _models.Count());
         GameObject tmp = _models[0];
@@ -241,6 +246,22 @@ public class EnemyController : Controller
     {
         foreach (GameObject go in _models)
             go.SetActive(true);
+    }
+
+    public bool IsVisible()
+    {
+        return _visible;
+    }
+
+    public void StopAudio()
+    {
+        _audioSource.Stop();
+        basicAudio.Pause();
+    }
+
+    public void SaveOrReload()
+    {
+        transform.position = GetSpawnPointInArea("Dandelion").position;
     }
 }
 
