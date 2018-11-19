@@ -1,32 +1,35 @@
 fileFormatVersion: 2
-guid: db9aef5b7b77b5c4db06909b48f75020
+guid: 9a380438b2cc843489d86f204fec4127
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Bottom
-    100002: Room
+    100000: CB
+    100002: Corridor_Parts
     100004: //RootNode
-    100006: Top
-    100008: Wall
-    100010: Wall_90D_Corner
-    100012: Room_Parts
-    400000: Bottom
-    400002: Room
+    100006: Corridor_Straight_Fixed
+    100008: CT
+    100010: CWL
+    100012: CWR
+    400000: CB
+    400002: Corridor_Parts
     400004: //RootNode
-    400006: Top
-    400008: Wall
-    400010: Wall_90D_Corner
-    400012: Room_Parts
+    400006: Corridor_Straight_Fixed
+    400008: CT
+    400010: CWL
+    400012: CWR
     2100000: lambert1
-    2300000: Bottom
-    2300002: Top
-    2300004: Wall
-    3300000: Bottom
-    3300002: Top
-    3300004: Wall
-    4300000: Wall
-    4300002: Bottom
-    4300004: Top
+    2300000: CB
+    2300002: CT
+    2300004: CWL
+    2300006: CWR
+    3300000: CB
+    3300002: CT
+    3300004: CWL
+    3300006: CWR
+    4300000: CT
+    4300002: CWR
+    4300004: CWL
+    4300006: CB
   externalObjects: {}
   materials:
     importMaterials: 1
