@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 114524115324048360}
   - component: {fileID: 208243518489045384}
   - component: {fileID: 54367000370959342}
+  - component: {fileID: 65958517620031956}
   m_Layer: 9
   m_Name: Left_Door_1
   m_TagString: Door
@@ -161,6 +162,7 @@ GameObject:
   - component: {fileID: 114857028977725680}
   - component: {fileID: 208934567135822040}
   - component: {fileID: 54412207780690892}
+  - component: {fileID: 65278057421911028}
   m_Layer: 9
   m_Name: Right_Door_1
   m_TagString: Door
@@ -405,7 +407,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1750447546870186}
   m_LocalRotation: {x: -0, y: -0.70710677, z: -0, w: -0.7071069}
-  m_LocalPosition: {x: -227.81807, y: 150.25078, z: -160.76964}
+  m_LocalPosition: {x: -191.90617, y: 32.39361, z: -88.558}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4192597962528776}
@@ -876,6 +878,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.45, y: 1.77, z: 1.09}
   m_Center: {x: -0.61, y: 0.62, z: 0}
+--- !u!65 &65278057421911028
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1553786417439994}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.36046153, y: 3.3704667, z: 1.2663058}
+  m_Center: {x: 0.5007383, y: -0.00000011920929, z: 0.06869997}
 --- !u!65 &65406869517525660
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -888,6 +902,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.45, y: 1.77, z: 1.09}
   m_Center: {x: -0.61, y: 0.62, z: 0}
+--- !u!65 &65958517620031956
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1148439051806258}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3604618, y: 3.3704665, z: 1.0600189}
+  m_Center: {x: 0.00000007450582, y: 0, z: 1.0822997}
 --- !u!82 &82234986960940584
 AudioSource:
   m_ObjectHideFlags: 1
@@ -944,7 +970,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

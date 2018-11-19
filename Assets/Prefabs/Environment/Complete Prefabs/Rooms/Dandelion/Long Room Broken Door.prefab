@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 114600035473769692}
   - component: {fileID: 208629252319240886}
   - component: {fileID: 54309827555963962}
+  - component: {fileID: 65024067495029950}
   m_Layer: 9
   m_Name: Left_Door_1
   m_TagString: Untagged
@@ -2021,6 +2022,7 @@ GameObject:
   - component: {fileID: 114803114971493280}
   - component: {fileID: 208615255887768502}
   - component: {fileID: 54568831985532524}
+  - component: {fileID: 65537300269598380}
   m_Layer: 9
   m_Name: Left_Door_1
   m_TagString: Door
@@ -2741,6 +2743,7 @@ GameObject:
   - component: {fileID: 114788365735688244}
   - component: {fileID: 208401141535282928}
   - component: {fileID: 54628945727518398}
+  - component: {fileID: 65824986547272140}
   m_Layer: 9
   m_Name: Right_Door_1
   m_TagString: Untagged
@@ -3168,7 +3171,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1628255026518656
 GameObject:
   m_ObjectHideFlags: 1
@@ -4742,6 +4745,7 @@ GameObject:
   - component: {fileID: 114360879424122346}
   - component: {fileID: 208738608597552124}
   - component: {fileID: 54105572160049230}
+  - component: {fileID: 65514561333756666}
   m_Layer: 9
   m_Name: Right_Door_1
   m_TagString: Door
@@ -8920,7 +8924,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1343592814904800}
   m_LocalRotation: {x: -0, y: -0.7071099, z: -0, w: -0.7071037}
-  m_LocalPosition: {x: -196.11516, y: 89.588936, z: -136.53412}
+  m_LocalPosition: {x: 176.79974, y: -317.255, z: -168.21863}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4247502412736020}
@@ -15264,6 +15268,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.45, y: 1.77, z: 1.09}
   m_Center: {x: -0.61, y: 0.62, z: 0}
+--- !u!65 &65024067495029950
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1015724537880458}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3604619, y: 3.3704665, z: 1.0600191}
+  m_Center: {x: 0.0000077039, y: 0, z: 1.0823}
 --- !u!65 &65028491029943978
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -15864,6 +15880,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65514561333756666
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1936890443110210}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.36046162, y: 3.3704667, z: 1.266306}
+  m_Center: {x: 0.50073844, y: -0.00000011920929, z: 0.06870189}
 --- !u!65 &65518243758489268
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -15924,6 +15952,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 0.25, z: 5}
   m_Center: {x: -1.4927783, y: 2.880832, z: 0}
+--- !u!65 &65537300269598380
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1394964921791424}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3604619, y: 3.3704665, z: 1.0600191}
+  m_Center: {x: 0.000015333295, y: 0, z: 1.0823038}
 --- !u!65 &65557886121024660
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -16152,6 +16192,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65824986547272140
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1532530708644072}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.36046162, y: 3.3704667, z: 1.266306}
+  m_Center: {x: 0.50073844, y: -0.00000011920929, z: 0.06869808}
 --- !u!65 &65828288415519036
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -16352,7 +16404,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -16448,7 +16500,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -17636,7 +17688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enabled: 1
-  _showMouse: 1
+  _showMouse: 0
   _master: {fileID: 114909933812274612}
   _doors: []
   _passcard: 
@@ -17748,7 +17800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enabled: 1
-  _showMouse: 1
+  _showMouse: 0
   _master: {fileID: 0}
   _doors:
   - {fileID: 114600035473769692}

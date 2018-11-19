@@ -40,7 +40,27 @@ public class Patrol : EnemyState
 
     private void GoToNextPoint()
     {
-        Debug.LogWarning("Still haven't finished dynamic waypoints!");
+        string targetArea;
+        bool dandelion = false;
+        foreach(Area area in AreaTracker.GetVisitedAreas())
+            if (area.GetName() == "Dandelion")
+                dandelion = true;
+
+        if(AreaTracker.GetCurrentPlayerArea() != null && AreaTracker.GetCurrentEnemyArea() != null)
+        {
+            if (dandelion && AreaTracker.GetCurrentPlayerArea().GetName() != "Escape Pod")
+                targetArea = AreaTracker.GetCurrentPlayerArea().GetName();
+            else
+                targetArea = "Indigo";
+
+            if (dandelion && AreaTracker.GetCurrentEnemyArea() != AreaTracker.GetCurrentPlayerArea())
+                _controller.navMeshAgent.Warp(_controller.GetSpawnPointInArea(targetArea).position);
+
+            _controller.navMeshAgent.SetDestination(_controller.GetWayPointInArea(targetArea).position);
+
+            return;
+        }
+
         _controller.navMeshAgent.SetDestination(_controller.GetWayPointInArea("Dandelion").position);
     }
 }

@@ -102,9 +102,16 @@ public class DoorButton : Interactable {
 
             _coroutine = StartCoroutine(Open());
         }
-            
 
         SetCanvas();
+    }
+
+    public void OpenDoors()
+    {
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+
+        _coroutine = StartCoroutine(Open());
     }
 
     public void CloseLockDisable()
@@ -154,6 +161,15 @@ public class DoorButton : Interactable {
             door.Lock();
     }
 
+    public bool IsLocked()
+    {
+        foreach(Door door in _doors)
+            if (door.locked)
+                return true;
+
+        return false;
+    }
+
     private void SetCanvas(bool reload = false)
     {
         bool locked = false;
@@ -193,6 +209,16 @@ public class DoorButton : Interactable {
     private void PlayAudio(AudioClip clip)
     {
         _basicAudio.PlayOneShot(clip);
+    }
+
+    public DoorButton GetMaster()
+    {
+        return _master ? _master : this;
+    }
+
+    public BasicAudio GetBasicAudio()
+    {
+        return _basicAudio;
     }
 
     private IEnumerator Open()

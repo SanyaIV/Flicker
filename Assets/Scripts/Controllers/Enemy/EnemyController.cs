@@ -28,8 +28,8 @@ public class EnemyController : Controller
     public NavMeshAgent navMeshAgent;
 
     [Header("Doors")]
+    [SerializeField] private float _doorCheckDistance = 0.5f;
     [SerializeField] private LayerMask _doorLayer;
-    [SerializeField] private bool _hittingDoor = false;
 
     [Header("Footsteps")]
     [SerializeField] private float _speed;
@@ -77,14 +77,23 @@ public class EnemyController : Controller
     public override void Update()
     {
         CheckIfVisible();
+
+        if (HitDoor() && !(currentState is Frozen) && !(currentState is DoorBlock) && !GetState<DoorBlock>().IsCoolingDown())
+            TransitionTo<DoorBlock>();
+
         base.Update();
     }
 
-    private bool HitDoor()
+    public bool HitDoor()
     {
         RaycastHit hit = new RaycastHit();
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.cyan);
-        return (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 0.5f, _doorLayer));
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * _doorCheckDistance, Color.cyan);
+
+        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, _doorCheckDistance, _doorLayer))
+            if (hit.transform.CompareTag("Door"))
+                return true;
+
+        return false;
     }
 
     public bool CheckIfVisible()
@@ -123,20 +132,6 @@ public class EnemyController : Controller
         }
 
         return _visible = false; //Set visible to false and return it
-    }
-
-    //Stop enemy and play pound on door audio
-    public IEnumerator PoundOnDoor()
-    {
-        _hittingDoor = true;
-        navMeshAgent.isStopped = true;
-        _audioSource.PlayOneShot(_doorPound[0]);
-
-        yield return new WaitForSeconds(5);
-        TransitionTo<Patrol>();
-        navMeshAgent.isStopped = false;
-        yield return new WaitForSeconds(6);
-        _hittingDoor = false;
     }
 
     public void ProgressStepCycle()
