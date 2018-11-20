@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: KeyboardBigKeys
+  m_Name: CS_Grate
   m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
   m_ShaderKeywords: _MASKMAP _NORMALMAP _NORMALMAP_TANGENT_SPACE
   m_LightmapFlags: 4
@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
-        m_Texture: {fileID: 2800000, guid: d434551a0a1d1ba4da99dc7115dae968, type: 3}
+        m_Texture: {fileID: 2800000, guid: ba95dd1bbde197d47aa918ec3b596104, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BentNormalMap:
@@ -68,15 +68,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: d434551a0a1d1ba4da99dc7115dae968, type: 3}
+        m_Texture: {fileID: 2800000, guid: ba95dd1bbde197d47aa918ec3b596104, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
-        m_Texture: {fileID: 2800000, guid: e52a1a55adf8f6e4d92b1d73ca7d103f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 596d158dbf95e9e4f960580514bad40b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 1929a377f167fa746a213bb891503138, type: 3}
+        m_Texture: {fileID: 2800000, guid: b1952057b102a494a94e6658dc30468b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapOS:
@@ -173,7 +173,7 @@ Material:
     - _IridescenceThickness: 1
     - _LinkDetailsWithBase: 1
     - _MaterialID: 1
-    - _Metallic: 0
+    - _Metallic: 0.868
     - _NormalMapSpace: 0
     - _NormalScale: 1
     - _PPDLodThreshold: 5
