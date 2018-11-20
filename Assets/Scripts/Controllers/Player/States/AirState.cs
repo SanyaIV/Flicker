@@ -29,6 +29,9 @@ public class AirState : PlayerState {
     {
         base.Update();
 
+        if (GameManager.paused)
+            return;
+
         CancelJump();
         if (Input.GetButtonDown("Jump"))
             UpdateJump();

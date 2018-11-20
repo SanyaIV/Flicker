@@ -76,19 +76,6 @@ public class PlayerController : Controller {
         GameManager.AddReloadEvent(ReloadSave);
     }
 
-    /*private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
-
-        if (rb != null && !rb.isKinematic)
-        {
-            Vector3 direction = -hit.normal;
-            direction.y = MoveDir.normalized.y;
-            rb.AddForce(direction.normalized * MoveDir.magnitude * PushForceMultiplier, ForceMode.Impulse);
-            CameraShake.SetIntensity(0.5f);
-        }
-    }*/
-
     public Vector3 Input
     {
         get

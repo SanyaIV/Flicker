@@ -299,6 +299,8 @@ public class EnemyController : Controller
     public void SaveOrReload()
     {
         navMeshAgent.Warp(GetSpawnPointInArea(GetTargetArea()).position);
+        if(!(currentState is Patrol))
+            TransitionTo<Patrol>();
     }
 }
 

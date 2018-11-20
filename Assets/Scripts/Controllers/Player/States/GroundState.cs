@@ -99,6 +99,9 @@ public class GroundState : PlayerState {
     {
         base.Update();
 
+        if (GameManager.paused)
+            return;
+
         if (Input.GetButtonDown("Jump"))
             UpdateJump();
         if (Input.GetKey(KeyCode.LeftShift) && !(controller.Input.z < 0))

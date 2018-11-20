@@ -56,13 +56,13 @@ public class OffScreenIndicator : MonoBehaviour {
     void LateUpdate()
     {
         //Test();
-        if(_enableIndicator && _enabled)
+        if(_enableIndicator && _enabled && GameManager.visualIconsEnabled)
             DrawIcon();
     }
 
     public void EnableIndicator(Transform source)
     {
-        if (!_enableIndicator)
+        if (!_enableIndicator || !GameManager.visualIconsEnabled)
             return;
 
         _enabled = true;
