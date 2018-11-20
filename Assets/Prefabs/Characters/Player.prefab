@@ -527,7 +527,7 @@ MonoBehaviour:
   maxSpeed: 4.763991
   collisionLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 33280
   goopLayers:
     serializedVersion: 2
     m_Bits: 8192
@@ -537,6 +537,10 @@ MonoBehaviour:
   firstPersonCamera: {fileID: 4943720771861456}
   cam: {fileID: 20596474397944452}
   audioSource: {fileID: 82471603207371810}
+  enemy: {fileID: 0}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &114102055647390012
 MonoBehaviour:
   m_ObjectHideFlags: 1

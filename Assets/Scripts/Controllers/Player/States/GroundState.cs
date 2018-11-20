@@ -44,6 +44,8 @@ public class GroundState : PlayerState {
     private float _nextStep;
 
     [Header("Audio")]
+    [SerializeField] private float[] _walkJoggRunVolume = {0.5f, 0.7f, 1f};
+    [SerializeField] private float _defaultEnemySoundDetectRange = 15f;
     public AudioClip[] footstepSounds;
     public AudioClip[] landingSounds;
     public AudioClip[] jumpSounds;
@@ -100,11 +102,20 @@ public class GroundState : PlayerState {
         if (Input.GetButtonDown("Jump"))
             UpdateJump();
         if (Input.GetKey(KeyCode.LeftShift) && !(controller.Input.z < 0))
+        {
             controller.maxSpeed = runSpeed;
+            controller.audioSource.volume = _walkJoggRunVolume[2];
+        }
         else if (Input.GetKey(KeyCode.LeftControl))
+        {
             controller.maxSpeed = walkSpeed;
+            controller.audioSource.volume = _walkJoggRunVolume[0];
+        }
         else
+        {
             controller.maxSpeed = joggSpeed;
+            controller.audioSource.volume = _walkJoggRunVolume[1];
+        }
 
         controller.maxSpeed *= Mathf.Clamp(controller.sanity.GetSanity(), _clampSanitySpeedMultiplier.Min, _clampSanitySpeedMultiplier.Max);
 
@@ -207,6 +218,9 @@ public class GroundState : PlayerState {
             controller.audioSource.PlayOneShot(audio[0]);
         else
             return;
+
+        if(Physics.OverlapSphere(transform.position, _defaultEnemySoundDetectRange * controller.audioSource.volume / 2, controller.enemyLayer).Length > 0)
+            controller.enemy.TransitionTo<Hunt>();
     }
 
     private void PlayLandingSound()

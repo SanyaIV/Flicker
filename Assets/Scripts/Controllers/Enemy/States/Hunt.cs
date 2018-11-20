@@ -28,6 +28,7 @@ public class Hunt : EnemyState
         _controller.navMeshAgent.isStopped = false;
         _controller.basicAudio.Resume();
         _timeWithoutTarget = 0f;
+        _lastKnownPosition = _controller.player.position;
     }
 
     public override void Update()

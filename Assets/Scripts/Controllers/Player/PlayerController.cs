@@ -36,6 +36,10 @@ public class PlayerController : Controller {
     private List<string> _passcards;
     private List<EscapePodPart> _escapePodParts;
 
+    [Header("Enemy")]
+    public EnemyController enemy;
+    public LayerMask enemyLayer;
+
     [Header("Save")]
     private List<string> _savedPasscards;
     private List<EscapePodPart> _savedEscapePodParts;
