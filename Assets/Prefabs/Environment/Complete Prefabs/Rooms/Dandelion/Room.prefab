@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 114027623041064822}
   - component: {fileID: 208928360221059140}
   - component: {fileID: 54124973703694582}
+  - component: {fileID: 65357430768140096}
   m_Layer: 9
   m_Name: Left_Door_1
   m_TagString: Door
@@ -629,6 +630,7 @@ GameObject:
   - component: {fileID: 114795084637416882}
   - component: {fileID: 208556788616437268}
   - component: {fileID: 54131131209835038}
+  - component: {fileID: 65618038533076378}
   m_Layer: 9
   m_Name: Right_Door_1
   m_TagString: Door
@@ -3821,7 +3823,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1506332880502106}
   m_LocalRotation: {x: -0, y: -0.0000025779007, z: -0, w: 1}
-  m_LocalPosition: {x: -208.85143, y: 88.12057, z: -134.32802}
+  m_LocalPosition: {x: -195.96655, y: 31.006653, z: -99.44601}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4831885721009066}
@@ -7693,6 +7695,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65357430768140096
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1011474710553224}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3604618, y: 3.3704665, z: 1.0600189}
+  m_Center: {x: -0.0000037401915, y: 0, z: 1.0822997}
 --- !u!65 &65366889210803438
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -7777,6 +7791,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65618038533076378
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1290213788739930}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.36046153, y: 3.3704667, z: 1.2663058}
+  m_Center: {x: 0.5007383, y: -0.00000011920929, z: 0.06869234}
 --- !u!65 &65643926701806876
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -8037,7 +8063,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

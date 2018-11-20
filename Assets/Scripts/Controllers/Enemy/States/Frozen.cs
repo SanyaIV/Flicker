@@ -24,7 +24,7 @@ public class Frozen : EnemyState
     {
         if (!_controller.IsVisible())
         {
-            _controller.TransitionTo<Patrol>();
+            _controller.TransitionTo<Hunt>();
             return;
         }
 

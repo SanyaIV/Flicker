@@ -3162,9 +3162,6 @@ MonoBehaviour:
   edgeBuffer: 100
   _audioClips:
   - {fileID: 8300000, guid: b07e5975ca4164741ad5203f5cdb92b3, type: 3}
-  - {fileID: 8300000, guid: 9d01bf59439efd947b5dd40078d9c961, type: 3}
-  - {fileID: 8300000, guid: 0e3c3662cd7512543ac217f405c17b77, type: 3}
-  - {fileID: 8300000, guid: 699a6f8490540e04587d57e5e5cf9007, type: 3}
   - {fileID: 8300000, guid: 8c3840b78dfb1c940abf5c8997efe810, type: 3}
   - {fileID: 8300000, guid: b4b22de48ad8cb14f8bdefe87568f124, type: 3}
   - {fileID: 8300000, guid: fedbfa1c41790a44ebc3500fdb395548, type: 3}
@@ -3193,6 +3190,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ebfcdff48d428a547a41447741ead6f5, type: 2}
   - {fileID: 11400000, guid: a4a7c37903ae808468d15854831f2576, type: 2}
   - {fileID: 11400000, guid: d625c3d60ccb043439207c9c6b2a2c74, type: 2}
+  - {fileID: 11400000, guid: 69fd41acfdcc4a84bb3df83cb5e34666, type: 2}
   currentState: {fileID: 0}
   previousState: {fileID: 0}
   player: {fileID: 0}
@@ -3202,18 +3200,16 @@ MonoBehaviour:
     m_Bits: 512
   detectDistance: 15
   navMeshAgent: {fileID: 195220111579686492}
+  _doorCheckDistance: 2
   _doorLayer:
     serializedVersion: 2
     m_Bits: 512
-  _hittingDoor: 0
   _speed: 4
   _stepInterval: 3.5
   _audioSource: {fileID: 82616541429728464}
   _footstepSounds:
-  - {fileID: 8300000, guid: 81052ce840960d34697a9e8deecf93b3, type: 3}
-  - {fileID: 8300000, guid: c63de8f35b336e2418a6e8a6b1978502, type: 3}
-  - {fileID: 8300000, guid: 79ab370fc22b04a4a9ef2406b65f7684, type: 3}
-  - {fileID: 8300000, guid: 797edd6ae2e352e4a9e07ed108be2c0a, type: 3}
+  - {fileID: 8300000, guid: 93e24710a3ea2184cb3d0f97d9f050bf, type: 3}
+  - {fileID: 8300000, guid: 74be49c2a73fa7a49955bc5c62535504, type: 3}
   _doorPound:
   - {fileID: 0}
   basicAudio: {fileID: 114100488566440292}
