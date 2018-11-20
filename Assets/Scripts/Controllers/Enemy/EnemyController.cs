@@ -71,7 +71,7 @@ public class EnemyController : Controller
         TransitionTo<Patrol>();
 
         GameManager.AddSaveEvent(SaveOrReload);
-        GameManager.AddReloadEvent(SaveOrReload);
+        GameManager.AddLateReloadEvent(SaveOrReload);
     }
 
     public override void Update()
@@ -168,6 +168,14 @@ public class EnemyController : Controller
         return (Vector3.Distance(player.position, transform.position) < detectDistance);
     }
 
+    public bool PlayerVisible()
+    {
+        if(!Physics.Linecast(transform.position, player.position, _blockVisibilityLayers))
+            return true;
+        else
+            return false;
+    }
+
     private void AddWayPoints()
     {
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("Spawn Point"))
@@ -254,9 +262,43 @@ public class EnemyController : Controller
         basicAudio.Pause();
     }
 
+    public int GetThreatLevel()
+    {
+        bool dandelion = false;
+        bool crimson = false;
+
+        foreach(Area area in AreaTracker.GetVisitedAreas())
+        {
+            if (area.GetName() == "Dandelion")
+                dandelion = true;
+            else if (area.GetName() == "Crimson")
+                crimson = true;
+        }
+
+        if (crimson && dandelion)
+            return 2;
+        else if (crimson || dandelion)
+            return 1;
+        else
+            return 0;
+    }
+
+    public string GetTargetArea()
+    {
+        if (AreaTracker.GetCurrentPlayerArea() != null && AreaTracker.GetCurrentEnemyArea() != null)
+        {
+            if (GetThreatLevel() > 0 && AreaTracker.GetCurrentPlayerArea().GetName() != "Escape Pod")
+                return AreaTracker.GetCurrentPlayerArea().GetName();
+            else if (GetThreatLevel() > 0)
+                return "Indigo";
+        }
+
+        return "Dandelion";
+    }
+
     public void SaveOrReload()
     {
-        transform.position = GetSpawnPointInArea("Dandelion").position;
+        navMeshAgent.Warp(GetSpawnPointInArea(GetTargetArea()).position);
     }
 }
 

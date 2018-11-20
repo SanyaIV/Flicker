@@ -12,7 +12,18 @@ MonoBehaviour:
   m_Name: Hunt
   m_EditorClassIdentifier: 
   _maxFollowDistance: 25
-  _distanceToDeplete: 15
+  _timeWithoutTargetUntilGiveUp:
+  - 5
+  - 10
+  - 20
+  _distanceToDeplete:
+  - 5
+  - 10
+  - 15
   _depletionAmount:
-    Min: 0.1
+  - Min: 0
+    Max: 1
+  - Min: 0
     Max: 5
+  - Min: 0
+    Max: 10

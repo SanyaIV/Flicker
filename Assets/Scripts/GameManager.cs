@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
     public static GameObject player;
     private static UnityEvent _saveEventManager = new UnityEvent();
     private static UnityEvent _reloadEventManager = new UnityEvent();
+    private static UnityEvent _lateReloadEventManager = new UnityEvent();
     private static Transform _player;
     private static Vector3 _savedPlayerPos;
 
@@ -49,9 +50,19 @@ public class GameManager : MonoBehaviour {
         _reloadEventManager.AddListener(call);
     }
 
+    public static void AddLateReloadEvent(UnityAction call)
+    {
+        _lateReloadEventManager.AddListener(call);
+    }
+
     public static void RemoveReloadEvent(UnityAction call)
     {
         _reloadEventManager.RemoveListener(call);
+    }
+
+    public static void RemoveLateReloadEvent(UnityAction call)
+    {
+        _lateReloadEventManager.RemoveListener(call);
     }
 
     private IEnumerator LateStart()

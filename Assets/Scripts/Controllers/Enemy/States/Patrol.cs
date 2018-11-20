@@ -30,8 +30,11 @@ public class Patrol : EnemyState
             return;
         }
 
-        if (_controller.PlayerClose())
+        if (_controller.PlayerClose() && _controller.PlayerVisible())
+        {
             _controller.TransitionTo<Hunt>();
+            return;
+        }
         else if (!_controller.navMeshAgent.pathPending && _controller.navMeshAgent.remainingDistance < 0.5f)
             GoToNextPoint();
 
@@ -40,28 +43,11 @@ public class Patrol : EnemyState
 
     private void GoToNextPoint()
     {
-        string targetArea;
-        bool dandelion = false;
-        foreach(Area area in AreaTracker.GetVisitedAreas())
-            if (area.GetName() == "Dandelion")
-                dandelion = true;
-
         if(AreaTracker.GetCurrentPlayerArea() != null && AreaTracker.GetCurrentEnemyArea() != null)
-        {
-            if (dandelion && AreaTracker.GetCurrentPlayerArea().GetName() != "Escape Pod")
-                targetArea = AreaTracker.GetCurrentPlayerArea().GetName();
-            else
-                targetArea = "Indigo";
+            if (_controller.GetThreatLevel() > 0 && AreaTracker.GetCurrentEnemyArea() != AreaTracker.GetCurrentPlayerArea())
+                _controller.navMeshAgent.Warp(_controller.GetSpawnPointInArea(_controller.GetTargetArea()).position);
 
-            if (dandelion && AreaTracker.GetCurrentEnemyArea() != AreaTracker.GetCurrentPlayerArea())
-                _controller.navMeshAgent.Warp(_controller.GetSpawnPointInArea(targetArea).position);
-
-            _controller.navMeshAgent.SetDestination(_controller.GetWayPointInArea(targetArea).position);
-
-            return;
-        }
-
-        _controller.navMeshAgent.SetDestination(_controller.GetWayPointInArea("Dandelion").position);
+        _controller.navMeshAgent.SetDestination(_controller.GetWayPointInArea(_controller.GetTargetArea()).position);
     }
 }
 
