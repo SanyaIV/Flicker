@@ -27,12 +27,12 @@ public class LightController : MonoBehaviour {
 
     [Header("Flicker")]
     [SerializeField] private bool _flickerOnStart;
-    [SerializeField] protected MinMaxFloat _flickerOnFadeSpeed;
-    [SerializeField] protected MinMaxFloat _flickerOffFadeSpeed;
+    [SerializeField] protected MinMaxFloat _flickerOnFadeSpeed = new MinMaxFloat(0.05f, 0.2f);
+    [SerializeField] protected MinMaxFloat _flickerOffFadeSpeed = new MinMaxFloat(0.05f, 0.2f);
     [Tooltip("Used to wait while the light is off and going to be turned on")]
-    [SerializeField] protected MinMaxFloat _flickerOnWait;
+    [SerializeField] protected MinMaxFloat _flickerOnWait = new MinMaxFloat(0.05f, 0.7f);
     [Tooltip("Used to wait while the light is on and going to be turned off")]
-    [SerializeField] protected MinMaxFloat _flickerOffWait;
+    [SerializeField] protected MinMaxFloat _flickerOffWait = new MinMaxFloat(0.1f, 1f);
     private Coroutine _flickerCoroutine;
 
     [Header("Save")]
@@ -215,6 +215,22 @@ public class LightController : MonoBehaviour {
             Color finalColor = _baseLampBulbEmissionColor * Mathf.LinearToGammaSpace(Mathf.Lerp(0f, 1f, _light.intensity / _intensity.Max) * _intensityMultiplier);
             _lampBulbMaterial.SetColor("_EmissiveColor", finalColor * _light.intensity * _intensityMultiplier / 10);
         }
+    }
+
+    public void EnemyFlickerOn()
+    {
+        if (_flickerOnStart)
+            return;
+
+        StartFlicker();
+    }
+
+    public void EnemyFlickerOff()
+    {
+        if (_flickerOnStart)
+            return;
+
+        FadeMax();
     }
 
     private IEnumerator Flicker()

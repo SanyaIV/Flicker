@@ -68,9 +68,10 @@ public class Hunt : EnemyState
     {
         if (_controller.player != null)
         {
-            Vector3 direction = (_controller.player.position - _transform.position).normalized;
+            /*Vector3 direction = (_controller.player.position - _transform.position).normalized;
             Vector3 _targetVector = _controller.player.position - direction;
-            _controller.navMeshAgent.SetDestination(_targetVector);
+            _controller.navMeshAgent.SetDestination(_targetVector);*/
+            _controller.navMeshAgent.SetDestination(_controller.player.position);
             _lastKnownPosition = _controller.player.position;
         }
     }

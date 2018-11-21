@@ -274,15 +274,25 @@ public class DoorButton : Interactable {
         if (_doors[0].locked && !_player.HasPasscard(_passcard))
         {
             _showMouse = false;
+            if (_slaves.Count > 0)
+                foreach (DoorButton slave in _slaves)
+                    slave._showMouse = _showMouse;
             return "Locked";
         } 
         else if (_doors[0].locked && _player.HasPasscard(_passcard))
         {
             _showMouse = true;
+            if (_slaves.Count > 0)
+                foreach (DoorButton slave in _slaves)
+                    slave._showMouse = _showMouse;
             return "Unlock";
         }
 
         _showMouse = true;
+        if (_slaves.Count > 0)
+            foreach (DoorButton slave in _slaves)
+                slave._showMouse = _showMouse;
+
         foreach (Door door in _doors)
         {
             if (door.opening)

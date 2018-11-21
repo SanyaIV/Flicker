@@ -302,6 +302,18 @@ public class EnemyController : Controller
         if(!(currentState is Patrol))
             TransitionTo<Patrol>();
     }
+
+    public void OnTriggerEnter(Collider coll)
+    {
+        if (coll.CompareTag("Light"))
+            coll.GetComponent<LightController>().EnemyFlickerOn();
+    }
+
+    public void OnTriggerExit(Collider coll)
+    {
+        if (coll.CompareTag("Light"))
+            coll.GetComponent<LightController>().EnemyFlickerOff();
+    }
 }
 
 

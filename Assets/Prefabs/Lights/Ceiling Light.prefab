@@ -55,9 +55,10 @@ GameObject:
   - component: {fileID: 114398983188689398}
   - component: {fileID: 114283867806482958}
   - component: {fileID: 114160087643846312}
+  - component: {fileID: 65995799193633338}
   m_Layer: 0
   m_Name: Spot Light
-  m_TagString: Untagged
+  m_TagString: Light
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,8 +86,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1163637387112492}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00000044703478}
-  m_LocalPosition: {x: 24.290033, y: 0, z: -2.9397945}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0058723, y: -0.0026817, z: 114.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4635398098840918}
@@ -94,7 +95,7 @@ Transform:
   - {fileID: 4413313963593262}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -180, y: 629.999, z: 0}
+  m_LocalEulerAnglesHint: {x: -180, y: 270, z: 0}
 --- !u!4 &4413313963593262
 Transform:
   m_ObjectHideFlags: 1
@@ -218,6 +219,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1995661130701436}
   m_Mesh: {fileID: 4300002, guid: d72cb0fa75b8e494ab6e4a1f00ef7e56, type: 3}
+--- !u!65 &65995799193633338
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1768552842660456}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.2, z: 0.05}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!108 &108185693517087988
 Light:
   m_ObjectHideFlags: 1
@@ -277,16 +290,16 @@ MonoBehaviour:
   _fadeOutTime: 0.5
   _flickerOnStart: 0
   _flickerOnFadeSpeed:
-    Min: 0
-    Max: 0
-  _flickerOffFadeSpeed:
-    Min: 0
-    Max: 0
-  _flickerOnWait:
     Min: 0.05
     Max: 0.2
-  _flickerOffWait:
+  _flickerOffFadeSpeed:
     Min: 0.05
+    Max: 0.2
+  _flickerOnWait:
+    Min: 0.05
+    Max: 0.7
+  _flickerOffWait:
+    Min: 0.1
     Max: 1
 --- !u!114 &114283867806482958
 MonoBehaviour:
