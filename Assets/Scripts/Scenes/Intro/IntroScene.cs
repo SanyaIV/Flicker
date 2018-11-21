@@ -24,7 +24,7 @@ public class IntroScene : LightController {
         base.Start();
 
         _text.text = _name[0];
-	}
+    }
 
     void Update()
     {
@@ -97,5 +97,7 @@ public class IntroScene : LightController {
             Debug.Log(asyncLoad.progress);
             yield return null;
         }
+
+        yield break;
     }
 }
