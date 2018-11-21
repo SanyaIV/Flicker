@@ -10,12 +10,6 @@ public class BasicAudio : OffScreenIndicator {
     [SerializeField] private bool _noInterrupt;
     private bool _isPaused;
 
-    [Header("Trigger")]
-    [SerializeField] private bool _useTrigger;
-    [SerializeField] [Range(0, 100)] private int _percentTriggerChance;
-    [SerializeField] private int _maxTriggerTimes;
-    private int _triggerTimes;
-
     [Header("Random")]
     [SerializeField] private bool _continiousRandom;
     [SerializeField] private MinMaxFloat _randomWaitRange;
@@ -77,18 +71,6 @@ public class BasicAudio : OffScreenIndicator {
     public void PlayOneShot(AudioClip clip)
     {
         _audioSource.PlayOneShot(clip);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if(_useTrigger && _triggerTimes < _maxTriggerTimes && other.tag == "Player")
-        {
-            if(Random.Range(1, 101) <= _percentTriggerChance)
-            {
-                PlayAudio();
-                _triggerTimes++;
-            }
-        }
     }
 
     private IEnumerator OffScreenIndicator() {
