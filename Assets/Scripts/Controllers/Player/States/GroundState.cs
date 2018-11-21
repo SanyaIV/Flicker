@@ -222,7 +222,7 @@ public class GroundState : PlayerState {
         else
             return;
 
-        if(Physics.OverlapSphere(transform.position, _defaultEnemySoundDetectRange * controller.audioSource.volume / 2, controller.enemyLayer).Length > 0)
+        if(Physics.OverlapSphere(transform.position, _defaultEnemySoundDetectRange * controller.audioSource.volume / 2, controller.enemyLayer).Length > 0 && !(controller.enemy.currentState is DoorBlock))
             controller.enemy.TransitionTo<Hunt>();
     }
 

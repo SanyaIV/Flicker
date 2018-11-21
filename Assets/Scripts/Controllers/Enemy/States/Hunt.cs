@@ -43,7 +43,7 @@ public class Hunt : EnemyState
 
         SetDestination();
 
-        if (_timeWithoutTarget >= _timeWithoutTargetUntilGiveUp[threat] || Vector3.Distance(_transform.position, _lastKnownPosition) < 0.5f)
+        if (_timeWithoutTarget >= _timeWithoutTargetUntilGiveUp[threat] || (_timeWithoutTarget > 0f && Vector3.Distance(_transform.position, _lastKnownPosition) < 0.5f))
             _controller.TransitionTo<Patrol>();
 
         _controller.ProgressStepCycle();
@@ -62,6 +62,9 @@ public class Hunt : EnemyState
             SetLastKnownPositionAsDestination();
             _timeWithoutTarget += Time.deltaTime;
         }
+
+        if (_controller.navMeshAgent.isOnOffMeshLink)
+            _controller.navMeshAgent.Warp(_transform.position);
     }
 
     private void SetVisibleDestination()
@@ -78,7 +81,8 @@ public class Hunt : EnemyState
 
     private void SetLastKnownPositionAsDestination()
     {
-        _controller.navMeshAgent.SetDestination(_lastKnownPosition);
+        if (!_controller.navMeshAgent.pathPending && _controller.navMeshAgent.remainingDistance < 0.5f)
+            _controller.navMeshAgent.SetDestination(_lastKnownPosition);
     }
 
     private void DepleteSanity()

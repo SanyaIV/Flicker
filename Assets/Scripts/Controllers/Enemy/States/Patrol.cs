@@ -38,6 +38,12 @@ public class Patrol : EnemyState
         else if (!_controller.navMeshAgent.pathPending && _controller.navMeshAgent.remainingDistance < 0.5f)
             GoToNextPoint();
 
+        if (_controller.navMeshAgent.isOnOffMeshLink)
+        {
+            GoToNextPoint();
+            _controller.navMeshAgent.Warp(_transform.position);
+        }
+
         _controller.ProgressStepCycle();
     }
 
