@@ -105,7 +105,10 @@ public class PlayerController : Controller {
         RaycastHit hitInfo;
         Physics.SphereCast(transform.position, charCtrl.radius, Vector3.down, out hitInfo, groundCheckDistance, goopLayers, QueryTriggerInteraction.Collide);
 
-        return hitInfo.collider;
+        if (hitInfo.collider != null && hitInfo.collider.CompareTag("Goop"))
+            return true;
+        else
+            return false;
     }
 
     public void ResetTransform()

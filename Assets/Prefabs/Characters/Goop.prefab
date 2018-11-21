@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4405856788696576}
   - component: {fileID: 33122619297718618}
   - component: {fileID: 23275606771637292}
-  - component: {fileID: 65847554009027546}
   m_Layer: 13
   m_Name: Goop
   m_TagString: Goop
@@ -35,9 +34,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1825183894158472}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.2009, y: 1.6316, z: -15.095}
-  m_LocalScale: {x: 3.2788, y: 0.26319, z: 2.8391}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -190.233, y: 9.212, z: 64.89}
+  m_LocalScale: {x: 9.778525, y: 4.3560877, z: 14.661158}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -57,7 +56,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 88b3303888472a348a51055fd1075fec, type: 2}
+  - {fileID: 2100000, guid: a91e163623fef2c4b8f7d51494bbee7e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,16 +82,4 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1825183894158472}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65847554009027546
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1825183894158472}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Mesh: {fileID: 4300000, guid: 2cab73c6e7cec1c48b3e1bbcd7599142, type: 3}

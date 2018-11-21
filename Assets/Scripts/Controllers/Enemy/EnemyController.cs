@@ -38,9 +38,7 @@ public class EnemyController : Controller
     private float _nextStep;
 
     [Header("Audio")]
-    [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private AudioClip[] _footstepSounds;
-    [SerializeField] private AudioClip[] _doorPound;
+    [SerializeField] private BasicAudio _footstepBasicAudio;
     public BasicAudio basicAudio;
 
     public override void Awake()
@@ -55,8 +53,6 @@ public class EnemyController : Controller
         _cam = Camera.main;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         sanity = player.GetComponent<Sanity>();
-
-        _audioSource = GetComponent<AudioSource>();
     }
 
     public override void Start()
@@ -144,23 +140,7 @@ public class EnemyController : Controller
 
         _nextStep = _stepCycle + _stepInterval;
 
-        PlayAudio(ref _footstepSounds);
-    }
-
-    private void PlayAudio(ref AudioClip[] audio)
-    {
-        if (audio.Length > 1)
-        {
-            int n = Random.Range(1, audio.Length);
-            _audioSource.clip = audio[n];
-            _audioSource.PlayOneShot(_audioSource.clip);
-            audio[n] = audio[0];
-            audio[0] = _audioSource.clip;
-        }
-        else if (audio.Length == 1)
-            _audioSource.PlayOneShot(audio[0]);
-        else
-            return;
+        _footstepBasicAudio.PlayAudio(true);
     }
 
     public bool PlayerClose()
@@ -258,7 +238,7 @@ public class EnemyController : Controller
 
     public void StopAudio()
     {
-        _audioSource.Stop();
+        _footstepBasicAudio.Stop();
         basicAudio.Pause();
     }
 
@@ -315,13 +295,3 @@ public class EnemyController : Controller
             coll.GetComponent<LightController>().EnemyFlickerOff();
     }
 }
-
-
-
-
-
-
-
-
-
-

@@ -8,7 +8,7 @@ public class BasicAudio : OffScreenIndicator {
     [SerializeField] private AudioClip[] _audioClips;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private bool _noInterrupt;
-    private bool _isPaused;
+    private bool _isPaused = false;
 
     [Header("Random")]
     [SerializeField] private bool _continiousRandom;
@@ -46,7 +46,7 @@ public class BasicAudio : OffScreenIndicator {
         }
     }
 
-    public void PlayAudio()
+    public void PlayAudio(bool oneShot = false)
     {
         if (_noInterrupt && _audioSource.isPlaying || _isPaused)
             return;
@@ -55,21 +55,26 @@ public class BasicAudio : OffScreenIndicator {
         {
             int n = Random.Range(1, _audioClips.Length);
             _audioSource.clip = _audioClips[n];
-            _audioSource.Play();
             _audioClips[n] = _audioClips[0];
             _audioClips[0] = _audioSource.clip;
+            if (oneShot)
+                _audioSource.PlayOneShot(_audioClips[0]);
+            else
+                _audioSource.Play();
         }
         else if (_audioClips.Length == 1)
         {
             _audioSource.clip = _audioClips[0];
-            _audioSource.Play();
+            if (oneShot)
+                _audioSource.PlayOneShot(_audioClips[0]);
+            else
+                _audioSource.Play();
         }
         else
         {
             Debug.LogWarning("There are no Audio Clips for BasicAudio script on: " + gameObject);
             return;
         }
-            
     }
 
     public void PlayOneShot(AudioClip clip)
