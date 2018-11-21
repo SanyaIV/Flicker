@@ -65,7 +65,11 @@ public class BasicAudio : OffScreenIndicator {
             _audioSource.Play();
         }
         else
+        {
+            Debug.LogWarning("There are no Audio Clips for BasicAudio script on: " + gameObject);
             return;
+        }
+            
     }
 
     public void PlayOneShot(AudioClip clip)
