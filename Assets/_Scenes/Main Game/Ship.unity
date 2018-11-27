@@ -421,6 +421,11 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 0.192
       objectReference: {fileID: 0}
+    - target: {fileID: 198971185122687530, guid: b5a4fc241b307b140bdb8c3ee6f53540,
+        type: 2}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.019607844
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5a4fc241b307b140bdb8c3ee6f53540, type: 2}
   m_IsPrefabAsset: 0
@@ -85548,12 +85553,12 @@ Prefab:
     - target: {fileID: 198971185122687530, guid: b5a4fc241b307b140bdb8c3ee6f53540,
         type: 2}
       propertyPath: ShapeModule.angle
-      value: 0
+      value: 15.01
       objectReference: {fileID: 0}
     - target: {fileID: 198971185122687530, guid: b5a4fc241b307b140bdb8c3ee6f53540,
         type: 2}
       propertyPath: ShapeModule.radius.value
-      value: 0.0001
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 198971185122687530, guid: b5a4fc241b307b140bdb8c3ee6f53540,
         type: 2}
@@ -85568,12 +85573,12 @@ Prefab:
     - target: {fileID: 198971185122687530, guid: b5a4fc241b307b140bdb8c3ee6f53540,
         type: 2}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198971185122687530, guid: b5a4fc241b307b140bdb8c3ee6f53540,
         type: 2}
       propertyPath: InitialModule.startSpeed.scalar
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 198971185122687530, guid: b5a4fc241b307b140bdb8c3ee6f53540,
         type: 2}
@@ -85604,7 +85609,7 @@ Prefab:
     - target: {fileID: 198971185122687530, guid: b5a4fc241b307b140bdb8c3ee6f53540,
         type: 2}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 200
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 198971185122687530, guid: b5a4fc241b307b140bdb8c3ee6f53540,
         type: 2}
@@ -85614,7 +85619,7 @@ Prefab:
     - target: {fileID: 198971185122687530, guid: b5a4fc241b307b140bdb8c3ee6f53540,
         type: 2}
       propertyPath: InitialModule.startLifetime.minScalar
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 198971185122687530, guid: b5a4fc241b307b140bdb8c3ee6f53540,
         type: 2}
@@ -85625,6 +85630,11 @@ Prefab:
         type: 2}
       propertyPath: simulationSpeed
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198971185122687530, guid: b5a4fc241b307b140bdb8c3ee6f53540,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5a4fc241b307b140bdb8c3ee6f53540, type: 2}
