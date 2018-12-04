@@ -38,6 +38,9 @@ public class LightController : MonoBehaviour {
     [Header("Save")]
     private float _savedIntensity;
 
+    [Header("ChristmasBS")]
+    private bool _christmasBSEnabled = false;
+
     public virtual void Start () {
         _light = GetComponent<Light>();
 
@@ -58,6 +61,12 @@ public class LightController : MonoBehaviour {
 
         GameManager.AddSaveEvent(Save);
         GameManager.AddReloadEvent(ReloadSave);
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
+            StartChristmasBS();
     }
 
     public void Lock()
@@ -144,6 +153,15 @@ public class LightController : MonoBehaviour {
 
         StopAllCoroutines();
         _flickerCoroutine = StartCoroutine(Flicker());
+    }
+
+    private void StartChristmasBS()
+    {
+        if (_christmasBSEnabled)
+            return;
+
+        StartFlicker();
+        StartCoroutine(ChristmasBS());
     }
 
     public void StartFlickerMinMax()
@@ -376,6 +394,22 @@ public class LightController : MonoBehaviour {
         _light.intensity = 0f;
         SetLampEmission();
         yield break;
+    }
+
+    private IEnumerator ChristmasBS()
+    {
+        _light.color = Color.green;
+
+        while(true){
+            if (_light.color == Color.green)
+                _light.color = Color.red;
+            else if (_light.color == Color.red)
+                _light.color = Color.green;
+
+            _baseLampBulbEmissionColor = _light.color;
+
+            yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
+        }
     }
 
     void OnValidate()

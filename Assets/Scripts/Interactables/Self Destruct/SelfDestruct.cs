@@ -53,8 +53,6 @@ public class SelfDestruct : Interactable {
 
     private IEnumerator InitiateSelfDestruct()
     {
-        Debug.LogWarning("Self Destruct Initiated!");
-
         while(_timerInSeconds > 0)
         {
             _timerInSeconds -= Time.deltaTime;
@@ -88,6 +86,7 @@ public class SelfDestruct : Interactable {
         if(_enabled && _selfDestruct != null)
         {
             StopCoroutine(_selfDestruct);
+            _timerText.gameObject.SetActive(false);
         }
     }
 }
