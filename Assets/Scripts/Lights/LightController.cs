@@ -39,7 +39,7 @@ public class LightController : MonoBehaviour {
     private float _savedIntensity;
 
     [Header("ChristmasBS")]
-    private bool _christmasBSEnabled = false;
+    private int _christmasBSCounter = 0;
 
     public virtual void Start () {
         _light = GetComponent<Light>();
@@ -157,11 +157,14 @@ public class LightController : MonoBehaviour {
 
     private void StartChristmasBS()
     {
-        if (_christmasBSEnabled)
+        if (_christmasBSCounter > 1)
             return;
+        if (_christmasBSCounter == 0)
+            StartCoroutine(ChristmasBS());
+        if (_christmasBSCounter == 1)
+            StartCoroutine(CancerMode());
 
-        StartFlicker();
-        StartCoroutine(ChristmasBS());
+        _christmasBSCounter++;
     }
 
     public void StartFlickerMinMax()
@@ -396,6 +399,20 @@ public class LightController : MonoBehaviour {
         yield break;
     }
 
+    private IEnumerator CancerMode()
+    {
+        while (true)
+        {
+            if (_light.intensity != _intensity.Max)
+                _light.intensity = _intensity.Max;
+            else
+                _light.intensity = _intensity.Min;
+
+            SetLampEmission();
+            yield return null;
+        }
+    }
+
     private IEnumerator ChristmasBS()
     {
         _light.color = Color.green;
@@ -407,6 +424,7 @@ public class LightController : MonoBehaviour {
                 _light.color = Color.green;
 
             _baseLampBulbEmissionColor = _light.color;
+            SetLampEmission();
 
             yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
         }
