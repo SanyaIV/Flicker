@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851a8371eb26cde46a803e77fb1d2fb4, type: 3}
   m_Name: Hunt
   m_EditorClassIdentifier: 
+  _stopDistanceToPlayer: 2
   _timeWithoutTargetUntilGiveUp:
   - 5
   - 15
@@ -24,6 +25,6 @@ MonoBehaviour:
   - Min: 0
     Max: 1
   - Min: 0
-    Max: 5
+    Max: 30
   - Min: 0
-    Max: 10
+    Max: 50

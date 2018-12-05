@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class Frozen : EnemyState
 {
     [Header("Sanity")]
+    [SerializeField] private bool _depleteSanity = false;
     [SerializeField] private float _depletionAmount;
 
     public override void Initialize(Controller owner)
@@ -28,6 +29,7 @@ public class Frozen : EnemyState
             return;
         }
 
-        _controller.sanity.DepleteSanity(_depletionAmount);
+        if(_depleteSanity)
+            _controller.sanity.DepleteSanity(_depletionAmount);
     }
 }

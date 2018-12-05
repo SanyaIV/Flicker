@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class Hunt : EnemyState
 {
     [Header("Hunt")]
+    [SerializeField] private float _stopDistanceToPlayer;
     [SerializeField] private float[] _timeWithoutTargetUntilGiveUp;
     private Vector3 _lastKnownPosition;
     private float _timeWithoutTarget;
@@ -41,7 +42,16 @@ public class Hunt : EnemyState
 
         threat = _controller.GetThreatLevel();
 
-        SetDestination();
+        if (Vector3.Distance(_transform.position, _controller.player.position) <= _stopDistanceToPlayer)
+            _controller.navMeshAgent.isStopped = true;
+        else
+            _controller.navMeshAgent.isStopped = false;
+
+        if(!_controller.navMeshAgent.isStopped)
+            SetDestination();
+
+        if (_controller.PlayerVisible())
+            DepleteSanity();
 
         if (_timeWithoutTarget >= _timeWithoutTargetUntilGiveUp[threat] || (_timeWithoutTarget > 0f && Vector3.Distance(_transform.position, _lastKnownPosition) < 0.5f))
             _controller.TransitionTo<Patrol>();
@@ -54,7 +64,6 @@ public class Hunt : EnemyState
         if (_controller.PlayerVisible())
         {
             SetVisibleDestination();
-            DepleteSanity();
             _timeWithoutTarget = 0f;
         }
         else
