@@ -12,13 +12,13 @@ public class Area : MonoBehaviour {
     [SerializeField] private string _area;
 
     [Header("Save")]
-    private bool _savedVisited;
+    private bool _savedVisited = false;
 
     public void Awake()
     {
         AreaTracker.AddArea(this);
         GameManager.AddSaveEvent(Save);
-        GameManager.AddReloadEvent(Reload);
+        GameManager.AddLateReloadEvent(Reload);
     }
 
 	public string GetName()

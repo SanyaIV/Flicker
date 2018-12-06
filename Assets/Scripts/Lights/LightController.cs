@@ -60,12 +60,6 @@ public class LightController : MonoBehaviour {
         GameManager.AddReloadEvent(ReloadSave);
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.J))
-            StartChristmasBS();
-    }
-
     public void Lock()
     {
         _locked = true;

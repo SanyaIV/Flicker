@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
+    public static GameManager gameManager;
     public static bool visualIconsEnabled = true;
     public static bool paused = false;
     public GameObject pauseScreen;
@@ -21,6 +22,11 @@ public class GameManager : MonoBehaviour {
 
     public void Awake()
     {
+        if (gameManager == null)
+            gameManager = this;
+        if (gameManager != this)
+            Destroy(this);
+
         _player = GetComponent<Transform>();
         player = gameObject;
     }
@@ -57,7 +63,7 @@ public class GameManager : MonoBehaviour {
     {
         _player.position = _savedPlayerPos;
         _reloadEventManager.Invoke();
-        _lateReloadEventManager.Invoke();
+        gameManager.StartCoroutine(LateReload());
     }
 
     public static void Save()
@@ -115,6 +121,13 @@ public class GameManager : MonoBehaviour {
     {
         yield return null;
         Save();
+        yield break;
+    }
+
+    private static IEnumerator LateReload()
+    {
+        yield return null;
+        _lateReloadEventManager.Invoke();
         yield break;
     }
 }
