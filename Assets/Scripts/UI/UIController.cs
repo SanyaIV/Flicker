@@ -5,19 +5,19 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    private Canvas canvas;
     public List<Image> images;
-    private Color c;
+    private Canvas _canvas;
+    private Color _c;
 
     void Start()
     {
-        canvas = GetComponent<Canvas>();
+        _canvas = GetComponent<Canvas>();
 
         foreach(Image i in images)
         {
-            c = i.color;
-            c.a = 1.0f;
-            i.color = c;
+            _c = i.color;
+            _c.a = 1.0f;
+            i.color = _c;
         }
     }
 
