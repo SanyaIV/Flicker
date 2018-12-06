@@ -30,7 +30,9 @@ public class PlayerController : Controller {
     public Camera cam;
 
     [Header("Audio")]
-    [SerializeField] public AudioSource audioSource;
+    public AudioSource audioSource;
+    public AudioSource feetAudioSource;
+    [SerializeField] private AudioClip _pickUpSound;
 
     [Header("Inventory")]
     private List<string> _passcards;
@@ -51,8 +53,8 @@ public class PlayerController : Controller {
         _passcards = new List<string>();
         _escapePodParts = new List<EscapePodPart>();
 
-        if(!audioSource)
-            audioSource = GetComponent<AudioSource>();
+        if(!feetAudioSource)
+            feetAudioSource = GetComponent<AudioSource>();
 
         sanity = GetComponent<Sanity>();
     }
@@ -121,6 +123,8 @@ public class PlayerController : Controller {
     {
         if(!_passcards.Contains(passcard))
             _passcards.Add(passcard);
+
+        audioSource.PlayOneShot(_pickUpSound);
     }
 
     public bool HasPasscard(string passcard)
@@ -132,6 +136,8 @@ public class PlayerController : Controller {
     {
         if (!_escapePodParts.Contains(escapePodPart))
             _escapePodParts.Add(escapePodPart);
+
+        audioSource.PlayOneShot(_pickUpSound);
     }
 
     public bool HasEscapePodPart(string module, string part)

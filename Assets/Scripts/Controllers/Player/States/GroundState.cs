@@ -107,17 +107,17 @@ public class GroundState : PlayerState {
         if (Input.GetKey(KeyCode.LeftShift) && !(controller.Input.z < 0))
         {
             controller.maxSpeed = runSpeed;
-            controller.audioSource.volume = _walkJoggRunVolume[2];
+            controller.feetAudioSource.volume = _walkJoggRunVolume[2];
         }
         else if (Input.GetKey(KeyCode.LeftControl))
         {
             controller.maxSpeed = walkSpeed;
-            controller.audioSource.volume = _walkJoggRunVolume[0];
+            controller.feetAudioSource.volume = _walkJoggRunVolume[0];
         }
         else
         {
             controller.maxSpeed = joggSpeed;
-            controller.audioSource.volume = _walkJoggRunVolume[1];
+            controller.feetAudioSource.volume = _walkJoggRunVolume[1];
         }
 
         controller.maxSpeed *= Mathf.Clamp(controller.sanity.GetSanity(), _clampSanitySpeedMultiplier.Min, _clampSanitySpeedMultiplier.Max);
@@ -212,17 +212,17 @@ public class GroundState : PlayerState {
         if(audio.Length > 1)
         {
             int n = Random.Range(1, audio.Length);
-            controller.audioSource.clip = audio[n];
-            controller.audioSource.PlayOneShot(controller.audioSource.clip);
+            controller.feetAudioSource.clip = audio[n];
+            controller.feetAudioSource.PlayOneShot(controller.feetAudioSource.clip);
             audio[n] = audio[0];
-            audio[0] = controller.audioSource.clip;
+            audio[0] = controller.feetAudioSource.clip;
         }
         else if(audio.Length == 1)
-            controller.audioSource.PlayOneShot(audio[0]);
+            controller.feetAudioSource.PlayOneShot(audio[0]);
         else
             return;
 
-        if(Physics.OverlapSphere(transform.position, _defaultEnemySoundDetectRange * controller.audioSource.volume / 2, controller.enemyLayer).Length > 0 && !(controller.enemy.currentState is DoorBlock) && !(controller.enemy.currentState is Frozen))
+        if(Physics.OverlapSphere(transform.position, _defaultEnemySoundDetectRange * controller.feetAudioSource.volume / 2, controller.enemyLayer).Length > 0 && !(controller.enemy.currentState is DoorBlock) && !(controller.enemy.currentState is Frozen))
             controller.enemy.TransitionTo<Hunt>();
     }
 
