@@ -281,8 +281,7 @@ public class EnemyController : Controller
     public void SaveOrReload()
     {
         navMeshAgent.Warp(GetSpawnPointInArea(GetTargetArea()).position);
-        if(!(currentState is Patrol))
-            TransitionTo<Patrol>();
+        TransitionTo<Patrol>();
     }
 
     public void OnTriggerEnter(Collider coll)

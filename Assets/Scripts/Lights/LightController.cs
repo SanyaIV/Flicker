@@ -38,9 +38,6 @@ public class LightController : MonoBehaviour {
     [Header("Save")]
     private float _savedIntensity;
 
-    [Header("ChristmasBS")]
-    private int _christmasBSCounter = 0;
-
     public virtual void Start () {
         _light = GetComponent<Light>();
 
@@ -155,16 +152,14 @@ public class LightController : MonoBehaviour {
         _flickerCoroutine = StartCoroutine(Flicker());
     }
 
-    private void StartChristmasBS()
+    public void StartChristmasBS()
     {
-        if (_christmasBSCounter > 1)
-            return;
-        if (_christmasBSCounter == 0)
-            StartCoroutine(ChristmasBS());
-        if (_christmasBSCounter == 1)
-            StartCoroutine(CancerMode());
+        StartCoroutine(ChristmasBS());
+    }
 
-        _christmasBSCounter++;
+    public void StartCancerMode()
+    {
+        StartCoroutine(CancerMode());
     }
 
     public void StartFlickerMinMax()
