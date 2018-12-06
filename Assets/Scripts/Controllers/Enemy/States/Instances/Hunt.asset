@@ -12,19 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851a8371eb26cde46a803e77fb1d2fb4, type: 3}
   m_Name: Hunt
   m_EditorClassIdentifier: 
-  _stopDistanceToPlayer: 2
+  _stopDistanceToPlayer: 3
   _timeWithoutTargetUntilGiveUp:
   - 5
   - 15
   - 30
-  _distanceToDeplete:
-  - 5
-  - 10
-  - 15
-  _depletionAmount:
-  - Min: 0
-    Max: 1
-  - Min: 0
-    Max: 30
-  - Min: 0
-    Max: 50
+  _sanityDepletionByDistance:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.04081588
+      value: 50
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 10
+      value: 10
+      inSlope: -3.1495132
+      outSlope: -3.1495132
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.13706098
+      outWeight: 0.05230653
+    - serializedVersion: 3
+      time: 20
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

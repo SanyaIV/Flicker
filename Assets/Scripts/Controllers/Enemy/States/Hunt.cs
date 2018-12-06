@@ -13,8 +13,9 @@ public class Hunt : EnemyState
     private float _timeWithoutTarget;
 
     [Header("Sanity")]
-    [SerializeField] private float[] _distanceToDeplete;
-    [SerializeField] private MinMaxFloat[] _depletionAmount;
+    /*[SerializeField] private float[] _distanceToDeplete;
+    [SerializeField] private MinMaxFloat[] _depletionAmount;*/
+    [SerializeField] private AnimationCurve _sanityDepletionByDistance;
 
     private int threat = 0;
 
@@ -97,8 +98,10 @@ public class Hunt : EnemyState
     private void DepleteSanity()
     {
         float distance = Vector3.Distance(_controller.player.position, _transform.position);
-        if (distance < _distanceToDeplete[threat])
-            _controller.sanity.DepleteSanity(Mathf.Lerp(_depletionAmount[threat].Min, _depletionAmount[threat].Max, (_distanceToDeplete[threat] - distance) / _distanceToDeplete[threat]));
+        if(distance < _sanityDepletionByDistance.keys[_sanityDepletionByDistance.keys.Length - 1].time)
+            _controller.sanity.DepleteSanity(_sanityDepletionByDistance.Evaluate(distance));
+        /*if (distance < _distanceToDeplete[threat])
+            _controller.sanity.DepleteSanity(Mathf.Lerp(_depletionAmount[threat].Min, _depletionAmount[threat].Max, (_distanceToDeplete[threat] - distance) / _distanceToDeplete[threat]));*/
     }
 }
 

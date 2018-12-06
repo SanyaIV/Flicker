@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour {
     {
         _player.position = _savedPlayerPos;
         _reloadEventManager.Invoke();
+        _lateReloadEventManager.Invoke();
     }
 
     public static void Save()

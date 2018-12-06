@@ -265,11 +265,13 @@ public class EnemyController : Controller
 
     public string GetTargetArea()
     {
+        int threatLevel = GetThreatLevel();
+
         if (AreaTracker.GetCurrentPlayerArea() != null && AreaTracker.GetCurrentEnemyArea() != null)
         {
-            if (GetThreatLevel() > 0 && AreaTracker.GetCurrentPlayerArea().GetName() != "Escape Pod")
+            if (threatLevel > 0 && AreaTracker.GetCurrentPlayerArea().GetName() != "Escape Pod")
                 return AreaTracker.GetCurrentPlayerArea().GetName();
-            else if (GetThreatLevel() > 0)
+            else if (threatLevel > 0)
                 return "Indigo";
         }
 

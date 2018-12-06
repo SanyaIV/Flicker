@@ -5,7 +5,7 @@ using UnityEngine;
 public class Area : MonoBehaviour {
 
     [Header("Tracker")]
-    private bool _visited;
+    private bool _visited = false;
     private float _timeSpent;
 
     [Header("Area")]
@@ -36,7 +36,12 @@ public class Area : MonoBehaviour {
         _timeSpent += Time.deltaTime;
     }
 
-    public void OnTriggerEnter(Collider coll)
+    public float GetTimeSpent()
+    {
+        return _timeSpent;
+    }
+
+    public void OnTriggerStay(Collider coll)
     {
         if (coll.CompareTag("Player"))
         {

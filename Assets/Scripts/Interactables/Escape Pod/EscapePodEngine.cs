@@ -48,6 +48,7 @@ public class EscapePodEngine : Interactable {
             Transform enemy = GameObject.FindWithTag("Enemy").transform;
             enemy.GetComponent<NavMeshAgent>().enabled = false;
             enemy.position = _spawnPoint.position;
+            enemy.rotation = _spawnPoint.rotation;
             enemy.SetParent(gameObject.transform);
         }
         else
