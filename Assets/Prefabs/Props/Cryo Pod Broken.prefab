@@ -1,0 +1,364 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &3464759621126239948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7420901698576725325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1c320c2fa81ddc4f863c2b1be806b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _locked: 0
+  _lampBulb: {fileID: 0}
+  _intensityMultiplier: 0
+  _light: {fileID: 2376055014351598824}
+  _intensity:
+    Min: 0
+    Max: 0.39788735
+  _fadeInTime: 0
+  _fadeOutTime: 0
+  _flickerOnStart: 1
+  _flickerOnFadeSpeed:
+    Min: 0.05
+    Max: 0.2
+  _flickerOffFadeSpeed:
+    Min: 0.05
+    Max: 0.2
+  _flickerOnWait:
+    Min: 0.05
+    Max: 0.7
+  _flickerOffWait:
+    Min: 0.1
+    Max: 1
+--- !u!1001 &5360366997116509180
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5361275037665247090}
+      propertyPath: m_Name
+      value: Cryo Pod Broken
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363097047619938882}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363097047619938882}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363097047619938882}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5361422310147184470}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5475192776333475832}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5442049005271080190}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057171353372206634}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ad3c63011fce19245be4c78e5cbb43d8, type: 2}
+    - target: {fileID: 2718725755037485509}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ad3c63011fce19245be4c78e5cbb43d8, type: 2}
+    - target: {fileID: 7084183692479919865}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ad3c63011fce19245be4c78e5cbb43d8, type: 2}
+    - target: {fileID: 2376055014351598824}
+      propertyPath: m_Color.r
+      value: 0.5188679
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376055014351598824}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376055014351598824}
+      propertyPath: m_Color.b
+      value: 0.029369952
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376055014351598824}
+      propertyPath: m_Intensity
+      value: 0.39788735
+      objectReference: {fileID: 0}
+    - target: {fileID: 9078377384803841212}
+      propertyPath: displayLightIntensity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940106877091232437}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376055014351598824}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376055014351598824}
+      propertyPath: m_Color.b
+      value: 0.047988713
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376055014351598824}
+      propertyPath: m_Color.r
+      value: 0.8301887
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376055014351598824}
+      propertyPath: m_Intensity
+      value: 0.39788735
+      objectReference: {fileID: 0}
+    - target: {fileID: 2718725755037485509}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ad3c63011fce19245be4c78e5cbb43d8, type: 2}
+    - target: {fileID: 5057171353372206634}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ad3c63011fce19245be4c78e5cbb43d8, type: 2}
+    - target: {fileID: 5361275037665247090}
+      propertyPath: m_Name
+      value: Cryo Pod Broken
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363097047619938882}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363097047619938882}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363097047619938882}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363097047619938882}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363097047619938882}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363097047619938882}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363097047619938882}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363097047619938882}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363097047619938882}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363097047619938882}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363097047619938882}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5475192776333475832}
+      propertyPath: _enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5475192776333475832}
+      propertyPath: _showMouse
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5475192776333475832}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940106877091232437}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7084183692479919865}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ad3c63011fce19245be4c78e5cbb43d8, type: 2}
+    - target: {fileID: 9078377384803841212}
+      propertyPath: displayLightIntensity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1348413504349326, guid: af405da1ff5aa964e8bef8274daf318d, type: 3}
+      propertyPath: m_Name
+      value: Cryo Pod Broken
+      objectReference: {fileID: 0}
+    - target: {fileID: 4034364712055230, guid: af405da1ff5aa964e8bef8274daf318d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4034364712055230, guid: af405da1ff5aa964e8bef8274daf318d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4034364712055230, guid: af405da1ff5aa964e8bef8274daf318d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1196601376115882, guid: af405da1ff5aa964e8bef8274daf318d, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114863437518955524, guid: af405da1ff5aa964e8bef8274daf318d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 136748316718794498, guid: af405da1ff5aa964e8bef8274daf318d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 886496571902098902, guid: af405da1ff5aa964e8bef8274daf318d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ad3c63011fce19245be4c78e5cbb43d8, type: 2}
+    - target: {fileID: 8059477171563680313, guid: af405da1ff5aa964e8bef8274daf318d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ad3c63011fce19245be4c78e5cbb43d8, type: 2}
+    - target: {fileID: 2896882095076551941, guid: af405da1ff5aa964e8bef8274daf318d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ad3c63011fce19245be4c78e5cbb43d8, type: 2}
+    - target: {fileID: 7681636903018114836, guid: af405da1ff5aa964e8bef8274daf318d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.5188679
+      objectReference: {fileID: 0}
+    - target: {fileID: 7681636903018114836, guid: af405da1ff5aa964e8bef8274daf318d,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7681636903018114836, guid: af405da1ff5aa964e8bef8274daf318d,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.029369952
+      objectReference: {fileID: 0}
+    - target: {fileID: 7681636903018114836, guid: af405da1ff5aa964e8bef8274daf318d,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0.39788735
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007985157586251584, guid: af405da1ff5aa964e8bef8274daf318d,
+        type: 3}
+      propertyPath: displayLightIntensity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732943410659844425, guid: af405da1ff5aa964e8bef8274daf318d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af405da1ff5aa964e8bef8274daf318d, type: 3}
+--- !u!1 &5361275037665247090 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1348413504349326, guid: af405da1ff5aa964e8bef8274daf318d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5360366997116509180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5363097047619938882 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4034364712055230, guid: af405da1ff5aa964e8bef8274daf318d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5360366997116509180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5361422310147184470 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1196601376115882, guid: af405da1ff5aa964e8bef8274daf318d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5360366997116509180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5475192776333475832 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114863437518955524, guid: af405da1ff5aa964e8bef8274daf318d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5360366997116509180}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5361422310147184470}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6071cd365912e784b8097d896b6b7107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!136 &5442049005271080190 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 136748316718794498, guid: af405da1ff5aa964e8bef8274daf318d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5360366997116509180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5057171353372206634 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 886496571902098902, guid: af405da1ff5aa964e8bef8274daf318d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5360366997116509180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2718725755037485509 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8059477171563680313, guid: af405da1ff5aa964e8bef8274daf318d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5360366997116509180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7084183692479919865 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2896882095076551941, guid: af405da1ff5aa964e8bef8274daf318d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5360366997116509180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7420901698576725325 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3215446596994559665, guid: af405da1ff5aa964e8bef8274daf318d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5360366997116509180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!108 &2376055014351598824 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 7681636903018114836, guid: af405da1ff5aa964e8bef8274daf318d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5360366997116509180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9078377384803841212 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4007985157586251584, guid: af405da1ff5aa964e8bef8274daf318d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5360366997116509180}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7420901698576725325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &5940106877091232437 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1732943410659844425, guid: af405da1ff5aa964e8bef8274daf318d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5360366997116509180}
+  m_PrefabAsset: {fileID: 0}

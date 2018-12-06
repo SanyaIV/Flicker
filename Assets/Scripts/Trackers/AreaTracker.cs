@@ -13,8 +13,6 @@ public class AreaTracker : MonoBehaviour {
     {
         if (_currentPlayerArea != null)
             _currentPlayerArea.IncreaseTime();
-        if (_currentEnemyArea != null)
-            Debug.Log(_currentEnemyArea.name);
     }
 
     public static void AddArea(Area area)
