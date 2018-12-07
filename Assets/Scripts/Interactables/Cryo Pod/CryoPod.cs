@@ -5,28 +5,27 @@ using UnityEngine.UI;
 
 public class CryoPod : Interactable {
 
+    const float WAIT_AT_BLACK_IN_SECONDS = 1.5f;
+
     [Header("Images")]
     [SerializeField] private float _fadeSpeed;
-    [SerializeField] private Sprite _image;
-    private static Canvas _canvas;
-    private static RectTransform _saveScreenTransform;
     private static Image _saveScreen;
+    private static Text _saveText;
+    private static Color _saveScreenColor;
+    private static Color _saveTextColor;
     private bool _running;
 
     public override void Start()
     {
         base.Start();
 
-        if (!_canvas)
+        if (!_saveScreen)
         {
-            _canvas = GameObject.FindGameObjectWithTag("HUD").GetComponent<Canvas>();
-            _saveScreenTransform = new GameObject().AddComponent<RectTransform>();
-            _saveScreenTransform.transform.SetParent(_canvas.transform);
-            _saveScreenTransform.sizeDelta = new Vector2(10000, 10000);
-            _saveScreenTransform.localPosition = Vector3.zero;
-            _saveScreen = _saveScreenTransform.gameObject.AddComponent<Image>();
-            _saveScreen.sprite = _image;
-            _saveScreen.color = new Color(1f, 1f, 1f, 0f);
+            _saveScreen = GameObject.FindWithTag("SaveScreen").GetComponent<Image>();
+            _saveText = _saveScreen.GetComponentInChildren<Text>();
+            _saveScreen.gameObject.SetActive(false);
+            _saveScreenColor = _saveScreen.color;
+            _saveTextColor = _saveText.color;
         }
     }
 
@@ -58,22 +57,36 @@ public class CryoPod : Interactable {
         _running = true;
         GameManager.pausePlayerMovement = true;
 
-        _saveScreen.color = new Color(0f, 0f, 0f, 0f);
-        while(_saveScreen.color.a < 1f)
+        float alpha = 0f;
+        _saveScreenColor.a = alpha;
+        _saveTextColor.a = alpha;
+        _saveScreen.color = _saveScreenColor;
+        _saveText.color = _saveTextColor;
+        _saveScreen.gameObject.SetActive(true);
+
+        while(alpha < 1f)
         {
-            _saveScreen.color = new Color(0f, 0f, 0f, _saveScreen.color.a + _fadeSpeed * Time.deltaTime);
+            alpha += _fadeSpeed * Time.deltaTime;
+            _saveScreenColor.a = alpha;
+            _saveTextColor.a = alpha;
+            _saveScreen.color = _saveScreenColor;
+            _saveText.color = _saveTextColor;
             yield return null;
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(WAIT_AT_BLACK_IN_SECONDS);
 
-        while (_saveScreen.color.a > 0f)
+        while (alpha > 0f)
         {
-            _saveScreen.color = new Color(0f, 0f, 0f, _saveScreen.color.a - _fadeSpeed * Time.deltaTime);
+            alpha -= _fadeSpeed * Time.deltaTime;
+            _saveScreenColor.a = alpha;
+            _saveTextColor.a = alpha;
+            _saveScreen.color = _saveScreenColor;
+            _saveText.color = _saveTextColor;
             yield return null;
         }
 
-        _saveScreen.color = new Color(0f, 0f, 0f, 0f);
+        _saveScreen.gameObject.SetActive(false);
         _running = false;
         GameManager.pausePlayerMovement = false;
         yield break;

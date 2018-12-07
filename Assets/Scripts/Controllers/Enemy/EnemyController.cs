@@ -188,6 +188,17 @@ public class EnemyController : Controller
             foreach (Transform trans in wayPoints[area])
                 if (trans.GetComponent<SpawnPoint>().GetSpawnAllowed())
                     potentialSpawnPoints.Add(trans);
+            
+            if(potentialSpawnPoints.Count >= 2) //Remove the spawn point closest to the player in order to avoid spawning on or too close to the player.
+            {
+                Transform closestToPlayer = potentialSpawnPoints[0];
+
+                foreach (Transform trans in potentialSpawnPoints)
+                    if(Vector3.Distance(trans.position, player.position) < Vector3.Distance(closestToPlayer.position, player.position))
+                        closestToPlayer = trans;
+
+                potentialSpawnPoints.Remove(closestToPlayer);
+            }
 
             if (potentialSpawnPoints.Count > 0)
                 return potentialSpawnPoints[Random.Range(0, potentialSpawnPoints.Count)];
