@@ -32,7 +32,7 @@ public class IntroScene : LightController {
         tmp.a = Mathf.Lerp(0f, 1f, _light.intensity / _intensity.Max);
         _text.color = tmp;
 
-        if (!_activated && Input.GetKeyDown(KeyCode.Return))
+        if (!_activated && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
         {
             GameObject.Find("Photosensitive warning").SetActive(false);
             _activated = true;

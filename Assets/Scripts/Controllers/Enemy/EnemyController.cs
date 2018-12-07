@@ -186,7 +186,7 @@ public class EnemyController : Controller
         {
             List<Transform> potentialSpawnPoints = new List<Transform>();
             foreach (Transform trans in wayPoints[area])
-                if (trans.GetComponent<SpawnPoint>().GetSpawnAllowed())
+                if (trans.GetComponent<SpawnPoint>().GetSpawnAllowed() && Physics.Linecast(player.position, trans.position, _blockVisibilityLayers))
                     potentialSpawnPoints.Add(trans);
             
             if(potentialSpawnPoints.Count >= 2) //Remove the spawn point closest to the player in order to avoid spawning on or too close to the player.
