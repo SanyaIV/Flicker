@@ -149,6 +149,11 @@ public class PlayerController : Controller {
         return false;
     }
 
+    public bool HasEscapePodPart(EscapePodPart escapePodPart)
+    {
+        return _escapePodParts.Contains(escapePodPart);
+    }
+
     public void Save()
     {
         _savedEscapePodParts = new List<EscapePodPart>(_escapePodParts);
