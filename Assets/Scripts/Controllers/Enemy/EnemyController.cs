@@ -266,7 +266,6 @@ public class EnemyController : Controller
     public string GetTargetArea()
     {
         int threatLevel = GetThreatLevel();
-        Debug.Log(threatLevel);
 
         if (AreaTracker.GetCurrentPlayerArea() != null && AreaTracker.GetCurrentEnemyArea() != null)
         {

@@ -8,8 +8,9 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
     public static GameManager gameManager;
-    public static bool visualIconsEnabled = true;
+    public static bool visualIconsEnabled = false;
     public static bool paused = false;
+    public static bool pausePlayerMovement = false;
     public GameObject pauseScreen;
     public AudioMixer audioMixer;
 
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour {
                 Time.timeScale = 1f;
                 pauseScreen.SetActive(false);
                 paused = false;
+                pausePlayerMovement = false;
             }
             else
             {
@@ -55,6 +57,7 @@ public class GameManager : MonoBehaviour {
                 Time.timeScale = 0f;
                 pauseScreen.SetActive(true);
                 paused = true;
+                pausePlayerMovement = true;
             }
         }
     }

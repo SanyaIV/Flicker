@@ -32,7 +32,7 @@ public class FirstPersonCamera : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.paused)
+        if (GameManager.pausePlayerMovement)
             return;
 
         UpdateRotation();

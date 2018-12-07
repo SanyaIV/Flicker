@@ -99,7 +99,7 @@ public class GroundState : PlayerState {
     {
         base.Update();
 
-        if (GameManager.paused)
+        if (GameManager.pausePlayerMovement)
             return;
 
         if (Input.GetButtonDown("Jump"))

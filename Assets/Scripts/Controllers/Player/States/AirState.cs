@@ -29,7 +29,7 @@ public class AirState : PlayerState {
     {
         base.Update();
 
-        if (GameManager.paused)
+        if (GameManager.pausePlayerMovement)
             return;
 
         CancelJump();

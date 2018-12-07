@@ -10,6 +10,7 @@ public class PlayerController : Controller {
     private Quaternion _startRot;
 
     [Header("Status")]
+    public bool paused = false;
     [HideInInspector]public Sanity sanity;
 
     [Header("Movement")]

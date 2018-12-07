@@ -56,6 +56,7 @@ public class CryoPod : Interactable {
             yield break;
 
         _running = true;
+        GameManager.pausePlayerMovement = true;
 
         _saveScreen.color = new Color(0f, 0f, 0f, 0f);
         while(_saveScreen.color.a < 1f)
@@ -74,6 +75,7 @@ public class CryoPod : Interactable {
 
         _saveScreen.color = new Color(0f, 0f, 0f, 0f);
         _running = false;
+        GameManager.pausePlayerMovement = false;
         yield break;
     }
 }
