@@ -14,38 +14,37 @@ public class PlayerState : State {
     [Header("Interactable")]
     [SerializeField] private float _range;
     [SerializeField] private LayerMask _interactableLayerMask;
+    private Interactable _lastInteractable;
+    private Interactable _currentInteractable;
 
     public override void Initialize(Controller owner)
     {
         controller = (PlayerController)owner;
     }
 
-    protected Interactable GetInteractible()
+    protected Interactable GetInteractable()
     {
         RaycastHit hit;
         if (Physics.Raycast(controller.cam.transform.position, controller.cam.transform.forward, out hit, _range, _interactableLayerMask))
         {
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Interactable"))
             {
-                Interactable actable = hit.collider.GetComponent<Interactable>();
+                _currentInteractable = hit.collider.GetComponent<Interactable>();
+                if (_lastInteractable != null && _lastInteractable != _currentInteractable)
+                    _lastInteractable.Conceal();
 
-                if (actable && actable.IsEnabled())
+                if (_currentInteractable && _currentInteractable.IsEnabled())
                 {
-                    actable.Indicate();
-                    return actable;
+                    _currentInteractable.Indicate();
+                    return _lastInteractable = _currentInteractable;
                 }
             }
         }
 
-        Interactable.Conceal();
+        if(_lastInteractable != null)
+            _lastInteractable.Conceal();
+        _lastInteractable = null;
 
         return null;
-    }
-
-    protected void Interact()
-    {
-        Interactable actable = GetInteractible();
-        if (actable && actable.IsEnabled())
-            actable.Interact(controller);
     }
 }

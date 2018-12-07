@@ -41,9 +41,7 @@ public class AirState : PlayerState {
 
         controller.collision = controller.charCtrl.Move(moveDir * Time.deltaTime);
 
-        GetInteractible();
-        if (Input.GetButtonDown("Fire1"))
-            Interact();
+        GetInteractable();
     }
 
     public override void FixedUpdate()

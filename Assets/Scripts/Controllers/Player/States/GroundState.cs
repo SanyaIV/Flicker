@@ -126,14 +126,10 @@ public class GroundState : PlayerState {
         {
             controller.sanity.DepleteSanity(_goopSanityDrainMultiplier);
             controller.maxSpeed *= _goopSpeedMultiplier;
-        }
-
-        if (Input.GetButtonDown("Fire1"))
-            Interact();
-            
+        }  
 
         controller.collision = charCtrl.Move(moveDir * Time.deltaTime);
-        GetInteractible();
+        GetInteractable();
     }
 
     public override void FixedUpdate()
