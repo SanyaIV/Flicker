@@ -6,16 +6,20 @@ using UnityEngine.UI;
 public class SelfDestruct : Interactable {
 
     [Header("Self Destruct")]
-    [SerializeField] private float _timerInSeconds;
+    [SerializeField] private float _timerInSeconds = 0f;
     private Coroutine _selfDestruct;
 
     [Header("GUI")]
     [SerializeField] private Text _timerText;
+    [SerializeField] private Text _monitorPrompt;
+    [SerializeField] private Text _monitorTimer;
+    [SerializeField] private string _monitorPromptDisabled = "Activate Self Destruct?";
+    [SerializeField] private string _monitorPromptEnabled = "Self Destruct Activated";
     private int _minutes;
     private int _seconds;
 
     [Header("Save")]
-    private bool _saveEnabled;
+    private bool _saveEnabled; //Interactable enabled, not self-destruct enabled.
     private float _saveTimerInSeconds;
 
     public override void Start()
@@ -24,6 +28,8 @@ public class SelfDestruct : Interactable {
 
         GameManager.AddSaveEvent(Save);
         GameManager.AddReloadEvent(Reload);
+
+        _monitorTimer.text = SecondsToMMSS((int)_timerInSeconds);
     }
 
     public override void Interact(PlayerController player)
@@ -33,6 +39,7 @@ public class SelfDestruct : Interactable {
 
         _enabled = false;
         _timerText.gameObject.SetActive(true);
+        _monitorPrompt.text = _monitorPromptEnabled;
         _selfDestruct = StartCoroutine(InitiateSelfDestruct());
     }
 
@@ -51,14 +58,20 @@ public class SelfDestruct : Interactable {
         return !_enabled;
     }
 
+    public string SecondsToMMSS(int seconds)
+    {
+        _minutes = Mathf.Clamp(seconds / 60, 0, 99);
+        _seconds = Mathf.Clamp(seconds - _minutes * 60, 0, 59);
+        return string.Format("{0:00}:{1:00}", _minutes, _seconds);
+    }
+
     private IEnumerator InitiateSelfDestruct()
     {
         while(_timerInSeconds > 0)
         {
             _timerInSeconds -= Time.deltaTime;
-            _minutes = Mathf.Clamp((int)_timerInSeconds / 60, 0, 99);
-            _seconds = Mathf.Clamp((int)_timerInSeconds - _minutes * 60, 0, 59);
-            _timerText.text = string.Format("{0:00}:{1:00}", _minutes, _seconds);
+            _timerText.text = SecondsToMMSS((int)_timerInSeconds);
+            _monitorTimer.text = _timerText.text;
 
             yield return null;
         }
@@ -68,6 +81,10 @@ public class SelfDestruct : Interactable {
         {
             GetComponent<AudioSource>().Play();
             player.TransitionTo<MutualDestruction>();
+        }
+        else
+        {
+            _timerText.text = "";
         }
             
     }
@@ -86,6 +103,8 @@ public class SelfDestruct : Interactable {
         if(_enabled && _selfDestruct != null)
         {
             StopCoroutine(_selfDestruct);
+            _monitorPrompt.text = _monitorPromptDisabled;
+            _monitorTimer.text = SecondsToMMSS((int)_timerInSeconds);
             _timerText.gameObject.SetActive(false);
         }
     }

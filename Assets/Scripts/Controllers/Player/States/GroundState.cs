@@ -219,10 +219,7 @@ public class GroundState : PlayerState {
             return;
 
         if(Physics.OverlapSphere(transform.position, _defaultEnemySoundDetectRange * controller.feetAudioSource.volume, controller.enemyLayer).Length > 0 && !(controller.enemy.currentState is DoorBlock) && !(controller.enemy.currentState is Frozen))
-        {
-            Debug.Log("Meow");
             controller.enemy.TransitionTo<Hunt>();
-        }
             
     }
 
