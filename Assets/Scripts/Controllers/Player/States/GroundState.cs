@@ -134,6 +134,9 @@ public class GroundState : PlayerState {
 
     public override void FixedUpdate()
     {
+        if (GameManager.pausePlayerMovement)
+            return;
+
         _hit = controller.GroundCheck();
 
         UpdateMovement();
