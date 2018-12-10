@@ -29,6 +29,8 @@ public class Frozen : EnemyState
             return;
         }
 
+        _controller.sanity.ProgressBlink();
+
         if(_depleteSanity)
             _controller.sanity.DepleteSanity(_depletionAmount);
     }

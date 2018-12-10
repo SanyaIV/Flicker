@@ -304,7 +304,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 45712912391565283}
-  m_LocalRotation: {x: -0, y: 0.38268316, z: -0, w: 0.92387974}
+  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
   m_LocalPosition: {x: -51.775, y: 9.244, z: 14.013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -354,6 +354,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d22b1cc55e56cc94da073231430f86ab, type: 2}
   currentState: {fileID: 0}
   previousState: {fileID: 0}
+  paused: 0
   sanity: {fileID: 86098102193793003}
   gravity: 24.999998
   moveDir: {x: 0, y: 0, z: 0}
@@ -404,6 +405,15 @@ MonoBehaviour:
   _pulseDownSpeed: 0.4
   _pulseUpWaitForSeconds: 0
   _pulseDownWaitForSeconds: 0
+  _blinkingImage: {fileID: 0}
+  _blinkingFillImage: {fileID: 0}
+  _blinkSpeed: 2
+  _blinkingThreshold:
+    Min: 1
+    Max: 10
+  _stayBlinkedTime:
+    Min: 0.2
+    Max: 0.8
 --- !u!54 &28194434188684255
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -717,7 +727,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   stopNaNPropagation: 1
-  antialiasingMode: 0
+  antialiasingMode: 2
   temporalAntialiasing:
     jitterSpread: 0.75
     sharpness: 0.25

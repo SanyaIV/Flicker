@@ -9,7 +9,7 @@ public class FindAllRigidBodies : MonoBehaviour
     {
         foreach(Rigidbody rb in GameObject.Find("Ship").GetComponentsInChildren<Rigidbody>())
         {
-            if(rb.isKinematic)
+            if(rb.isKinematic && rb.collisionDetectionMode != CollisionDetectionMode.Discrete)
                 Debug.Log(rb.collisionDetectionMode, rb.gameObject);
         }
     }

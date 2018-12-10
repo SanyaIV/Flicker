@@ -94,7 +94,7 @@ public class EnemyController : Controller
 
     public bool CheckIfVisible()
     {
-        if (_rend.isVisible) //Check if Unity thinks the renderer is visible (Not perfect but works as a quick and easy out in case it's not)
+        if (_rend.isVisible && !sanity.HasEyesShut()) //Check if Unity thinks the renderer is visible (Not perfect but works as a quick and easy out in case it's not)
         {
             if (Vector3.Dot((_cam.transform.position - transform.position).normalized, _cam.transform.forward) > Mathf.Lerp(-0.6f, -0.25f, Vector3.Distance(_cam.transform.position, transform.position) / 10)) //Bad attempt at checking if the player is looking towards the enemy through the dot products of directions
                 return _visible = false; //Set visible to false and return visible (which is false)

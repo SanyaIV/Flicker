@@ -28,6 +28,16 @@ public class Sanity : MonoBehaviour {
     [SerializeField] private float _pulseUpWaitForSeconds;
     [SerializeField] private float _pulseDownWaitForSeconds;
 
+    [Header("Blinking")]
+    [SerializeField] private Image _blinkingImage;
+    [SerializeField] private Image _blinkingFillImage;
+    [SerializeField] private float _blinkSpeed;
+    [SerializeField] private MinMaxFloat _blinkingThreshold;
+    [SerializeField] private MinMaxFloat _stayBlinkedTime;
+    private float _blinkStep = 0f;
+    private bool _blinking = false;
+    private bool _eyesShut = false;
+
     public void Start()
     {
         if (!_vignetteImage)
@@ -96,6 +106,64 @@ public class Sanity : MonoBehaviour {
     private void UpdateVignette()
     {
         _vignette.intensity.value = GetSanity01();
+    }
+
+    public void ProgressBlink()
+    {
+        if (_blinking)
+            return;
+
+        _blinkStep += Time.deltaTime;
+        if (_blinkStep >= Mathf.Lerp(_blinkingThreshold.Min, _blinkingThreshold.Max, GetSanity10()))
+        {
+            StartCoroutine(Blink());
+            _blinkStep = 0f;
+        }
+    }
+
+    public bool HasEyesShut()
+    {
+        return _eyesShut;
+    }
+
+    private IEnumerator Blink()
+    {
+        _blinking = true;
+        Color blinkingColor = _blinkingImage.color;
+        Color blinkingFillColor = _blinkingFillImage.color;
+
+        while (_blinkingImage.color.a < 1f)
+        {
+            blinkingColor.a += _blinkSpeed * Time.deltaTime;
+            _blinkingImage.color = blinkingColor;
+
+            yield return null;
+        }
+
+        while(_blinkingFillImage.color.a < 1f)
+        {
+            blinkingFillColor.a += _blinkSpeed * Time.deltaTime;
+            _blinkingFillImage.color = blinkingFillColor;
+
+            yield return null;
+        }
+
+        _eyesShut = true;
+        yield return new WaitForSeconds(Random.Range(_stayBlinkedTime.Min, _stayBlinkedTime.Max));
+        _eyesShut = false;
+
+        while (_blinkingImage.color.a > 0f)
+        {
+            blinkingColor.a -= _blinkSpeed * Time.deltaTime;
+            blinkingFillColor.a = blinkingColor.a;
+            _blinkingImage.color = blinkingColor;
+            _blinkingFillImage.color = blinkingFillColor;
+
+            yield return null;
+        }
+
+        _blinking = false;
+        yield break;
     }
 
     private IEnumerator PulseSanity()
