@@ -46,8 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enabled: 1
   _showMouse: 1
+  _holdToActivate: 0
+  _holdDownTimeToActivate: 0
   _fadeSpeed: 1.5
-  _image: {fileID: 21300000, guid: 7c47ed6b765a7664b9ca9ad25592fd59, type: 3}
 --- !u!136 &136748316718794498
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9775,8 +9776,8 @@ GameObject:
   m_Name: Cryo_Pod_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 118
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &2087859970906519331
 Transform:
@@ -9866,8 +9867,8 @@ GameObject:
   m_Name: pCube372
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 118
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &2087859970906519333
 Transform:
@@ -9943,8 +9944,8 @@ GameObject:
   m_Name: polySurface106
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 118
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &2087859970906519335
 Transform:
@@ -10020,8 +10021,8 @@ GameObject:
   m_Name: polySurface107
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 118
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &2087859970906519337
 Transform:
@@ -10097,8 +10098,8 @@ GameObject:
   m_Name: polySurface112
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 118
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &2087859970906519339
 Transform:
@@ -10174,8 +10175,8 @@ GameObject:
   m_Name: polySurface64
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 118
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &2087859970906519341
 Transform:
@@ -10251,8 +10252,8 @@ GameObject:
   m_Name: polySurface65
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 118
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &2087859970906519343
 Transform:
@@ -10328,8 +10329,8 @@ GameObject:
   m_Name: polySurface708
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 118
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &2087859970906519345
 Transform:
@@ -10405,8 +10406,8 @@ GameObject:
   m_Name: polySurface730
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 118
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &2087859970906519347
 Transform:
@@ -10480,8 +10481,8 @@ GameObject:
   m_Name: polySurface733
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 118
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &2087859970906519349
 Transform:
@@ -10513,8 +10514,8 @@ GameObject:
   m_Name: polySurface746
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 118
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &2087859970906519351
 Transform:
@@ -10590,8 +10591,8 @@ GameObject:
   m_Name: polySurface747
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 118
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &2087859970906519353
 Transform:
@@ -10744,8 +10745,8 @@ GameObject:
   m_Name: polySurface749
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 118
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &2087859970906519359
 Transform:
@@ -10821,8 +10822,8 @@ GameObject:
   m_Name: polySurface87
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 118
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &2087859970906519301
 Transform:
@@ -10898,8 +10899,8 @@ GameObject:
   m_Name: polySurface93
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 118
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &2087859970906519303
 Transform:
@@ -10975,8 +10976,8 @@ GameObject:
   m_Name: polySurface96
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 118
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &2087859970906519305
 Transform:
