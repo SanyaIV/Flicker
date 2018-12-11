@@ -20,7 +20,7 @@ public class EscapePodModule : Interactable {
     private bool _savedEnabled;
 
     [Header("Private Variables")]
-    [SerializeField] private PlayerController _player;
+    private PlayerController _player;
 
     public override void Start ()
     {

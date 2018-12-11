@@ -10,26 +10,30 @@ public class EscapePodModel : MonoBehaviour {
     private bool _repaired = false;
 
     [Header("Light")]
-    [SerializeField] private Light _light;
-    [SerializeField] private Color _brokenColor;
-    [SerializeField] private Color _repairedColor;
+    [SerializeField] private GameObject _light;
+    [SerializeField] private Material _brokenMaterial;
+    [SerializeField] private Material _repairedMaterial;
+    private Renderer _lightRenderer;
 
     [Header("Save")]
     private bool _savedRepaired = false;
 
     public void Start()
     {
+        _lightRenderer = _light.GetComponent<Renderer>();
+
         GameManager.AddSaveEvent(Save);
         GameManager.AddReloadEvent(Reload);
+
         UpdateModel();
     }
 
     private void UpdateLight()
     {
         if (_repaired)
-            _light.color = _repairedColor;
+            _lightRenderer.material = _repairedMaterial;
         else
-            _light.color = _brokenColor;
+            _lightRenderer.material = _brokenMaterial;
     }
 
     private void UpdateMesh()
