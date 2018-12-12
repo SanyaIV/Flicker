@@ -36,9 +36,11 @@ public class LightController : MonoBehaviour {
     private Coroutine _flickerCoroutine;
 
     [Header("Save")]
+    [SerializeField] private bool _saveAndReload = true;
     private float _savedIntensity;
 
-    public virtual void Start () {
+    public void Awake()
+    {
         _light = GetComponent<Light>();
 
         if (_intensity.Max == 0f)
@@ -52,12 +54,17 @@ public class LightController : MonoBehaviour {
         }
 
         SetLampEmission();
+    }
 
+    public virtual void Start () {
         if (_flickerOnStart)
             StartFlicker();
 
-        GameManager.AddSaveEvent(Save);
-        GameManager.AddReloadEvent(ReloadSave);
+        if (_saveAndReload)
+        {
+            GameManager.AddSaveEvent(Save);
+            GameManager.AddReloadEvent(ReloadSave);
+        }
     }
 
     public void Lock()
@@ -68,6 +75,11 @@ public class LightController : MonoBehaviour {
     public void Unlock()
     {
         _locked = false;
+    }
+
+    public float GetIntensity()
+    {
+        return _light.intensity;
     }
 
     public void On()

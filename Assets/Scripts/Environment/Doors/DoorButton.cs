@@ -319,6 +319,18 @@ public class DoorButton : Interactable {
             return "Door";
     }
 
+    public void SensorEnter()
+    {
+        if (IsLocked() && _player.HasPasscard(_passcard))
+            _background.color = _openColor;
+    }
+
+    public void SensorExit()
+    {
+        if (IsLocked())
+            _background.color = _lockedColor;
+    }
+
     public void Reload()
     {
         SetCanvas(true);

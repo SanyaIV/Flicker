@@ -9,6 +9,9 @@ public class SelfDestruct : Interactable {
     [SerializeField] private float _timerInSeconds = 0f;
     private Coroutine _selfDestruct;
 
+    [Header("Hazard Lights")]
+    private HazardLight[] _hazardLights;
+
     [Header("GUI")]
     [SerializeField] private Text _timerText;
     [SerializeField] private Text _monitorPrompt;
@@ -21,6 +24,11 @@ public class SelfDestruct : Interactable {
     [Header("Save")]
     private bool _saveEnabled; //Interactable enabled, not self-destruct enabled.
     private float _saveTimerInSeconds;
+
+    public void Awake()
+    {
+        _hazardLights = GameObject.Find("Ship").GetComponentsInChildren<HazardLight>();
+    }
 
     public override void Start()
     {
@@ -43,6 +51,7 @@ public class SelfDestruct : Interactable {
         _timerText.gameObject.SetActive(true);
         _monitorPrompt.text = _monitorPromptEnabled;
         _selfDestruct = StartCoroutine(InitiateSelfDestruct());
+        EnableHazardLights();
     }
 
     public override string ActionType()
@@ -65,6 +74,18 @@ public class SelfDestruct : Interactable {
         _minutes = Mathf.Clamp(seconds / 60, 0, 99);
         _seconds = Mathf.Clamp(seconds - _minutes * 60, 0, 59);
         return string.Format("{0:00}:{1:00}", _minutes, _seconds);
+    }
+
+    private void EnableHazardLights()
+    {
+        foreach (HazardLight hl in _hazardLights)
+            hl.Enable();
+    }
+
+    private void DisableHazardLights()
+    {
+        foreach (HazardLight hl in _hazardLights)
+            hl.Disable();
     }
 
     private IEnumerator InitiateSelfDestruct()
@@ -108,6 +129,7 @@ public class SelfDestruct : Interactable {
             _monitorPrompt.text = _monitorPromptDisabled;
             _monitorTimer.text = SecondsToMMSS((int)_timerInSeconds);
             _timerText.gameObject.SetActive(false);
+            DisableHazardLights();
         }
     }
 }
