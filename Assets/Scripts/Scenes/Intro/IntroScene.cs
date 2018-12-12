@@ -53,6 +53,9 @@ public class IntroScene : LightController {
 
         if (_secondActivated)
         {
+            if (asyncLoad.isDone && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space)))
+                asyncLoad.allowSceneActivation = true;
+
             if (_counter > 1f && tmp.a <= 0f)
             {
                 _counter = 0f;
