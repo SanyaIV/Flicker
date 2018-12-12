@@ -59,7 +59,7 @@ public abstract class Interactable : MonoBehaviour {
 
     public void Update()
     {
-        if (_showing)
+        if (_showing && !GameManager.pausePlayerMovement)
         {
             if (!_holdToActivate && Input.GetButtonDown("Fire1"))
                 Interact(_player);
