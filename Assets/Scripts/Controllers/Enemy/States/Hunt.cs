@@ -54,6 +54,13 @@ public class Hunt : EnemyState
         if (_controller.PlayerVisible())
             DepleteSanity();
 
+        if (_controller.navMeshAgent.isOnOffMeshLink)
+        {
+            SetDestination();
+            _controller.navMeshAgent.CompleteOffMeshLink();
+            Debug.Log("Stuck on OffMeshLink " + Time.time);
+        }
+
         if (_timeWithoutTarget >= _timeWithoutTargetUntilGiveUp[threat] || (_timeWithoutTarget > 0f && Vector3.Distance(_transform.position, _lastKnownPosition) < 0.5f))
             _controller.TransitionTo<Patrol>();
 
@@ -72,9 +79,6 @@ public class Hunt : EnemyState
             SetLastKnownPositionAsDestination();
             _timeWithoutTarget += Time.deltaTime;
         }
-
-        if (_controller.navMeshAgent.isOnOffMeshLink)
-            _controller.navMeshAgent.Warp(_transform.position);
     }
 
     private void SetVisibleDestination()
