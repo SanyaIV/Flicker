@@ -54,7 +54,7 @@ public abstract class Interactable : MonoBehaviour {
 
     public virtual void Interact(PlayerController player)
     {
-        _showing = false;
+        Conceal();
     }
 
     public void Update()
