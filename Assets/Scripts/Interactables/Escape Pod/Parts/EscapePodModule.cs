@@ -30,9 +30,11 @@ public class EscapePodModule : Interactable {
         GameManager.AddReloadEvent(Reload);
         SetText();
 	}
-	
+
     public override void Interact(PlayerController player)
     {
+        base.Interact(player);
+
         CheckParts(player);
         SetText();
 

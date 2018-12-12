@@ -21,7 +21,6 @@ public abstract class Interactable : MonoBehaviour {
     [Header("Player")]
     private static PlayerController _player;
 
-    public abstract void Interact(PlayerController player);
     public abstract string ActionType();
     public abstract string GetName();
 
@@ -32,27 +31,30 @@ public abstract class Interactable : MonoBehaviour {
 
     public static void Initialize()
     {
-        if (_initialized)
-            return;
 
-        if (!_interactableText)
+        if (_interactableText == null)
         {
             _interactableText = GameObject.Find("InteractText").GetComponent<Text>();
             _slider = _interactableText.GetComponentInChildren<Slider>();
             _slider.gameObject.SetActive(false);
             _interactableText.text = "";
         }
-        if (!_mouseImage)
+        if (_mouseImage == null)
         {
             _mouseImage = GameObject.Find("MouseImage").GetComponent<Image>();
             _mouseImage.enabled = false;
         }
-        if (!_crosshair)
+        if (_crosshair == null)
             _crosshair = GameObject.Find("Crosshair").GetComponent<Image>();
 
-        _player = GameManager.player.GetComponent<PlayerController>();
+        if(_player == null)
+           _player = GameManager.player.GetComponent<PlayerController>();
 
-        _initialized = true;
+    }
+
+    public virtual void Interact(PlayerController player)
+    {
+        _showing = false;
     }
 
     public void Update()

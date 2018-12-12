@@ -34,6 +34,8 @@ public class SelfDestruct : Interactable {
 
     public override void Interact(PlayerController player)
     {
+        base.Interact(player);
+
         if (!_enabled)
             return;
 

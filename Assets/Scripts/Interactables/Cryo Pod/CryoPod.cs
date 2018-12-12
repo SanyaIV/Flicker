@@ -31,6 +31,8 @@ public class CryoPod : Interactable {
 
     public override void Interact(PlayerController player)
     {
+        base.Interact(player);
+
         if (!_running)
         {
             player.sanity.ResetSanity();

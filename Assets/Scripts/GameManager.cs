@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour {
 
     public void Awake()
     {
+        Time.timeScale = 1f;
+
         if (gameManager == null)
             gameManager = this;
         if (gameManager != this)
@@ -42,24 +45,30 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (paused)
-            {
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-                Time.timeScale = 1f;
-                pauseScreen.SetActive(false);
-                paused = false;
-                pausePlayerMovement = false;
-            }
+                UnPause();
             else
-            {
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-                Time.timeScale = 0f;
-                pauseScreen.SetActive(true);
-                paused = true;
-                pausePlayerMovement = true;
-            }
+                Pause();
         }
+    }
+
+    private void UnPause()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1f;
+        pauseScreen.SetActive(false);
+        paused = false;
+        pausePlayerMovement = false;
+    }
+
+    private void Pause()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0f;
+        pauseScreen.SetActive(true);
+        paused = true;
+        pausePlayerMovement = true;
     }
 
     public static void Respawn()
@@ -118,6 +127,17 @@ public class GameManager : MonoBehaviour {
     public void SetVisualIcons(bool enabled)
     {
         visualIconsEnabled = enabled;
+    }
+
+    public void RestartGame()
+    {
+        UnPause();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 
     private IEnumerator LateStart()
