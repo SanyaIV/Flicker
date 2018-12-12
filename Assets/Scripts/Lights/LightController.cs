@@ -84,12 +84,7 @@ public class LightController : MonoBehaviour {
 
     public void On()
     {
-        if (_locked)
-            return;
-
-        StopAllCoroutines();
-        _light.intensity = _intensity.Max;
-        SetLampEmission();
+        Max();
     }
 
     public void Off()

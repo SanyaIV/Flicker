@@ -24,7 +24,7 @@ public class HazardLight : MonoBehaviour
     public void Enable()
     {
         foreach (LightController light in _lights)
-            light.On();
+            light.Max();
         _rotateScript.Enable();
     }
 
@@ -40,6 +40,8 @@ public class HazardLight : MonoBehaviour
         yield return new WaitForSeconds(TIME_TO_WAIT_FOR_UNITY_TO_STOP_MESSING_WITH_MY_THINGS);
         if (!_enableAtStart)
             Disable();
+        else
+            Enable();
 
         yield break;
     }
