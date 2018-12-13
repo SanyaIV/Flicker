@@ -400,7 +400,7 @@ MonoBehaviour:
   _vignetteImage: {fileID: 0}
   _vignetteImageOpacityRange:
     Min: 0
-    Max: 0.5
+    Max: 0.1
   _pulseUpSpeed: 0.6
   _pulseDownSpeed: 0.4
   _pulseUpWaitForSeconds: 0
@@ -409,11 +409,11 @@ MonoBehaviour:
   _blinkingFillImage: {fileID: 0}
   _blinkSpeed: 2
   _blinkingThreshold:
-    Min: 1
+    Min: 0.1
     Max: 10
   _stayBlinkedTime:
-    Min: 0.2
-    Max: 0.8
+    Min: 0.5
+    Max: 1
 --- !u!54 &28194434188684255
 Rigidbody:
   m_ObjectHideFlags: 0
