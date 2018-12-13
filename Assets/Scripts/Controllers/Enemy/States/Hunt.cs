@@ -58,7 +58,6 @@ public class Hunt : EnemyState
         {
             SetDestination();
             _controller.navMeshAgent.CompleteOffMeshLink();
-            Debug.Log("Stuck on OffMeshLink " + Time.time);
         }
 
         if (_timeWithoutTarget >= _timeWithoutTargetUntilGiveUp[threat] || (_timeWithoutTarget > 0f && Vector3.Distance(_transform.position, _lastKnownPosition) < 0.5f))

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Rotate : MonoBehaviour {
 
     [Header("Rotation")]
-    [SerializeField] private bool _enabled;
+    [SerializeField] private bool _enabled = true;
     [SerializeField] private Vector3 _speed;
 	
 	// Update is called once per frame
