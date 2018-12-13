@@ -144,9 +144,7 @@ public class DoorButton : Interactable {
             else
             {
                 foreach(Door door in _doors)
-                {
                     door.Unlock();
-                }
 
                 return true;
             }
@@ -322,12 +320,28 @@ public class DoorButton : Interactable {
     public void SensorEnter()
     {
         if (IsLocked() && _player.HasPasscard(_passcard))
+        {
+            _background.color = _openColor;
+
+            foreach (DoorButton slave in _slaves)
+                slave.SensorEnter();
+        }
+
+        if (_master != null)
             _background.color = _openColor;
     }
 
     public void SensorExit()
     {
         if (IsLocked())
+        {
+            _background.color = _lockedColor;
+
+            foreach (DoorButton slave in _slaves)
+                slave.SensorExit();
+        }
+
+        if (_master != null)
             _background.color = _lockedColor;
     }
 

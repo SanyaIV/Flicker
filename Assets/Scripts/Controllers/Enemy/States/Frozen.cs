@@ -17,6 +17,7 @@ public class Frozen : EnemyState
 
     public override void Enter()
     {
+        //_controller.navMeshAgent.velocity = Vector3.zero;
         _controller.navMeshAgent.isStopped = true;
         _controller.StopAudio();
     }

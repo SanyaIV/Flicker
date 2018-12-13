@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour {
         pauseScreen.SetActive(false);
         paused = false;
         pausePlayerMovement = false;
+        AudioListener.pause = false;
     }
 
     private void Pause()
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviour {
         pauseScreen.SetActive(true);
         paused = true;
         pausePlayerMovement = true;
+        AudioListener.pause = true;
     }
 
     public static void Respawn()

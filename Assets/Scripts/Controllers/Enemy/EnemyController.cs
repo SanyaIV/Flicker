@@ -19,6 +19,7 @@ public class EnemyController : Controller
     private Camera _cam;
     private Plane[] _planes;
     private bool _visible = false;
+    private bool _privateVisible = false;
 
     [Header("Detection")]
     public float detectDistance;
@@ -96,38 +97,45 @@ public class EnemyController : Controller
     {
         if (_rend.isVisible && !sanity.HasEyesShut()) //Check if Unity thinks the renderer is visible (Not perfect but works as a quick and easy out in case it's not)
         {
-            if (Vector3.Dot((_cam.transform.position - transform.position).normalized, _cam.transform.forward) > Mathf.Lerp(-0.6f, -0.25f, Vector3.Distance(_cam.transform.position, transform.position) / 10)) //Bad attempt at checking if the player is looking towards the enemy through the dot products of directions
-                return _visible = false; //Set visible to false and return visible (which is false)
+            /*if (Vector3.Dot((_cam.transform.position - transform.position).normalized, _cam.transform.forward) > Mathf.Lerp(-0.6f, -0.25f, Vector3.Distance(_cam.transform.position, transform.position) / 10)) //Bad attempt at checking if the player is looking towards the enemy through the dot products of directions
+                return _visible = false; //Set visible to false and return visible (which is false)*/
 
-            int taskNumber = Time.frameCount % _colls.Count(); //Run one box per frame
-            
+            int taskNumber = Time.frameCount % _colls.Count();
+
             if (taskNumber == 0)
-                _visible = false; //Reset visibility status at start of the "loop"
-            if (_visible)
-                return true; //If visible is true then just return since it means the enemy has been seen for this round of the "loop"
+                _privateVisible = false;
+            if (taskNumber == _colls.Count() - 1)
+                _visible = _privateVisible;
 
-            _planes = GeometryUtility.CalculateFrustumPlanes(_cam); //Get the frustum planes of the camera
+            if (_privateVisible)
+                return _visible = true;
 
-            if (GeometryUtility.TestPlanesAABB(_planes, _colls[taskNumber].bounds)) //Test if the current boxcollider is within the camera's frustum
+            _planes = GeometryUtility.CalculateFrustumPlanes(_cam);
+
+            if (GeometryUtility.TestPlanesAABB(_planes, _colls[taskNumber].bounds))
             {
-                BoxCollider coll = _colls[taskNumber]; //Get the current boxcollider
-                _points[0] = transform.TransformPoint(_colls[taskNumber].center);
-                _points[1] = transform.TransformPoint(_colls[taskNumber].center + new Vector3(coll.size.x, -coll.size.y, coll.size.z) * 0.5f); //One corner of the boxcollider
-                _points[2] = transform.TransformPoint(_colls[taskNumber].center + new Vector3(coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
-                _points[3] = transform.TransformPoint(_colls[taskNumber].center + new Vector3(-coll.size.x, -coll.size.y, coll.size.z) * 0.5f);
-                _points[4] = transform.TransformPoint(_colls[taskNumber].center + new Vector3(-coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
-                _points[5] = transform.TransformPoint(_colls[taskNumber].center + new Vector3(coll.size.x, coll.size.y, coll.size.z) * 0.5f);
-                _points[6] = transform.TransformPoint(_colls[taskNumber].center + new Vector3(coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
-                _points[7] = transform.TransformPoint(_colls[taskNumber].center + new Vector3(-coll.size.x, coll.size.y, coll.size.z) * 0.5f);
-                _points[8] = transform.TransformPoint(_colls[taskNumber].center + new Vector3(-coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
+                BoxCollider coll = _colls[taskNumber];
+                _points[0] = coll.transform.TransformPoint(_colls[taskNumber].center);
+                _points[1] = coll.transform.TransformPoint(_colls[taskNumber].center + new Vector3(coll.size.x, -coll.size.y, coll.size.z) * 0.5f); //One corner of the boxcollider
+                _points[2] = coll.transform.TransformPoint(_colls[taskNumber].center + new Vector3(coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
+                _points[3] = coll.transform.TransformPoint(_colls[taskNumber].center + new Vector3(-coll.size.x, -coll.size.y, coll.size.z) * 0.5f);
+                _points[4] = coll.transform.TransformPoint(_colls[taskNumber].center + new Vector3(-coll.size.x, -coll.size.y, -coll.size.z) * 0.5f);
+                _points[5] = coll.transform.TransformPoint(_colls[taskNumber].center + new Vector3(coll.size.x, coll.size.y, coll.size.z) * 0.5f);
+                _points[6] = coll.transform.TransformPoint(_colls[taskNumber].center + new Vector3(coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
+                _points[7] = coll.transform.TransformPoint(_colls[taskNumber].center + new Vector3(-coll.size.x, coll.size.y, coll.size.z) * 0.5f);
+                _points[8] = coll.transform.TransformPoint(_colls[taskNumber].center + new Vector3(-coll.size.x, coll.size.y, -coll.size.z) * 0.5f);
 
-                foreach (Vector3 point in _points) //Loop through the points array
-                    if (!Physics.Linecast(point, _cam.transform.position, _blockVisibilityLayers)) //Linecast between the enemy and the camera to check if there is anything in the way
-                        return _visible = true; //If there is nothing in the way then the enemy is visible, so set visible to true and return it.        
+                foreach (Vector3 point in _points)
+                    if (!Physics.Linecast(point, _cam.transform.position, _blockVisibilityLayers))
+                        _privateVisible = true;
             }
         }
+        else
+        {
+            return _visible = false;
+        }
 
-        return _visible = false; //Set visible to false and return it
+        return _visible;
     }
 
     public void ProgressStepCycle()

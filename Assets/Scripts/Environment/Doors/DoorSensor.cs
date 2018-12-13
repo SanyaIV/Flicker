@@ -4,20 +4,27 @@ using UnityEngine;
 
 public class DoorSensor : MonoBehaviour
 {
+    [Header("Sensor")]
+    [SerializeField] private bool _useOnTriggerStay = false;
+
     [Header("Door Buttons")]
-    [SerializeField] private DoorButton[] _doorButtons;
+    [SerializeField] private DoorButton _doorButton;
 
     public void OnTriggerEnter(Collider coll)
     {
         if (coll.CompareTag("Player"))
-            foreach (DoorButton door in _doorButtons)
-                door.SensorEnter();
+            _doorButton.SensorEnter();
     }
 
     public void OnTriggerExit(Collider coll)
     {
         if (coll.CompareTag("Player"))
-            foreach (DoorButton door in _doorButtons)
-                door.SensorExit();
+            _doorButton.SensorExit();
+    }
+
+    public void OnTriggerStay(Collider coll)
+    {
+        if (_useOnTriggerStay && coll.CompareTag("Player"))
+            _doorButton.SensorEnter();
     }
 }
