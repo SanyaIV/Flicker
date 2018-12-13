@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour {
     public void Start()
     {
         StartCoroutine(LateStart());
+        StartCoroutine(FadeIn());
     }
 
     public void Update()
@@ -153,6 +154,20 @@ public class GameManager : MonoBehaviour {
     {
         yield return null;
         _lateReloadEventManager.Invoke();
+        yield break;
+    }
+
+    private IEnumerator FadeIn()
+    {
+        Image fade = GameObject.FindGameObjectWithTag("HUD Fade In").GetComponent<Image>();
+        fade.color = new Color(0f, 0f, 0f, 1f);
+
+        while(fade != null && fade.color.a > 0f)
+        {
+            fade.color = new Color(0f, 0f, 0f, fade.color.a - 0.5f * Time.deltaTime);
+            yield return null;
+        }
+
         yield break;
     }
 }

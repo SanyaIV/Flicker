@@ -261,6 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45cf5f087bac2d44f80b5e2185d2d436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _useOnTriggerStay: 0
   _doorButton: {fileID: 7474667781598541127}
 --- !u!1 &5736720233207431019
 GameObject:
@@ -1019,6 +1020,7 @@ MonoBehaviour:
   _audioSource: {fileID: 0}
   _audioLatch: {fileID: 0}
   _audioHiss: {fileID: 0}
+  _audioDenied: {fileID: 0}
   _basicAudio: {fileID: 0}
   _background: {fileID: 7473393226267018227}
   _lockedImage: {fileID: 7472947017336979665}
@@ -2087,6 +2089,7 @@ MonoBehaviour:
   _audioSource: {fileID: 7424111423504656073}
   _audioLatch: {fileID: 8300000, guid: b7dbdbed46a911e429ea82cfac5ebce4, type: 3}
   _audioHiss: {fileID: 8300000, guid: ced5a04aa775b204480ccdb43930fc49, type: 3}
+  _audioDenied: {fileID: 8300000, guid: bc418e98a3a097d4fbf23fee82077c77, type: 3}
   _basicAudio: {fileID: 7472757774181354257}
   _background: {fileID: 7472668983364405869}
   _lockedImage: {fileID: 7473330573094545047}
