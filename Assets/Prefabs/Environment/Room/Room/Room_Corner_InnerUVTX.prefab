@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 1616328449992227148}
   - component: {fileID: 1616328449990900076}
   - component: {fileID: 1616328449989933996}
-  m_Layer: 0
+  - component: {fileID: 1812507647182645640}
+  m_Layer: 9
   m_Name: Room_Corner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &1616328449992227148
 Transform:
@@ -77,6 +78,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &1812507647182645640
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616328449992123756}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: af52a3fb11585fc4bae5b29df55a610d, type: 3}
 --- !u!1 &1616328449992123758
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,12 +101,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1616328449992227150}
-  m_Layer: 0
-  m_Name: Room_Corner_Inner
+  m_Layer: 9
+  m_Name: Room_Corner_InnerUVTX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &1616328449992227150
 Transform:
