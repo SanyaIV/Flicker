@@ -13,6 +13,7 @@ public class BasicAudio : OffScreenIndicator {
     [Header("Random")]
     [SerializeField] private bool _continiousRandom;
     [SerializeField] private MinMaxFloat _randomWaitRange;
+    [SerializeField] private MinMaxFloat _randomPitch = new MinMaxFloat(1f, 1f);
 
     public override void Start()
     {
@@ -75,11 +76,14 @@ public class BasicAudio : OffScreenIndicator {
             Debug.LogWarning("There are no Audio Clips for BasicAudio script on: " + gameObject);
             return;
         }
+
+        _audioSource.pitch = Random.Range(_randomPitch.Min, _randomPitch.Max);
     }
 
     public void PlayOneShot(AudioClip clip)
     {
         _audioSource.PlayOneShot(clip);
+        _audioSource.pitch = Random.Range(_randomPitch.Min, _randomPitch.Max);
     }
 
     private IEnumerator OffScreenIndicator() {
