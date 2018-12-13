@@ -19,6 +19,11 @@ public class IntroScene : LightController {
     private bool _activated = false;
     private bool _secondActivated = false;
 
+    [Header("Fade Out")]
+    [SerializeField] private Image _fadeImage;
+    [SerializeField] private float _fadeSpeed;
+    private bool _fading = false;
+
     // Use this for initialization
     public override void Start () {
         base.Start();
@@ -51,18 +56,19 @@ public class IntroScene : LightController {
             StartCoroutine(LoadScene());
         }
 
+        if (!_fading && asyncLoad != null && asyncLoad.progress >= 0.9f && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space)))
+            StartCoroutine(FadeOut());
+            
+
         if (_secondActivated)
         {
-            if (asyncLoad.isDone && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space)))
-                asyncLoad.allowSceneActivation = true;
-
             if (_counter > 1f && tmp.a <= 0f)
             {
                 _counter = 0f;
-                if (_nameCounter < _name.Length)
+                if (_nameCounter < _name.Length - 1)
                     _text.text = _name[++_nameCounter];
-                else if (_counterCounter++ >= 0)
-                    asyncLoad.allowSceneActivation = true;
+                else if (!_fading && _counterCounter++ >= 0)
+                    StartCoroutine(FadeOut());
             }
         }
     }
@@ -101,6 +107,20 @@ public class IntroScene : LightController {
             yield return null;
         }
 
+        yield break;
+    }
+
+    private IEnumerator FadeOut()
+    {
+        _fading = true;
+
+        while(_fadeImage.color.a < 1f)
+        {
+            _fadeImage.color = new Color(0f, 0f, 0f, _fadeImage.color.a + _fadeSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        asyncLoad.allowSceneActivation = true;
         yield break;
     }
 }

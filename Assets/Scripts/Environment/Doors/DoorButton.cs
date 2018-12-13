@@ -19,6 +19,7 @@ public class DoorButton : Interactable {
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _audioLatch;
     [SerializeField] private AudioClip _audioHiss;
+    [SerializeField] private AudioClip _audioDenied;
     [SerializeField] private BasicAudio _basicAudio;
 
     [Header("Canvas")]
@@ -68,7 +69,10 @@ public class DoorButton : Interactable {
         }
 
         if (!Unlock(player))
+        {
+            _basicAudio.PlayOneShot(_audioDenied);
             return;
+        }
 
         bool open = false;
         bool closing = false;
