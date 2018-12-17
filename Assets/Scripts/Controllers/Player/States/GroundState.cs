@@ -130,6 +130,9 @@ public class GroundState : PlayerState {
 
         controller.collision = charCtrl.Move(moveDir * Time.deltaTime);
         GetInteractable();
+
+        if (Debug.isDebugBuild && Input.GetKeyDown(KeyCode.G))
+            controller.TransitionTo<GhostState>();
     }
 
     public override void FixedUpdate()
