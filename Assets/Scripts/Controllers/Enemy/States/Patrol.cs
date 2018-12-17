@@ -40,6 +40,7 @@ public class Patrol : EnemyState
 
         if (_controller.navMeshAgent.isOnOffMeshLink)
         {
+            _controller.navMeshAgent.velocity = Vector3.zero;
             GoToNextPoint();
             _controller.navMeshAgent.Warp(_transform.position);
         }

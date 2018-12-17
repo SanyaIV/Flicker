@@ -34,6 +34,7 @@ public class DoorBlock : EnemyState
 
     public override void Enter()
     {
+        _controller.navMeshAgent.velocity = Vector3.zero;
         _controller.navMeshAgent.isStopped = true;
         _doorButton = GetDoorButton();
 
