@@ -15,6 +15,10 @@ public class BasicAudio : OffScreenIndicator {
     [SerializeField] private MinMaxFloat _randomWaitRange;
     [SerializeField] private MinMaxFloat _randomPitch = new MinMaxFloat(1f, 1f);
 
+    [Header("Start")]
+    [SerializeField] private bool _playOnStart = false;
+    [SerializeField] private MinMaxFloat _randomStartDelay = new MinMaxFloat(0f, 1f);
+
     public override void Start()
     {
         base.Start();
@@ -23,6 +27,9 @@ public class BasicAudio : OffScreenIndicator {
             StartCoroutine(ContiniousRandomPlay());
         if(_enableIndicator)
             StartCoroutine(OffScreenIndicator());
+
+        if (_playOnStart)
+            StartCoroutine(DelayedStart());
     }
 
     public void Pause()
@@ -107,5 +114,12 @@ public class BasicAudio : OffScreenIndicator {
             PlayAudio();
             yield return new WaitForSeconds(Random.Range(_randomWaitRange.Min, _randomWaitRange.Max));
         }
+    }
+
+    private IEnumerator DelayedStart()
+    {
+        yield return new WaitForSeconds(Random.Range(_randomStartDelay.Min, _randomStartDelay.Max));
+        PlayAudio();
+        yield break;
     }
 }
