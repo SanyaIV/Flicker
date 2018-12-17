@@ -13,6 +13,12 @@ public class HazardLight : MonoBehaviour
     [Header("Rotation Script")]
     [SerializeField] private Rotate _rotateScript;
 
+    [Header("Audio")]
+    [SerializeField] private bool _playAudio = true;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _audioClip;
+    [SerializeField] private MinMaxFloat _timeToDelayAudio = new MinMaxFloat(0f, 0.5f);
+
     [Header("Constants")]
     const float TIME_TO_WAIT_FOR_UNITY_TO_STOP_MESSING_WITH_MY_THINGS = 1f;
 
@@ -26,6 +32,8 @@ public class HazardLight : MonoBehaviour
         foreach (LightController light in _lights)
             light.Max();
         _rotateScript.Enable();
+        if(_playAudio)
+            PlayAudio();
     }
 
     public void Disable()
@@ -33,6 +41,14 @@ public class HazardLight : MonoBehaviour
         foreach (LightController light in _lights)
             light.Off();
         _rotateScript.Disable();
+        _audioSource.Stop();
+    }
+
+    private void PlayAudio()
+    {
+        _audioSource.clip = _audioClip;
+        _audioSource.loop = true;
+        StartCoroutine(WaitToPlay());
     }
 
     private IEnumerator UnityBSWorkaround()
@@ -44,5 +60,11 @@ public class HazardLight : MonoBehaviour
             Enable();
 
         yield break;
+    }
+
+    private IEnumerator WaitToPlay()
+    {
+        yield return new WaitForSeconds(Random.Range(_timeToDelayAudio.Min, _timeToDelayAudio.Max));
+        _audioSource.Play();
     }
 }
