@@ -10,10 +10,16 @@ public class EscapePodModel : MonoBehaviour {
     private bool _repaired = false;
 
     [Header("Light")]
+    [SerializeField] private float _delay = 0.5f;
     [SerializeField] private GameObject _light;
     [SerializeField] private Material _brokenMaterial;
     [SerializeField] private Material _repairedMaterial;
     private Renderer _lightRenderer;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _clickSound;
+    [SerializeField] private AudioClip _beepSound;
 
     [Header("Save")]
     private bool _savedRepaired = false;
@@ -50,10 +56,17 @@ public class EscapePodModel : MonoBehaviour {
         UpdateLight();
     }
 
+    private void UpdateModelDelayedLight()
+    {
+        UpdateMesh();
+        StartCoroutine(WaitToLight());
+    }
+
 	public void Repair()
     {
         _repaired = true;
-        UpdateModel();
+        UpdateModelDelayedLight();
+        _audioSource.PlayOneShot(_clickSound);
     }
 
     public bool IsRepaired()
@@ -75,5 +88,13 @@ public class EscapePodModel : MonoBehaviour {
     {
         _repaired = _savedRepaired;
         UpdateModel();
+    }
+
+    private IEnumerator WaitToLight()
+    {
+        yield return new WaitForSeconds(_delay);
+
+        UpdateLight();
+        _audioSource.PlayOneShot(_beepSound);
     }
 }
