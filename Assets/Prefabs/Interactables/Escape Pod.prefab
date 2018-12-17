@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _part: 1
   _module: {fileID: 412066721}
+  _delay: 0.5
   _light: {fileID: 1646975511}
   _brokenMaterial: {fileID: 2100000, guid: ad3c63011fce19245be4c78e5cbb43d8, type: 2}
   _repairedMaterial: {fileID: 2100000, guid: 1db237be40a4fdd4bb08de6168aeed2e, type: 2}
+  _audioSource: {fileID: 0}
+  _clickSound: {fileID: 0}
+  _beepSound: {fileID: 0}
 --- !u!114 &1160579796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31,9 +35,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _part: 2
   _module: {fileID: 1214666774}
+  _delay: 0.5
   _light: {fileID: 1314001067}
   _brokenMaterial: {fileID: 2100000, guid: ad3c63011fce19245be4c78e5cbb43d8, type: 2}
   _repairedMaterial: {fileID: 2100000, guid: 1db237be40a4fdd4bb08de6168aeed2e, type: 2}
+  _audioSource: {fileID: 0}
+  _clickSound: {fileID: 0}
+  _beepSound: {fileID: 0}
 --- !u!114 &1434260349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,9 +56,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _part: 1
   _module: {fileID: 1479950781}
+  _delay: 0.5
   _light: {fileID: 1847958513}
   _brokenMaterial: {fileID: 2100000, guid: ad3c63011fce19245be4c78e5cbb43d8, type: 2}
   _repairedMaterial: {fileID: 2100000, guid: 1db237be40a4fdd4bb08de6168aeed2e, type: 2}
+  _audioSource: {fileID: 0}
+  _clickSound: {fileID: 0}
+  _beepSound: {fileID: 0}
 --- !u!114 &5177487412931669461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,9 +77,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _part: 1
   _module: {fileID: 1949560289}
+  _delay: 0.5
   _light: {fileID: 94113138}
   _brokenMaterial: {fileID: 2100000, guid: ad3c63011fce19245be4c78e5cbb43d8, type: 2}
   _repairedMaterial: {fileID: 2100000, guid: 1db237be40a4fdd4bb08de6168aeed2e, type: 2}
+  _audioSource: {fileID: 0}
+  _clickSound: {fileID: 0}
+  _beepSound: {fileID: 0}
 --- !u!1 &1013278507556748
 GameObject:
   m_ObjectHideFlags: 0
@@ -7498,6 +7514,8 @@ MonoBehaviour:
   _holdDownTimeToActivate: 0
   _speed: 20
   _pod: {fileID: 4265803282922402}
+  _audioSource: {fileID: 0}
+  _audioClip: {fileID: 0}
   _spawnPoint: {fileID: 4854404986608106}
 --- !u!1 &1910863806800978
 GameObject:
@@ -8543,9 +8561,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _part: 1
   _module: {fileID: 6055559773119736600}
+  _delay: 0.5
   _light: {fileID: 79498254}
   _brokenMaterial: {fileID: 2100000, guid: ad3c63011fce19245be4c78e5cbb43d8, type: 2}
   _repairedMaterial: {fileID: 2100000, guid: 1db237be40a4fdd4bb08de6168aeed2e, type: 2}
+  _audioSource: {fileID: 0}
+  _clickSound: {fileID: 0}
+  _beepSound: {fileID: 0}
 --- !u!1001 &31078965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12400,6 +12422,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4265803282922402}
     m_Modifications:
+    - target: {fileID: 7074675550394097764, guid: f02045cefd3c7894c81672949d5c4459,
+        type: 3}
+      propertyPath: m_Name
+      value: Space Station Chair (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 7074675550394399812, guid: f02045cefd3c7894c81672949d5c4459,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12469,11 +12496,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.010560002
-      objectReference: {fileID: 0}
-    - target: {fileID: 7074675550394097764, guid: f02045cefd3c7894c81672949d5c4459,
-        type: 3}
-      propertyPath: m_Name
-      value: Space Station Chair (1)
       objectReference: {fileID: 0}
     - target: {fileID: 7074675550392106660, guid: f02045cefd3c7894c81672949d5c4459,
         type: 3}
@@ -12557,15 +12579,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5b2f19cf600ac048b63e00bb2f0345c, type: 3}
---- !u!23 &412066721 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 3320131422341420343, guid: b5b2f19cf600ac048b63e00bb2f0345c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3320131422215894678}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &414006625 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3320131422343613431, guid: b5b2f19cf600ac048b63e00bb2f0345c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3320131422215894678}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &412066721 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3320131422341420343, guid: b5b2f19cf600ac048b63e00bb2f0345c,
     type: 3}
   m_PrefabInstance: {fileID: 3320131422215894678}
   m_PrefabAsset: {fileID: 0}
@@ -12991,6 +13013,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4265803282922402}
     m_Modifications:
+    - target: {fileID: 7074675550394097764, guid: f02045cefd3c7894c81672949d5c4459,
+        type: 3}
+      propertyPath: m_Name
+      value: Space Station Chair
+      objectReference: {fileID: 0}
     - target: {fileID: 7074675550394399812, guid: f02045cefd3c7894c81672949d5c4459,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13060,11 +13087,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.01056
-      objectReference: {fileID: 0}
-    - target: {fileID: 7074675550394097764, guid: f02045cefd3c7894c81672949d5c4459,
-        type: 3}
-      propertyPath: m_Name
-      value: Space Station Chair
       objectReference: {fileID: 0}
     - target: {fileID: 7074675550392106660, guid: f02045cefd3c7894c81672949d5c4459,
         type: 3}
@@ -13506,6 +13528,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4265803282922402}
     m_Modifications:
+    - target: {fileID: 7074675550394097764, guid: f02045cefd3c7894c81672949d5c4459,
+        type: 3}
+      propertyPath: m_Name
+      value: Space Station Chair (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 7074675550394399812, guid: f02045cefd3c7894c81672949d5c4459,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13560,11 +13587,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7074675550394097764, guid: f02045cefd3c7894c81672949d5c4459,
-        type: 3}
-      propertyPath: m_Name
-      value: Space Station Chair (2)
       objectReference: {fileID: 0}
     - target: {fileID: 7074675550392106660, guid: f02045cefd3c7894c81672949d5c4459,
         type: 3}
@@ -14099,95 +14121,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8249823076287530024}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &8518205444365920149
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1837617917}
-    m_Modifications:
-    - target: {fileID: 100002, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_Name
-      value: Status Light (17)
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.939561
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.3981018
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.5830173
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7082082
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7060037
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_RootOrder
-      value: 44
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90.179
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.010000009
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.010000009
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 122.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -577.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 400004, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 120.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 400004, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -577.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2300002, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 1db237be40a4fdd4bb08de6168aeed2e, type: 2}
-    - target: {fileID: 2300000, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 03bccf6f90ce7b2479fd9234eb2739b5, type: 2}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e5f929ed93640af4d8fe27430b97497e, type: 3}
 --- !u!1001 &8542591258532443352
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14275,6 +14208,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4265803282922402}
     m_Modifications:
+    - target: {fileID: 7074675550394097764, guid: f02045cefd3c7894c81672949d5c4459,
+        type: 3}
+      propertyPath: m_Name
+      value: Space Station Chair (3)
+      objectReference: {fileID: 0}
     - target: {fileID: 7074675550394399812, guid: f02045cefd3c7894c81672949d5c4459,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14334,11 +14272,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.007999999
-      objectReference: {fileID: 0}
-    - target: {fileID: 7074675550394097764, guid: f02045cefd3c7894c81672949d5c4459,
-        type: 3}
-      propertyPath: m_Name
-      value: Space Station Chair (3)
       objectReference: {fileID: 0}
     - target: {fileID: 7074675550392106660, guid: f02045cefd3c7894c81672949d5c4459,
         type: 3}

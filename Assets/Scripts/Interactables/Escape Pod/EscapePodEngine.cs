@@ -13,11 +13,18 @@ public class EscapePodEngine : Interactable {
     [SerializeField] private Transform _pod;
     private bool _activated = false;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _audioClip;
+    [SerializeField] private AudioClip _engineHum;
+
     [Header("Enemy Spawn Point")]
     [SerializeField] Transform _spawnPoint;
 
     public override void Interact(PlayerController player)
     {
+        base.Interact(player);
+
         if (!_activated)
         {
             player.transform.parent = transform;
@@ -39,8 +46,10 @@ public class EscapePodEngine : Interactable {
 
     private IEnumerator Launch()
     {
-        StartCoroutine(Shake());
-        StartCoroutine(Move());
+        _audioSource.clip = _engineHum;
+        _audioSource.loop = true;
+        _audioSource.Play();
+        _audioSource.PlayOneShot(_audioClip);
 
         if (!GameObject.FindWithTag("SelfDestruct").GetComponent<SelfDestruct>().Activated())
         {
@@ -55,6 +64,10 @@ public class EscapePodEngine : Interactable {
         {
             GameObject.FindWithTag("Player").GetComponent<PlayerController>().TransitionTo<Escape>();
         }
+
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(Shake());
+        StartCoroutine(Move());
 
         yield break;
     }

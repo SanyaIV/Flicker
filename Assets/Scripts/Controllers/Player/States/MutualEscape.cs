@@ -29,9 +29,9 @@ public class MutualEscape : PlayerState
 
     private IEnumerator GameOver()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         controller.StartCoroutine(HurtSanity());
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(3f);
         controller.StartCoroutine(FadeOut());
     }
 
