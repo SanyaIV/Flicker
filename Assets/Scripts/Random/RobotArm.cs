@@ -17,7 +17,9 @@ public class RobotArm : MonoBehaviour
         {
             Vector3 direction = transform.position - _lastPosition;
 
-            coll.GetComponent<PlayerController>().moveDir = (direction + coll.transform.up) * 30f;
+            coll.GetComponent<PlayerController>().TransitionTo<AirState>();
+            coll.GetComponent<PlayerController>().moveDir = (direction + coll.transform.up) * 1000f;
+            coll.GetComponent<Sanity>().DepleteSanity(500f);
         }
     }
 }
